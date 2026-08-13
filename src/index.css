@@ -1,0 +1,200 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+
+/* Hide Spline watermark */
+a[href*="spline.design"] {
+  display: none !important;
+}
+
+:root {
+  /* --- CORE COLOR SYSTEM --- */
+  --ecell-vermilion: #E4472E;
+  --ecell-cobalt: #3157A4;
+  --ecell-teal: #168C83;
+  --ecell-saffron: #E5A900;
+  --ecell-warm-ivory: #F7F1E3;
+  --ecell-graphite: #242424;
+
+  /* --- EXTENDED ACCENT COLORS --- */
+  --ecell-coral: #E86F61;
+  --ecell-azure: #3988B8;
+  --ecell-jade: #2F9B78;
+  --ecell-leaf: #5E8F52;
+  --ecell-plum: #70466F;
+  --ecell-indigo: #3F467F;
+  --ecell-terracotta: #C85F43;
+  --ecell-olive: #7D8B45;
+
+  /* --- SEMANTIC TOKENS --- */
+  --bg-primary: var(--ecell-warm-ivory);
+  --bg-dark: var(--ecell-graphite);
+  --text-primary: var(--ecell-graphite);
+  --text-inverse: #FFFFFF;
+  --brand-primary: var(--ecell-vermilion);
+  --brand-secondary: var(--ecell-cobalt);
+
+  /* --- TYPOGRAPHY --- */
+  --font-heading: 'Space Grotesk', sans-serif;
+  --font-body: 'Inter', sans-serif;
+  --font-accent: 'DM Sans', sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  line-height: 1.6;
+  margin: 0;
+  padding: 0;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+/* Navbar specific styles */
+@media (max-width: 768px) {
+  .desktop-nav {
+    display: none !important;
+  }
+  .mobile-menu-btn {
+    display: flex !important;
+  }
+}
+@media (min-width: 769px) {
+  .desktop-nav {
+    display: flex !important;
+  }
+  .mobile-menu-btn {
+    display: none !important;
+  }
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  letter-spacing: -0.01em;
+  margin-top: 0;
+}
+
+h1 {
+  font-weight: 700;
+  letter-spacing: 0;
+}
+
+h2 {
+  font-weight: 600;
+  letter-spacing: 0.01em;
+}
+
+h3 {
+  font-weight: 500;
+  letter-spacing: 0.02em;
+}
+
+/* BUTTONS & TAGS */
+.tag, .badge, .btn-label {
+  font-family: var(--font-body);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+/* Layout Utilities */
+.canvas-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 0;
+}
+
+.scroll-overlay {
+  position: relative;
+  z-index: 10;
+  width: 100%;
+}
+
+.waypoint-section {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0 10%;
+  /* We don't use background here so the 3D scene shines through */
+}
+
+.waypoint.glass-panel {
+  background: rgba(247, 241, 227, 0.4);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.1);
+  border-radius: 12px;
+}
+
+.waypoint-card {
+  padding: 2.5rem;
+  max-width: 500px;
+  background: rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  border-left: 4px solid var(--accent-1);
+  box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.15);
+  border-radius: 16px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Glass highlight reflection */
+.waypoint-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: linear-gradient(135deg, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0) 100%);
+  pointer-events: none;
+}
+
+.static-section {
+  min-height: 100vh;
+  background-color: var(--bg-primary); /* Solid background for static footer content to hide 3D eventually or just overlay */
+  padding: 4rem 10%;
+}
+
+.grid-team {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.team-card {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  border-top: 4px solid var(--brand-secondary);
+}
+
+.grid-sponsors {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.sponsor-card {
+  background: var(--bg-dark);
+  color: var(--text-inverse);
+  padding: 2rem;
+  border-radius: 8px;
+  text-align: center;
+  font-family: var(--font-heading);
+  font-weight: 600;
+  font-size: 1.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
