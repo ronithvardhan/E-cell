@@ -1,5 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import CrowdCanvas from '../components/UI/CrowdCanvas';
+import TeamCarousel from '../components/UI/TeamCarousel';
 
 const teamData = [
   { role: 'Core Committee', count: 12 },
@@ -11,32 +13,25 @@ const teamData = [
 
 export default function Team() {
   return (
-    <div style={{ padding: '8rem 5vw 4rem', minHeight: '100vh', maxWidth: '1200px', margin: '0 auto' }}>
-      <motion.h1 
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-        style={{ fontSize: '3rem', color: 'var(--brand-primary)', borderBottom: '2px solid var(--text-primary)', paddingBottom: '1rem', marginBottom: '3rem' }}
-      >
-        Our Team
-      </motion.h1>
+    <div style={{ minHeight: '100vh', width: '100%', overflowX: 'hidden' }}>
       
-      <div className="grid-team">
-        {teamData.map((team, idx) => (
-          <motion.div 
-            key={idx} 
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: idx * 0.1 }}
-            className="team-card glass-panel"
-            style={{ padding: '2rem' }}
-          >
-            <h3 style={{ fontSize: '1.25rem', marginBottom: '0.5rem' }}>{team.role}</h3>
-            <div style={{ color: 'var(--brand-secondary)', fontWeight: 600, fontSize: '1.5rem' }}>
-              {team.count} Members
-            </div>
-          </motion.div>
-        ))}
+      {/* Hero Section (100vh) */}
+      <div style={{ position: 'relative', width: '100%', height: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+        <CrowdCanvas src="/images/peeps/all-peeps.png" rows={15} cols={7} />
+        
+        <div 
+          className="team-hero-container" 
+          style={{ position: 'relative', zIndex: 10, width: '100%', marginTop: '-10vh', display: 'flex', justifyContent: 'center' }}
+        >
+          <h1 className="team-title-3d">MEET THE CREW</h1>
+        </div>
       </div>
+      
+      {/* Team Content Section */}
+      <div style={{ padding: '6rem 5vw', maxWidth: '1200px', margin: '0 auto', position: 'relative', zIndex: 10 }}>
+        <TeamCarousel />
+      </div>
+
     </div>
   );
 }

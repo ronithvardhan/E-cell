@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=Orbitron:wght@400..900&display=swap');
 
 /* Hide Spline watermark */
 a[href*="spline.design"] {
@@ -197,4 +197,70 @@ h3 {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+/* Team Page SVG Animation */
+.team-hero-container {
+  max-width: 1024px;
+  margin: 1.5rem auto 3rem;
+  position: relative;
+  animation: blur-in 0.8s ease-out 0.4s both;
+}
+
+.team-hero-svg {
+  width: 100%;
+  max-width: 1024px;
+  height: auto;
+  margin: 0 auto;
+  display: block;
+}
+
+.team-title-3d {
+  font-family: 'Orbitron', sans-serif;
+  font-size: clamp(2rem, 6vw, 6rem);
+  font-weight: 800;
+  text-transform: uppercase;
+  color: var(--brand-primary);
+  letter-spacing: 0.05em;
+  margin: 0;
+  white-space: nowrap;
+  animation: text-ripple 3s ease-in-out infinite;
+}
+
+@keyframes blur-in {
+  from {
+    opacity: 0;
+    filter: blur(10px);
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    filter: blur(0);
+    transform: translateY(0);
+  }
+}
+
+@keyframes text-ripple {
+  0%, 100% {
+    text-shadow: 
+      0 1px 0 var(--text-primary),
+      0 2px 0 var(--text-primary),
+      0 3px 0 var(--text-primary),
+      0 4px 0 var(--text-primary),
+      0 5px 15px rgba(0, 0, 0, 0.4);
+    transform: translateY(0);
+  }
+  50% {
+    text-shadow: 
+      0 1px 0 var(--text-primary),
+      0 2px 0 var(--text-primary),
+      0 3px 0 var(--text-primary),
+      0 4px 0 var(--text-primary),
+      0 5px 0 var(--text-primary),
+      0 6px 0 var(--text-primary),
+      0 7px 0 var(--text-primary),
+      0 8px 0 var(--text-primary),
+      0 25px 30px rgba(0, 0, 0, 0.6);
+    transform: translateY(-8px);
+  }
 }
