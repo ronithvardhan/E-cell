@@ -37,13 +37,13 @@ const sponsorsData = [
 
 export default function Sponsors() {
   return (
-    <div style={{ padding: '10rem 5vw 6rem', minHeight: '100vh', maxWidth: '1200px', margin: '0 auto' }}>
+    <div style={{ padding: 'clamp(6rem, 15vw, 10rem) clamp(1rem, 5vw, 5vw) 4rem', minHeight: '100vh', maxWidth: '1200px', margin: '0 auto' }}>
       
       {/* Title */}
-      <div style={{ marginBottom: '4rem', textAlign: 'center' }}>
+      <div style={{ marginBottom: 'clamp(2rem, 5vw, 4rem)', textAlign: 'center' }}>
         <h1 style={{ 
-          fontSize: 'clamp(3rem, 6vw, 5rem)', 
-          marginBottom: '1rem',
+          fontSize: 'clamp(2rem, 6vw, 5rem)', 
+          marginBottom: '0.75rem',
           fontFamily: 'var(--font-heading)',
           color: 'var(--text-primary)',
           fontWeight: 700,
@@ -51,7 +51,7 @@ export default function Sponsors() {
         }}>
           OUR SPONSORS
         </h1>
-        <p style={{ fontSize: '1.25rem', color: 'var(--text-secondary)' }}>
+        <p style={{ fontSize: 'clamp(0.9rem, 2.5vw, 1.25rem)', color: 'var(--text-secondary)' }}>
           The visionaries and partners who make our initiatives possible.
         </p>
       </div>
@@ -62,10 +62,11 @@ export default function Sponsors() {
         whileInView={{ opacity: 1, scale: 1 }}
         viewport={{ once: true, margin: "-100px" }}
         transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
+        className="sponsor-hover-container"
         style={{
-          background: 'linear-gradient(145deg, #373b44 0%, #22252a 100%)', /* Graphite gradient */
-          borderRadius: '24px',
-          padding: '2rem',
+          background: 'linear-gradient(145deg, #373b44 0%, #22252a 100%)',
+          borderRadius: 'clamp(14px, 3vw, 24px)',
+          padding: 'clamp(1rem, 3vw, 2rem)',
           border: '1px solid rgba(255, 255, 255, 0.1)',
           boxShadow: '0 20px 50px rgba(0,0,0,0.2)'
         }}

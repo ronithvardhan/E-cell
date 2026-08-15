@@ -47,7 +47,7 @@ export default function Waypoints() {
           key={wp.id} 
           className="waypoint"
           style={{ 
-            margin: '4rem 0',
+            margin: 'clamp(2rem, 5vw, 4rem) 0',
             display: 'flex', 
             alignItems: 'center', 
             justifyContent: wp.align === 'center' ? 'center' : (wp.align === 'left' ? 'flex-start' : 'flex-end'),
@@ -67,10 +67,10 @@ export default function Waypoints() {
               textAlign: wp.align === 'center' ? 'center' : 'left'
             }}
           >
-            <h2 style={{ color: wp.color, marginBottom: '1rem', fontSize: wp.align === 'center' ? '2.5rem' : '2rem' }}>
+            <h2 style={{ color: wp.color, marginBottom: '1rem', fontSize: wp.align === 'center' ? 'clamp(1.5rem, 5vw, 2.5rem)' : 'clamp(1.25rem, 4vw, 2rem)' }}>
               {wp.title}
             </h2>
-            <p style={{ fontSize: '1.2rem' }}>
+            <p style={{ fontSize: 'clamp(0.9rem, 2vw, 1.2rem)' }}>
               {wp.description}
             </p>
           </motion.div>

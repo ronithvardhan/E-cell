@@ -3,8 +3,8 @@ import { motion } from "framer-motion";
 
 export function HoverExpand({
   items,
-  collapsedHeight = 80,
-  expandedHeight = 350,
+  collapsedHeight = 70,
+  expandedHeight = 300,
 }) {
   const [hoveredIndex, setHoveredIndex] = useState(null);
 
@@ -87,7 +87,7 @@ export function HoverExpand({
                 top: 0, left: 0, right: 0, bottom: 0,
                 display: 'flex',
                 alignItems: 'flex-end',
-                padding: '0 2rem 1.25rem 2rem',
+                padding: '0 clamp(0.75rem, 3vw, 2rem) 1rem clamp(0.75rem, 3vw, 2rem)',
                 pointerEvents: 'none'
               }}>
                 <div style={{

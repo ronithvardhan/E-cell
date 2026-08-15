@@ -47,7 +47,7 @@ export default function Announcements() {
     <div style={{
       minHeight: '100vh',
       background: 'var(--bg-primary)',
-      padding: '120px 5% 80px',
+      padding: 'clamp(5.5rem, 15vw, 120px) clamp(1rem, 5vw, 5%) clamp(3rem, 8vw, 80px)',
       color: 'var(--text-primary)',
       fontFamily: 'var(--font-body)'
     }}>
@@ -75,7 +75,7 @@ export default function Announcements() {
             </div>
             <h1 style={{
               fontFamily: 'var(--font-heading)',
-              fontSize: '3rem',
+              fontSize: 'clamp(1.75rem, 5vw, 3rem)',
               fontWeight: 800,
               margin: 0,
               lineHeight: 1.1
@@ -105,7 +105,7 @@ export default function Announcements() {
                 background: 'var(--bg-secondary)',
                 border: '1px solid rgba(36, 36, 36, 0.05)',
                 borderRadius: '16px',
-                padding: '2rem',
+                padding: 'clamp(1.25rem, 3vw, 2rem)',
                 display: 'flex',
                 flexDirection: 'column',
                 gap: '1rem',

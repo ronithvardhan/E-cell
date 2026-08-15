@@ -58,11 +58,7 @@
   margin: 0;
 }
 
-@media (prefers-color-scheme: dark) {
-  .auth-subtitle {
-    color: #94a3b8;
-  }
-}
+
 
 .auth-form {
   display: grid;
@@ -99,13 +95,7 @@
   outline-offset: 2px;
 }
 
-@media (prefers-color-scheme: dark) {
-  .auth-input {
-    background-color: var(--ecell-graphite);
-    border-color: rgba(255, 255, 255, 0.1);
-    color: var(--text-inverse);
-  }
-}
+
 
 .auth-password-wrapper {
   position: relative;
@@ -178,14 +168,7 @@
   background-color: rgba(0, 0, 0, 0.05);
 }
 
-@media (prefers-color-scheme: dark) {
-  .auth-button-outline {
-    border-color: rgba(255, 255, 255, 0.1);
-  }
-  .auth-button-outline:hover {
-    background-color: rgba(255, 255, 255, 0.05);
-  }
-}
+
 
 .auth-button-link {
   background: transparent;
@@ -218,11 +201,7 @@
   z-index: 0;
 }
 
-@media (prefers-color-scheme: dark) {
-  .auth-divider::after {
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
-  }
-}
+
 
 .auth-divider-text {
   position: relative;

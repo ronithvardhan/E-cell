@@ -19,7 +19,6 @@ const MOCK_USER = {
   avatarInitials: "RV",
 };
 
-// Pick a few events as "registered"
 const REGISTERED_EVENTS = EVENTS.slice(0, 3);
 
 function StatCard({ icon, value, label, color }) {
@@ -27,23 +26,23 @@ function StatCard({ icon, value, label, color }) {
     <motion.div
       whileHover={{ y: -4, boxShadow: '0 12px 32px rgba(0,0,0,0.1)' }}
       style={{
-        background: 'white', borderRadius: '16px', padding: '1.5rem',
+        background: 'white', borderRadius: '14px', padding: 'clamp(1rem, 2vw, 1.5rem)',
         border: '1px solid rgba(0,0,0,0.07)',
         boxShadow: '0 4px 16px rgba(0,0,0,0.05)',
-        display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.5rem',
+        display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.35rem',
         cursor: 'default', transition: 'box-shadow 0.25s ease',
       }}
     >
       <div style={{
-        width: '48px', height: '48px', borderRadius: '50%',
+        width: '40px', height: '40px', borderRadius: '50%',
         background: `${color}18`, display: 'flex', alignItems: 'center', justifyContent: 'center'
       }}>
         <span style={{ color }}>{icon}</span>
       </div>
-      <div style={{ fontFamily: 'var(--font-heading)', fontSize: '1.8rem', fontWeight: 800, color: 'var(--text-primary)', lineHeight: 1 }}>
+      <div style={{ fontFamily: 'var(--font-heading)', fontSize: 'clamp(1.3rem, 3vw, 1.8rem)', fontWeight: 800, color: 'var(--text-primary)', lineHeight: 1 }}>
         {value}
       </div>
-      <div style={{ fontSize: '0.8rem', color: '#888', fontWeight: 500, textAlign: 'center' }}>{label}</div>
+      <div style={{ fontSize: '0.72rem', color: '#888', fontWeight: 500, textAlign: 'center' }}>{label}</div>
     </motion.div>
   );
 }
@@ -53,17 +52,17 @@ export default function Profile() {
   const [activeTab, setActiveTab] = useState('events');
 
   return (
-    <div style={{ minHeight: '100vh', background: 'var(--bg-primary)', paddingTop: '7rem', paddingBottom: '5rem' }}>
-      <div style={{ maxWidth: '1000px', margin: '0 auto', padding: '0 5vw' }}>
+    <div style={{ minHeight: '100vh', background: 'var(--bg-primary)', paddingTop: 'clamp(5rem, 12vw, 7rem)', paddingBottom: '4rem' }}>
+      <div style={{ maxWidth: '1000px', margin: '0 auto', padding: '0 clamp(1rem, 5vw, 5vw)' }}>
 
         {/* Back link */}
         <motion.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }}>
           <Link to="/" style={{
             display: 'inline-flex', alignItems: 'center', gap: '0.4rem',
-            color: '#888', fontWeight: 600, fontSize: '0.9rem', textDecoration: 'none',
-            marginBottom: '2rem'
+            color: '#888', fontWeight: 600, fontSize: '0.85rem', textDecoration: 'none',
+            marginBottom: '1.5rem'
           }}>
-            <ArrowLeft size={16} /> Back to Home
+            <ArrowLeft size={15} /> Back to Home
           </Link>
         </motion.div>
 
@@ -73,15 +72,15 @@ export default function Profile() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
           style={{
-            background: 'white', borderRadius: '24px', overflow: 'hidden',
+            background: 'white', borderRadius: '20px', overflow: 'hidden',
             border: '1px solid rgba(0,0,0,0.07)',
             boxShadow: '0 8px 40px rgba(0,0,0,0.07)',
-            marginBottom: '2rem'
+            marginBottom: '1.5rem'
           }}
         >
           {/* Cover banner */}
           <div style={{
-            height: '120px',
+            height: 'clamp(80px, 15vw, 120px)',
             background: 'linear-gradient(135deg, var(--ecell-vermilion) 0%, var(--ecell-cobalt) 60%, var(--ecell-teal) 100%)',
             position: 'relative',
           }}>
@@ -91,78 +90,76 @@ export default function Profile() {
             }} />
           </div>
 
-          <div style={{ padding: '0 2rem 2rem' }}>
-            {/* Avatar */}
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginTop: '-36px', marginBottom: '1.25rem' }}>
+          <div style={{ padding: '0 clamp(1rem, 3vw, 2rem) clamp(1.25rem, 3vw, 2rem)' }}>
+            {/* Avatar + Actions */}
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginTop: '-30px', marginBottom: '1rem', flexWrap: 'wrap', gap: '0.75rem' }}>
               <motion.div
                 whileHover={{ scale: 1.06 }}
                 style={{
-                  width: '80px', height: '80px', borderRadius: '50%',
+                  width: 'clamp(60px, 12vw, 80px)', height: 'clamp(60px, 12vw, 80px)', borderRadius: '50%',
                   background: 'linear-gradient(135deg, var(--ecell-vermilion), var(--ecell-cobalt))',
-                  border: '4px solid white', boxShadow: '0 4px 16px rgba(0,0,0,0.15)',
+                  border: '3px solid white', boxShadow: '0 4px 16px rgba(0,0,0,0.15)',
                   display: 'flex', alignItems: 'center', justifyContent: 'center',
-                  color: 'white', fontWeight: 800, fontSize: '1.6rem',
+                  color: 'white', fontWeight: 800, fontSize: 'clamp(1.1rem, 3vw, 1.6rem)',
                   fontFamily: 'var(--font-heading)', cursor: 'default', flexShrink: 0
                 }}
               >
                 {MOCK_USER.avatarInitials}
               </motion.div>
 
-              <div style={{ display: 'flex', gap: '0.75rem', paddingBottom: '0.25rem' }}>
+              <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
                 <motion.button
                   whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}
                   style={{
                     background: 'rgba(0,0,0,0.05)', border: '1px solid rgba(0,0,0,0.1)',
-                    borderRadius: '9999px', padding: '0.45rem 1rem',
-                    display: 'flex', alignItems: 'center', gap: '0.4rem',
-                    cursor: 'pointer', fontWeight: 600, fontSize: '0.85rem',
+                    borderRadius: '9999px', padding: '0.4rem 0.75rem',
+                    display: 'flex', alignItems: 'center', gap: '0.35rem',
+                    cursor: 'pointer', fontWeight: 600, fontSize: '0.78rem',
                     color: 'var(--text-primary)', fontFamily: 'var(--font-body)'
                   }}
                 >
-                  <Settings size={15} /> Edit Profile
+                  <Settings size={13} /> Edit Profile
                 </motion.button>
                 <motion.button
                   whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}
                   onClick={() => navigate('/auth')}
                   style={{
                     background: 'rgba(228,71,46,0.08)', border: '1px solid rgba(228,71,46,0.2)',
-                    borderRadius: '9999px', padding: '0.45rem 1rem',
-                    display: 'flex', alignItems: 'center', gap: '0.4rem',
-                    cursor: 'pointer', fontWeight: 600, fontSize: '0.85rem',
+                    borderRadius: '9999px', padding: '0.4rem 0.75rem',
+                    display: 'flex', alignItems: 'center', gap: '0.35rem',
+                    cursor: 'pointer', fontWeight: 600, fontSize: '0.78rem',
                     color: 'var(--brand-primary)', fontFamily: 'var(--font-body)'
                   }}
                 >
-                  <LogOut size={15} /> Sign Out
+                  <LogOut size={13} /> Sign Out
                 </motion.button>
               </div>
             </div>
 
             {/* Name & Details */}
-            <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', alignItems: 'flex-start', gap: '1rem' }}>
-              <div>
-                <h1 style={{ fontFamily: 'var(--font-heading)', fontSize: '1.7rem', fontWeight: 800, color: 'var(--text-primary)', margin: 0 }}>
-                  {MOCK_USER.name}
-                </h1>
-                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem', marginTop: '0.5rem', alignItems: 'center' }}>
-                  <span style={{
-                    padding: '0.2rem 0.75rem', borderRadius: '9999px',
-                    background: 'linear-gradient(135deg, var(--ecell-vermilion), var(--ecell-cobalt))',
-                    color: 'white', fontSize: '0.75rem', fontWeight: 700, letterSpacing: '0.04em'
-                  }}>
-                    {MOCK_USER.role}
-                  </span>
-                  <span style={{ color: '#888', fontSize: '0.88rem', display: 'flex', alignItems: 'center', gap: '0.3rem' }}>
-                    <GraduationCap size={14} /> {MOCK_USER.department} · {MOCK_USER.year}
-                  </span>
-                </div>
-                <div style={{ display: 'flex', gap: '1.25rem', marginTop: '0.75rem', flexWrap: 'wrap' }}>
-                  <span style={{ color: '#666', fontSize: '0.85rem', display: 'flex', alignItems: 'center', gap: '0.3rem' }}>
-                    <Mail size={14} /> {MOCK_USER.email}
-                  </span>
-                  <span style={{ color: '#666', fontSize: '0.85rem', display: 'flex', alignItems: 'center', gap: '0.3rem' }}>
-                    <CalendarCheck size={14} /> Member since {MOCK_USER.joinedDate}
-                  </span>
-                </div>
+            <div>
+              <h1 style={{ fontFamily: 'var(--font-heading)', fontSize: 'clamp(1.25rem, 4vw, 1.7rem)', fontWeight: 800, color: 'var(--text-primary)', margin: 0 }}>
+                {MOCK_USER.name}
+              </h1>
+              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.4rem', marginTop: '0.4rem', alignItems: 'center' }}>
+                <span style={{
+                  padding: '0.15rem 0.65rem', borderRadius: '9999px',
+                  background: 'linear-gradient(135deg, var(--ecell-vermilion), var(--ecell-cobalt))',
+                  color: 'white', fontSize: '0.7rem', fontWeight: 700, letterSpacing: '0.04em'
+                }}>
+                  {MOCK_USER.role}
+                </span>
+                <span style={{ color: '#888', fontSize: 'clamp(0.72rem, 2vw, 0.88rem)', display: 'flex', alignItems: 'center', gap: '0.25rem' }}>
+                  <GraduationCap size={13} /> {MOCK_USER.department} · {MOCK_USER.year}
+                </span>
+              </div>
+              <div style={{ display: 'flex', gap: '1rem', marginTop: '0.6rem', flexWrap: 'wrap' }}>
+                <span style={{ color: '#666', fontSize: '0.8rem', display: 'flex', alignItems: 'center', gap: '0.25rem' }}>
+                  <Mail size={13} /> {MOCK_USER.email}
+                </span>
+                <span style={{ color: '#666', fontSize: '0.8rem', display: 'flex', alignItems: 'center', gap: '0.25rem' }}>
+                  <CalendarCheck size={13} /> Since {MOCK_USER.joinedDate}
+                </span>
               </div>
             </div>
           </div>
@@ -173,12 +170,12 @@ export default function Profile() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.15 }}
-          style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(140px, 1fr))', gap: '1rem', marginBottom: '2rem' }}
+          style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(130px, 45%), 1fr))', gap: '0.75rem', marginBottom: '1.5rem' }}
         >
-          <StatCard icon={<Award size={22} />} value={MOCK_USER.eventsAttended} label="Events Attended" color="var(--brand-primary)" />
-          <StatCard icon={<CalendarCheck size={22} />} value={MOCK_USER.upcomingEvents} label="Upcoming Events" color="var(--ecell-teal)" />
-          <StatCard icon={<Star size={22} />} value="4" label="Events Saved" color="var(--ecell-saffron)" />
-          <StatCard icon={<TrendingUp size={22} />} value="Top 10%" label="Engagement" color="var(--ecell-cobalt)" />
+          <StatCard icon={<Award size={20} />} value={MOCK_USER.eventsAttended} label="Events Attended" color="var(--brand-primary)" />
+          <StatCard icon={<CalendarCheck size={20} />} value={MOCK_USER.upcomingEvents} label="Upcoming Events" color="var(--ecell-teal)" />
+          <StatCard icon={<Star size={20} />} value="4" label="Events Saved" color="var(--ecell-saffron)" />
+          <StatCard icon={<TrendingUp size={20} />} value="Top 10%" label="Engagement" color="var(--ecell-cobalt)" />
         </motion.div>
 
         {/* Tabs */}
@@ -187,29 +184,29 @@ export default function Profile() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.25 }}
           style={{
-            background: 'white', borderRadius: '20px', overflow: 'hidden',
+            background: 'white', borderRadius: '18px', overflow: 'hidden',
             border: '1px solid rgba(0,0,0,0.07)',
             boxShadow: '0 4px 20px rgba(0,0,0,0.05)'
           }}
         >
           {/* Tab Headers */}
-          <div style={{ display: 'flex', borderBottom: '1px solid rgba(0,0,0,0.07)', padding: '0 1.5rem' }}>
+          <div style={{ display: 'flex', borderBottom: '1px solid rgba(0,0,0,0.07)', padding: '0 clamp(0.75rem, 2vw, 1.5rem)', overflowX: 'auto', WebkitOverflowScrolling: 'touch' }}>
             {[
-              { key: 'events', label: 'My Events', icon: <CalendarCheck size={16} /> },
-              { key: 'saved', label: 'Saved', icon: <Bookmark size={16} /> },
-              { key: 'about', label: 'About', icon: <User size={16} /> },
+              { key: 'events', label: 'My Events', icon: <CalendarCheck size={15} /> },
+              { key: 'saved', label: 'Saved', icon: <Bookmark size={15} /> },
+              { key: 'about', label: 'About', icon: <User size={15} /> },
             ].map(tab => (
               <button
                 key={tab.key}
                 onClick={() => setActiveTab(tab.key)}
                 style={{
-                  padding: '1rem 1.25rem', fontWeight: 600, fontSize: '0.9rem',
+                  padding: '0.85rem clamp(0.6rem, 2vw, 1.25rem)', fontWeight: 600, fontSize: '0.82rem',
                   border: 'none', background: 'transparent', cursor: 'pointer',
-                  display: 'flex', alignItems: 'center', gap: '0.4rem',
+                  display: 'flex', alignItems: 'center', gap: '0.35rem',
                   color: activeTab === tab.key ? 'var(--brand-primary)' : '#888',
                   borderBottom: activeTab === tab.key ? '2px solid var(--brand-primary)' : '2px solid transparent',
                   transition: 'all 0.2s ease', fontFamily: 'var(--font-body)',
-                  marginBottom: '-1px'
+                  marginBottom: '-1px', whiteSpace: 'nowrap', flexShrink: 0
                 }}
               >
                 {tab.icon} {tab.label}
@@ -218,11 +215,11 @@ export default function Profile() {
           </div>
 
           {/* Tab Content */}
-          <div style={{ padding: '1.5rem' }}>
+          <div style={{ padding: 'clamp(1rem, 2vw, 1.5rem)' }}>
 
             {activeTab === 'events' && (
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-                <p style={{ color: '#888', fontSize: '0.85rem', margin: '0 0 0.5rem' }}>Events you're registered for:</p>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
+                <p style={{ color: '#888', fontSize: '0.82rem', margin: '0 0 0.35rem' }}>Events you're registered for:</p>
                 {REGISTERED_EVENTS.map((ev, i) => (
                   <motion.div
                     key={ev.id}
@@ -231,8 +228,8 @@ export default function Profile() {
                     transition={{ delay: i * 0.07 }}
                     onClick={() => navigate(`/events/${ev.id}`)}
                     style={{
-                      display: 'flex', alignItems: 'center', gap: '1rem',
-                      padding: '1rem 1.25rem', borderRadius: '14px',
+                      display: 'flex', alignItems: 'center', gap: '0.75rem',
+                      padding: '0.75rem 1rem', borderRadius: '12px',
                       border: '1px solid rgba(0,0,0,0.07)',
                       cursor: 'pointer', transition: 'all 0.2s ease',
                       background: 'rgba(247,241,227,0.4)'
@@ -242,29 +239,29 @@ export default function Profile() {
                     <img
                       src={ev.image}
                       alt={ev.title}
-                      style={{ width: '56px', height: '56px', borderRadius: '10px', objectFit: 'cover', flexShrink: 0 }}
+                      style={{ width: 'clamp(40px, 10vw, 56px)', height: 'clamp(40px, 10vw, 56px)', borderRadius: '8px', objectFit: 'cover', flexShrink: 0 }}
                     />
                     <div style={{ flex: 1, minWidth: 0 }}>
-                      <div style={{ fontWeight: 700, fontSize: '0.95rem', color: 'var(--text-primary)', marginBottom: '0.2rem', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{ev.title}</div>
-                      <div style={{ fontSize: '0.82rem', color: '#888' }}>{ev.date.toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' })} · {ev.location}</div>
+                      <div style={{ fontWeight: 700, fontSize: '0.88rem', color: 'var(--text-primary)', marginBottom: '0.15rem', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{ev.title}</div>
+                      <div style={{ fontSize: '0.75rem', color: '#888', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{ev.date.toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' })}</div>
                     </div>
-                    <span style={{
-                      padding: '0.2rem 0.7rem', borderRadius: '9999px', fontSize: '0.75rem', fontWeight: 700,
+                    <span className="event-status-badge" style={{
+                      padding: '0.15rem 0.55rem', borderRadius: '9999px', fontSize: '0.68rem', fontWeight: 700,
                       background: ev.date > new Date() ? 'rgba(22,140,131,0.1)' : 'rgba(0,0,0,0.07)',
                       color: ev.date > new Date() ? 'var(--ecell-teal)' : '#888',
-                      flexShrink: 0
+                      flexShrink: 0, whiteSpace: 'nowrap'
                     }}>
                       {ev.date > new Date() ? 'Upcoming' : 'Attended'}
                     </span>
-                    <ChevronRight size={16} color="#ccc" style={{ flexShrink: 0 }} />
+                    <ChevronRight size={14} color="#ccc" style={{ flexShrink: 0 }} className="chevron-desktop" />
                   </motion.div>
                 ))}
                 <Link to="/events" style={{
                   display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem',
-                  padding: '0.85rem', borderRadius: '12px',
+                  padding: '0.75rem', borderRadius: '10px',
                   border: '1.5px dashed rgba(228,71,46,0.3)',
-                  color: 'var(--brand-primary)', fontWeight: 600, fontSize: '0.9rem',
-                  textDecoration: 'none', marginTop: '0.25rem',
+                  color: 'var(--brand-primary)', fontWeight: 600, fontSize: '0.85rem',
+                  textDecoration: 'none', marginTop: '0.15rem',
                   transition: 'all 0.2s ease'
                 }}>
                   + Browse more events
@@ -273,31 +270,31 @@ export default function Profile() {
             )}
 
             {activeTab === 'saved' && (
-              <div style={{ textAlign: 'center', padding: '3rem 1rem', color: '#aaa' }}>
-                <Bookmark size={40} style={{ marginBottom: '1rem', opacity: 0.4 }} />
-                <p style={{ fontWeight: 600, marginBottom: '0.5rem' }}>No saved events yet</p>
-                <p style={{ fontSize: '0.85rem' }}>Bookmark events from the events page to see them here.</p>
+              <div style={{ textAlign: 'center', padding: '2.5rem 1rem', color: '#aaa' }}>
+                <Bookmark size={36} style={{ marginBottom: '0.75rem', opacity: 0.4 }} />
+                <p style={{ fontWeight: 600, marginBottom: '0.4rem', fontSize: '0.9rem' }}>No saved events yet</p>
+                <p style={{ fontSize: '0.8rem' }}>Bookmark events from the events page to see them here.</p>
               </div>
             )}
 
             {activeTab === 'about' && (
-              <div style={{ display: 'grid', gap: '1rem' }}>
+              <div style={{ display: 'grid', gap: '0.75rem' }}>
                 {[
-                  { label: 'Full Name', value: MOCK_USER.name, icon: <User size={16} /> },
-                  { label: 'Email Address', value: MOCK_USER.email, icon: <Mail size={16} /> },
-                  { label: 'Department', value: MOCK_USER.department, icon: <GraduationCap size={16} /> },
-                  { label: 'Year', value: MOCK_USER.year, icon: <GraduationCap size={16} /> },
-                  { label: 'Member Since', value: MOCK_USER.joinedDate, icon: <CalendarCheck size={16} /> },
+                  { label: 'Full Name', value: MOCK_USER.name, icon: <User size={15} /> },
+                  { label: 'Email Address', value: MOCK_USER.email, icon: <Mail size={15} /> },
+                  { label: 'Department', value: MOCK_USER.department, icon: <GraduationCap size={15} /> },
+                  { label: 'Year', value: MOCK_USER.year, icon: <GraduationCap size={15} /> },
+                  { label: 'Member Since', value: MOCK_USER.joinedDate, icon: <CalendarCheck size={15} /> },
                 ].map((item, i) => (
                   <div key={i} style={{
-                    display: 'flex', alignItems: 'center', gap: '1rem',
-                    padding: '0.9rem 1.1rem', borderRadius: '12px',
+                    display: 'flex', alignItems: 'center', gap: '0.85rem',
+                    padding: '0.75rem 1rem', borderRadius: '10px',
                     background: 'rgba(247,241,227,0.5)', border: '1px solid rgba(0,0,0,0.06)'
                   }}>
-                    <span style={{ color: 'var(--brand-primary)' }}>{item.icon}</span>
-                    <div>
-                      <div style={{ fontSize: '0.75rem', color: '#888', fontWeight: 600, letterSpacing: '0.04em', textTransform: 'uppercase' }}>{item.label}</div>
-                      <div style={{ fontSize: '0.93rem', color: 'var(--text-primary)', fontWeight: 600, marginTop: '0.15rem' }}>{item.value}</div>
+                    <span style={{ color: 'var(--brand-primary)', flexShrink: 0 }}>{item.icon}</span>
+                    <div style={{ minWidth: 0 }}>
+                      <div style={{ fontSize: '0.68rem', color: '#888', fontWeight: 600, letterSpacing: '0.04em', textTransform: 'uppercase' }}>{item.label}</div>
+                      <div style={{ fontSize: '0.88rem', color: 'var(--text-primary)', fontWeight: 600, marginTop: '0.1rem', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{item.value}</div>
                     </div>
                   </div>
                 ))}

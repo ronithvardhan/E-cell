@@ -3,11 +3,11 @@ import { motion } from 'framer-motion';
 
 export default function Initiatives() {
   return (
-    <div style={{ padding: '8rem 5vw 4rem', minHeight: '100vh', maxWidth: '1200px', margin: '0 auto' }}>
+    <div style={{ padding: 'clamp(5.5rem, 12vw, 8rem) clamp(1rem, 5vw, 5vw) 4rem', minHeight: '100vh', maxWidth: '1200px', margin: '0 auto' }}>
       <motion.h1 
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
-        style={{ fontSize: '3rem', color: 'var(--brand-primary)', borderBottom: '2px solid var(--text-primary)', paddingBottom: '1rem', marginBottom: '3rem' }}
+        style={{ fontSize: 'clamp(1.75rem, 5vw, 3rem)', color: 'var(--brand-primary)', borderBottom: '2px solid var(--text-primary)', paddingBottom: '0.75rem', marginBottom: 'clamp(1.5rem, 4vw, 3rem)' }}
       >
         Our Initiatives
       </motion.h1>
