@@ -1,15 +1,6 @@
 import React from 'react';
-import { motion } from 'framer-motion';
 import CrowdCanvas from '../components/UI/CrowdCanvas';
 import TeamCarousel from '../components/UI/TeamCarousel';
-
-const teamData = [
-  { role: 'Core Committee', count: 12 },
-  { role: 'Tech & Development', count: 10 },
-  { role: 'Design & Creative', count: 8 },
-  { role: 'Marketing & Outreach', count: 15 },
-  { role: 'Public Relations', count: 6 },
-];
 
 export default function Team() {
   return (
