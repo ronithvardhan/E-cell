@@ -61,6 +61,9 @@ body {
   .mobile-menu-btn {
     display: flex !important;
   }
+  .profile-label {
+    display: none;
+  }
 }
 @media (min-width: 769px) {
   .desktop-nav {
@@ -68,6 +71,16 @@ body {
   }
   .mobile-menu-btn {
     display: none !important;
+  }
+  .profile-label {
+    display: inline;
+  }
+}
+
+/* Event Detail responsive grid */
+@media (max-width: 768px) {
+  .event-detail-grid {
+    grid-template-columns: 1fr !important;
   }
 }
 

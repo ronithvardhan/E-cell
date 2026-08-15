@@ -9,6 +9,7 @@ export function EventCountdownCard({
   image = "https://images.unsplash.com/photo-1531482615713-2afd69097998?w=800&h=600&fit=crop",
   attendees = 42,
   onJoin,
+  onClick,
   enableAnimations = true,
   className = "",
 }) {
@@ -168,6 +169,8 @@ export function EventCountdownCard({
       whileHover="hover"
       variants={containerVariants}
       className={`ecc-card ${className}`}
+      onClick={onClick}
+      style={{ cursor: onClick ? 'pointer' : 'default' }}
     >
       {/* Image Container */}
       <motion.div
@@ -260,7 +263,7 @@ export function EventCountdownCard({
 
         {/* Action Button */}
         <motion.button
-          onClick={onJoin}
+          onClick={(e) => { e.stopPropagation(); (onJoin || onClick)?.(e); }}
           variants={buttonVariants}
           initial={shouldAnimate ? "hidden" : "visible"}
           animate="visible"

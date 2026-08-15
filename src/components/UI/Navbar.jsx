@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Bell, Menu, X, Home, Lightbulb, Users, HeartHandshake, CalendarDays, Moon, Sun } from 'lucide-react';
+import { Bell, Menu, X, Home, Lightbulb, Users, HeartHandshake, CalendarDays, UserCircle } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 
@@ -81,7 +81,6 @@ const sharedTransition = {
 export default function Navbar() {
   const [showAnnouncements, setShowAnnouncements] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [isDarkTheme, setIsDarkTheme] = useState(false); // Local state for visual theme toggle
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -103,12 +102,12 @@ export default function Navbar() {
         justifyContent: 'space-between',
         alignItems: 'center',
         zIndex: 50,
-        background: isDarkTheme ? 'rgba(36, 36, 36, 0.65)' : 'rgba(255, 255, 255, 0.55)',
+        background: 'rgba(255, 255, 255, 0.75)',
         backdropFilter: 'blur(16px)',
         WebkitBackdropFilter: 'blur(16px)',
-        border: isDarkTheme ? '1px solid rgba(255, 255, 255, 0.08)' : '1px solid rgba(255, 255, 255, 0.4)',
+        border: '1px solid rgba(255, 255, 255, 0.6)',
         borderRadius: '24px',
-        boxShadow: isDarkTheme ? '0 10px 40px -10px rgba(0, 0, 0, 0.5)' : '0 10px 40px -10px rgba(0, 0, 0, 0.1)'
+        boxShadow: '0 10px 40px -10px rgba(0, 0, 0, 0.1)'
       }}>
         {/* Brand */}
         <Link to="/" style={{ textDecoration: 'none' }}>
@@ -122,7 +121,7 @@ export default function Navbar() {
             alignItems: 'center',
             gap: '0.25rem'
           }}>
-            E-CELL <span style={{ color: isDarkTheme ? 'var(--text-inverse)' : 'var(--text-primary)' }}>UCEOU</span>
+            E-CELL <span style={{ color: 'var(--text-primary)' }}>UCEOU</span>
           </div>
         </Link>
 
@@ -146,9 +145,7 @@ export default function Navbar() {
               style={{
                 position: 'absolute',
                 inset: '-10px',
-                background: isDarkTheme 
-                  ? 'radial-gradient(circle at center, rgba(57,136,184,0.2) 0%, rgba(228,71,46,0.15) 50%, transparent 100%)'
-                  : 'radial-gradient(circle at center, rgba(57,136,184,0.15) 0%, rgba(228,71,46,0.1) 50%, transparent 100%)',
+                background: 'radial-gradient(circle at center, rgba(57,136,184,0.15) 0%, rgba(228,71,46,0.1) 50%, transparent 100%)',
                 borderRadius: '24px',
                 zIndex: 0,
                 pointerEvents: 'none'
@@ -190,7 +187,7 @@ export default function Navbar() {
                           padding: '0.5rem 1rem',
                           position: 'relative',
                           zIndex: 10,
-                          color: isActive ? link.iconColor : (isDarkTheme ? 'rgba(255,255,255,0.7)' : 'var(--text-primary)'),
+                          color: isActive ? link.iconColor : 'var(--text-primary)',
                           fontWeight: isActive ? 700 : 500,
                           fontSize: '0.95rem',
                           transformStyle: 'preserve-3d',
@@ -221,7 +218,7 @@ export default function Navbar() {
                           position: 'absolute',
                           inset: 0,
                           zIndex: 10,
-                          color: isDarkTheme ? 'var(--text-inverse)' : 'var(--text-primary)',
+                          color: 'var(--text-primary)',
                           fontWeight: 600,
                           fontSize: '0.95rem',
                           transformStyle: 'preserve-3d',
@@ -247,62 +244,26 @@ export default function Navbar() {
         </div>
 
         {/* Icons / Actions */}
-        <div style={{ display: 'flex', gap: '1.25rem', alignItems: 'center' }}>
+        <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
           
-          {/* Theme Toggle */}
-          <div 
-            style={{ 
-              display: 'flex', 
-              alignItems: 'center', 
-              gap: '0.5rem',
-              cursor: 'pointer',
-              padding: '0.25rem',
+          {/* Profile Link */}
+          <Link
+            to="/profile"
+            style={{
+              display: 'flex', alignItems: 'center', gap: '0.45rem',
+              textDecoration: 'none',
+              color: location.pathname === '/profile' ? 'var(--brand-primary)' : 'var(--text-primary)',
+              fontWeight: 600, fontSize: '0.9rem',
+              padding: '0.4rem 0.9rem',
               borderRadius: '9999px',
-              transition: 'all 0.3s ease',
+              background: location.pathname === '/profile' ? 'rgba(228,71,46,0.08)' : 'transparent',
+              border: location.pathname === '/profile' ? '1px solid rgba(228,71,46,0.2)' : '1px solid transparent',
+              transition: 'all 0.2s ease'
             }}
-            onClick={() => setIsDarkTheme(!isDarkTheme)}
-            aria-label="Toggle theme"
           >
-            <Sun 
-              size={18} 
-              style={{ 
-                color: isDarkTheme ? '#A1A1AA' : (isDarkTheme ? 'var(--text-inverse)' : 'var(--text-primary)'),
-                transform: isDarkTheme ? 'scale(0.75) rotate(12deg)' : 'scale(1) rotate(0)',
-                transition: 'all 0.7s cubic-bezier(0.34,1.56,0.64,1)'
-              }} 
-            />
-            
-            {/* Visual Switch */}
-            <div style={{
-              width: '40px',
-              height: '22px',
-              borderRadius: '20px',
-              background: isDarkTheme ? 'var(--brand-primary)' : 'rgba(36,36,36,0.2)',
-              position: 'relative',
-              transition: 'all 0.3s ease'
-            }}>
-              <div style={{
-                position: 'absolute',
-                top: '3px',
-                left: isDarkTheme ? '21px' : '3px',
-                width: '16px',
-                height: '16px',
-                borderRadius: '50%',
-                background: 'white',
-                transition: 'all 0.4s cubic-bezier(0.34,1.56,0.64,1)',
-                boxShadow: '0 2px 5px rgba(0,0,0,0.2)'
-              }} />
-            </div>
-
-            <Moon 
-              size={18} 
-              style={{ 
-                color: !isDarkTheme ? '#A1A1AA' : (isDarkTheme ? 'var(--text-inverse)' : 'var(--text-primary)'),
-                transform: !isDarkTheme ? 'scale(0.75) rotate(12deg)' : 'scale(1) rotate(0)',
-                transition: 'all 0.7s cubic-bezier(0.34,1.56,0.64,1)'
-              }} 
-            />
-          </div>
+            <UserCircle size={18} />
+            <span className="profile-label">Profile</span>
+          </Link>
 
           <Link
             to="/auth"
@@ -320,8 +281,8 @@ export default function Navbar() {
               justifyContent: 'center',
               boxShadow: '0 4px 14px rgba(228, 71, 46, 0.3)'
             }}
-            onMouseOver={(e) => { e.target.style.opacity = '0.9'; e.target.style.transform = 'translateY(-2px)'; }}
-            onMouseOut={(e) => { e.target.style.opacity = '1'; e.target.style.transform = 'translateY(0)'; }}
+            onMouseOver={(e) => { e.currentTarget.style.opacity = '0.9'; e.currentTarget.style.transform = 'translateY(-2px)'; }}
+            onMouseOut={(e) => { e.currentTarget.style.opacity = '1'; e.currentTarget.style.transform = 'translateY(0)'; }}
           >
             Login
           </Link>
@@ -341,10 +302,10 @@ export default function Navbar() {
               alignItems: 'center',
               justifyContent: 'center',
               cursor: 'pointer',
-              color: isDarkTheme ? 'var(--text-inverse)' : 'var(--text-primary)',
+              color: 'var(--text-primary)',
               transition: 'all 0.2s ease'
             }}
-            onMouseOver={(e) => { e.currentTarget.style.background = isDarkTheme ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.05)'; }}
+            onMouseOver={(e) => { e.currentTarget.style.background = 'rgba(0,0,0,0.05)'; }}
             onMouseOut={(e) => { e.currentTarget.style.background = 'transparent'; }}
           >
             <Bell size={18} />
@@ -361,7 +322,7 @@ export default function Navbar() {
               background: 'transparent',
               border: 'none',
               cursor: 'pointer',
-              color: isDarkTheme ? 'var(--text-inverse)' : 'var(--text-primary)',
+              color: 'var(--text-primary)',
               display: 'none' // Handled via CSS for media queries
             }}
           >
