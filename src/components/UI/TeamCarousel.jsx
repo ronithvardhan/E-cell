@@ -182,6 +182,8 @@ export default function TeamCarousel() {
                   <img
                     src={member.image}
                     alt={member.name}
+                    loading="lazy"
+                    decoding="async"
                     style={{ width: '100%', height: '100%', objectFit: 'cover' }}
                   />
                   <div style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, background: 'linear-gradient(to right, rgba(15, 32, 60, 0) 60%, rgba(15, 32, 60, 1) 100%)' }} />

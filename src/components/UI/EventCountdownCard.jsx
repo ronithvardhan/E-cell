@@ -96,17 +96,7 @@ export function EventCountdownCard({
 
   const numberVariants = {
     initial: { scale: 1, opacity: 1 },
-    pulse: shouldAnimate
-      ? {
-          scale: [1, 1.15, 1],
-          opacity: [1, 0.7, 1],
-          transition: {
-            duration: 1,
-            repeat: Infinity,
-            ease: "easeInOut",
-          },
-        }
-      : {},
+    pulse: {},  // Replaced with CSS animation for performance (avoids JS-driven repeat:Infinity)
   };
 
   const childVariants = {
@@ -181,6 +171,8 @@ export function EventCountdownCard({
           src={image}
           alt={title}
           className="ecc-image"
+          loading="lazy"
+          decoding="async"
           initial={{ scale: 1 }}
           whileHover={{ scale: 1.1 }}
           transition={{ type: "spring", stiffness: 300, damping: 30 }}
@@ -244,7 +236,7 @@ export function EventCountdownCard({
                   variants={index === 3 ? numberVariants : {}} // Only seconds pulse
                   initial="initial"
                   animate={index === 3 ? "pulse" : "initial"}
-                  className="ecc-countdown-unit"
+                  className={`ecc-countdown-unit${index === 3 && shouldAnimate ? ' ecc-seconds-pulse' : ''}`}
                 >
                   <div className="ecc-countdown-value">
                     {unit.value.toString().padStart(2, "0")}

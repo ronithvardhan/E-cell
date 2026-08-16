@@ -54,7 +54,7 @@
 
 .auth-subtitle {
   font-size: 0.875rem;
-  color: #64748b;
+  color: var(--text-muted);
   margin: 0;
 }
 
@@ -81,12 +81,12 @@
   height: 2.5rem;
   width: 100%;
   border-radius: 0.5rem;
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  background-color: #ffffff;
+  border: 1px solid var(--glass-border);
+  background-color: var(--glass-bg);
   padding: 0.75rem;
   font-size: 0.875rem;
   color: var(--text-primary);
-  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  box-shadow: none;
   font-family: var(--font-body);
 }
 
@@ -115,7 +115,7 @@
   width: 2.5rem;
   align-items: center;
   justify-content: center;
-  color: #64748b;
+  color: var(--text-muted);
   background: transparent;
   border: none;
   cursor: pointer;
@@ -159,13 +159,13 @@
   padding: 0.5rem 1rem;
   background: transparent;
   color: var(--text-primary);
-  border: 1px solid rgba(0, 0, 0, 0.1);
+  border: 1px solid var(--glass-border);
   cursor: pointer;
   transition: background-color 0.2s;
 }
 
 .auth-button-outline:hover {
-  background-color: rgba(0, 0, 0, 0.05);
+  background-color: var(--glass-bg-hover);
 }
 
 
@@ -197,7 +197,7 @@
   top: 50%;
   left: 0;
   right: 0;
-  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  border-top: 1px solid var(--glass-border);
   z-index: 0;
 }
 
@@ -208,7 +208,7 @@
   z-index: 10;
   background-color: var(--bg-primary);
   padding: 0 0.5rem;
-  color: #64748b;
+  color: var(--text-muted);
 }
 
 .auth-image-section {

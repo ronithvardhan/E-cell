@@ -1,18 +1,38 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import Navbar from './components/UI/Navbar';
-import Home from './pages/Home';
-import Initiatives from './pages/Initiatives';
-import Team from './pages/Team';
-import Sponsors from './pages/Sponsors';
-import Events from './pages/Events';
-import EventDetail from './pages/EventDetail';
-import Announcements from './pages/Announcements';
-import Auth from './pages/Auth';
-import Profile from './pages/Profile';
 import ErrorBoundary from './components/ErrorBoundary';
+import { ThemeProvider } from './contexts/ThemeContext';
 import './index.css';
 
+// Lazy-loaded routes — each page becomes its own chunk
+// Three.js (513KB) only loads when Home is visited
+const Home = React.lazy(() => import('./pages/Home'));
+const Initiatives = React.lazy(() => import('./pages/Initiatives'));
+const Team = React.lazy(() => import('./pages/Team'));
+const Sponsors = React.lazy(() => import('./pages/Sponsors'));
+const Events = React.lazy(() => import('./pages/Events'));
+const EventDetail = React.lazy(() => import('./pages/EventDetail'));
+const Announcements = React.lazy(() => import('./pages/Announcements'));
+const Auth = React.lazy(() => import('./pages/Auth'));
+const Profile = React.lazy(() => import('./pages/Profile'));
+
+// Minimal loading indicator for route transitions
+const RouteLoader = () => (
+  <div style={{
+    minHeight: '100vh',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    background: 'var(--bg-primary)',
+    color: 'var(--text-muted)',
+    fontSize: '0.85rem',
+    fontFamily: 'var(--font-body)',
+    letterSpacing: '0.05em'
+  }}>
+    Loading…
+  </div>
+);
 // Paths where the Navbar should be hidden
 const HIDE_NAVBAR_PATHS = ['/auth'];
 
@@ -27,17 +47,19 @@ function Layout() {
 
       {/* Main Content Area */}
       <main id="main-content" style={{ position: 'relative', width: '100%', minHeight: '100vh' }}>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/initiatives" element={<Initiatives />} />
-          <Route path="/team" element={<Team />} />
-          <Route path="/sponsors" element={<Sponsors />} />
-          <Route path="/events" element={<Events />} />
-          <Route path="/events/:id" element={<EventDetail />} />
-          <Route path="/announcements" element={<Announcements />} />
-          <Route path="/auth" element={<Auth />} />
-          <Route path="/profile" element={<Profile />} />
-        </Routes>
+        <Suspense fallback={<RouteLoader />}>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/initiatives" element={<Initiatives />} />
+            <Route path="/team" element={<Team />} />
+            <Route path="/sponsors" element={<Sponsors />} />
+            <Route path="/events" element={<Events />} />
+            <Route path="/events/:id" element={<EventDetail />} />
+            <Route path="/announcements" element={<Announcements />} />
+            <Route path="/auth" element={<Auth />} />
+            <Route path="/profile" element={<Profile />} />
+          </Routes>
+        </Suspense>
       </main>
     </div>
   );
@@ -46,9 +68,11 @@ function Layout() {
 function App() {
   return (
     <ErrorBoundary>
-      <Router>
-        <Layout />
-      </Router>
+      <ThemeProvider>
+        <Router>
+          <Layout />
+        </Router>
+      </ThemeProvider>
     </ErrorBoundary>
   );
 }

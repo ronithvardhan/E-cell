@@ -1,192 +1,170 @@
-import React, { Suspense, lazy, useEffect, useRef } from 'react';
-import { motion } from 'framer-motion';
-
-// Lazy load Spline to improve initial page load performance
-const Spline = lazy(() => import('@splinetool/react-spline'));
+import React, { useEffect, useRef } from 'react';
+import * as THREE from 'three';
 
 export default function Hero() {
-  const letters = ['E', '-', 'C', 'E', 'L', 'L'];
   const containerRef = useRef(null);
 
-  // Aggressively hide the Spline watermark via MutationObserver
   useEffect(() => {
-    const hideWatermark = () => {
-      if (!containerRef.current) return;
-      // The watermark is an <a> tag with the Spline logo, rendered by the spline-viewer web component
-      const allLinks = containerRef.current.querySelectorAll('a[href*="spline"]');
-      allLinks.forEach(el => el.style.display = 'none');
+    if (!containerRef.current) return;
+    
+    const container = containerRef.current;
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(60, container.clientWidth / container.clientHeight, 0.1, 1000);
+    const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: false });
+    
+    renderer.setSize(container.clientWidth, container.clientHeight);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
+    
+    // Clear any existing canvas
+    while (container.firstChild) {
+      container.removeChild(container.firstChild);
+    }
+    container.appendChild(renderer.domElement);
 
-      // Also try inside Shadow DOM of spline-viewer
-      const splineViewer = containerRef.current.querySelector('spline-viewer');
-      if (splineViewer?.shadowRoot) {
-        const logo = splineViewer.shadowRoot.getElementById('logo');
-        if (logo) logo.style.display = 'none';
-        // Also hide any <a> links inside shadow root
-        splineViewer.shadowRoot.querySelectorAll('a').forEach(el => el.style.display = 'none');
-        // Inject a <style> into the shadow root to keep it hidden permanently
-        if (!splineViewer.shadowRoot.querySelector('#hide-watermark-style')) {
-          const style = document.createElement('style');
-          style.id = 'hide-watermark-style';
-          style.textContent = '#logo, a[href*="spline"] { display: none !important; }';
-          splineViewer.shadowRoot.appendChild(style);
-        }
-      }
-    };
+    const geometry = new THREE.BufferGeometry();
+    const count = 1500;
+    const positions = new Float32Array(count * 3);
+    const colors = new Float32Array(count * 3);
 
-    // Run immediately
-    hideWatermark();
-
-    // Watch for DOM changes (Spline renders asynchronously)
-    const observer = new MutationObserver(hideWatermark);
-    if (containerRef.current) {
-      observer.observe(containerRef.current, { childList: true, subtree: true });
+    for(let i = 0; i < count * 3; i++) {
+      positions[i] = (Math.random() - 0.5) * 25;
+      colors[i] = Math.random();
     }
 
-    // Also poll a few times as a safety net
-    const timers = [500, 1000, 2000, 4000].map(ms => setTimeout(hideWatermark, ms));
+    geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+    
+    const material = new THREE.PointsMaterial({
+      size: 0.025,
+      color: 0xE4472E, // E-Cell Vermilion
+      transparent: true,
+      opacity: 0.25,
+      blending: THREE.AdditiveBlending
+    });
+
+    const points = new THREE.Points(geometry, material);
+    scene.add(points);
+    camera.position.z = 10;
+
+    let mouseX = 0, mouseY = 0;
+    let mouseMoveThrottled = false;
+    const handleMouseMove = (e) => {
+      if (mouseMoveThrottled) return;
+      mouseMoveThrottled = true;
+      mouseX = (e.clientX / window.innerWidth - 0.5) * 2;
+      mouseY = (e.clientY / window.innerHeight - 0.5) * 2;
+      requestAnimationFrame(() => { mouseMoveThrottled = false; });
+    };
+    document.addEventListener('mousemove', handleMouseMove, { passive: true });
+
+    let animationFrameId;
+    function animate() {
+      animationFrameId = requestAnimationFrame(animate);
+      points.rotation.y += 0.0005;
+      points.rotation.x += 0.0002;
+      
+      points.position.x += (mouseX * 0.5 - points.position.x) * 0.05;
+      points.position.y += (-mouseY * 0.5 - points.position.y) * 0.05;
+      
+      renderer.render(scene, camera);
+    }
+
+    const handleResize = () => {
+      if (!container) return;
+      camera.aspect = container.clientWidth / container.clientHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(container.clientWidth, container.clientHeight);
+    };
+    window.addEventListener('resize', handleResize);
+
+    animate();
 
     return () => {
-      observer.disconnect();
-      timers.forEach(clearTimeout);
+      window.removeEventListener('resize', handleResize);
+      document.removeEventListener('mousemove', handleMouseMove);
+      cancelAnimationFrame(animationFrameId);
+      
+      geometry.dispose();
+      material.dispose();
+      renderer.dispose();
+      
+      if (container && renderer.domElement && container.contains(renderer.domElement)) {
+        container.removeChild(renderer.domElement);
+      }
     };
   }, []);
 
-  const handleSplineLoad = (splineApp) => {
-    // Attempt to hide the text behind the robot ("neobot")
-    const allObjects = splineApp.getAllObjects();
-    
-    allObjects.forEach(obj => {
-      const name = obj.name.toLowerCase();
-      // Hide the text background layer which is composed of "logo" and "Shape X" objects
-      if (name === 'logo' || name.startsWith('shape ')) {
-        obj.visible = false;
-      }
-    });
-  };
-
   return (
-    <div ref={containerRef} style={{ position: 'relative', width: '100%', height: '100vh', overflow: 'hidden' }}>
+    <div className="relative w-full h-screen flex flex-col justify-center p-6 md:p-12 overflow-hidden pointer-events-none">
       
-      {/* 3D Spline Background */}
-      <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', zIndex: 0 }}>
-        <Suspense fallback={<div style={{ width: '100%', height: '100%', backgroundColor: 'var(--bg-primary)' }} />}>
-          <Spline 
-            scene="https://prod.spline.design/hgZfrvSoh4-Lwllz/scene.splinecode" 
-            onLoad={handleSplineLoad}
-          />
-        </Suspense>
-      </div>
-
-      {/* Watermark cover — sits above the Spline layer as a visual failsafe */}
-      <div style={{
-        position: 'absolute',
-        bottom: 0,
-        right: 0,
-        width: '250px',
-        height: '60px',
-        background: '#F7F1E3', /* exact --ecell-warm-ivory hex value */
-        zIndex: 9,
-        pointerEvents: 'none'
-      }} />
-
-      {/* Foreground Overlay */}
+      {/* Interactive Background Layer */}
       <div 
-        style={{
-          position: 'absolute',
-          top: 0,
-          left: 0,
-          width: '100%',
-          height: '100%',
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          justifyContent: 'center',
-          textAlign: 'center',
-          zIndex: 10,
-          pointerEvents: 'none', // Let clicks pass through to Spline
-          marginTop: '40px'
-        }}
-      >
-        <h1 
-          className="select-none" 
-          style={{ 
-            lineHeight: 1, 
-            margin: 0,
-            textTransform: 'uppercase',
-            display: 'inline-block' 
-          }}
-        >
-          <span 
-            style={{ 
-              display: 'block', 
-              overflow: 'hidden',
-              fontSize: 'clamp(4.2rem, 14vw, 11rem)', // Increased size further
-              fontWeight: 800
-            }}
-          >
-            {letters.map((letter, i) => (
-              <span 
-                key={i}
-                style={{ 
-                  display: 'inline-block', 
-                  animation: `letterSlideIn 0.8s ease-out forwards`,
-                  animationDelay: `${i * 0.1}s`,
-                  transform: 'translateY(-100%)', 
-                  opacity: 0, 
-                  clipPath: 'inset(0 0 100% 0)',
-                  // Apply gradient individually to bypass transform clipping bugs
-                  background: 'linear-gradient(90deg, var(--ecell-vermilion) 0%, var(--ecell-saffron) 100%)',
-                  backgroundSize: `${letters.length * 100}% 100%`,
-                  backgroundPosition: `${(i / (letters.length - 1)) * 100}% 0`,
-                  WebkitBackgroundClip: 'text',
-                  WebkitTextFillColor: 'transparent',
-                  backgroundClip: 'text',
-                  color: 'transparent' // Fallback
-                }}
-              >
-                {letter}
-              </span>
-            ))}
-            
-            <style>
-              {`
-                @keyframes letterSlideIn {
-                  0% {
-                    transform: translateY(-100%);
-                    opacity: 0;
-                    clip-path: inset(0 0 100% 0);
-                  }
-                  50% {
-                    opacity: 0.5;
-                    clip-path: inset(0 0 50% 0);
-                  }
-                  100% {
-                    transform: translateY(0);
-                    opacity: 1;
-                    clip-path: inset(0 0 0% 0);
-                  }
-                }
-              `}
-            </style>
-          </span>
-        </h1>
+        ref={containerRef}
+        style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', zIndex: 0, pointerEvents: 'auto' }}
+      />
 
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.6 }} // Delay to appear after letters
-          style={{
-            fontSize: 'clamp(0.96rem, 1.8vw, 1.32rem)', // Increased by 20%
-            color: '#FFFFFF', // Changed to pure white
-            marginTop: '0.2rem',
-            letterSpacing: '0.6em', // Slightly increased spacing to compensate for smaller size
-            textTransform: 'uppercase',
-            fontWeight: 600
-          }}
-        >
-          UCEOU
-        </motion.p>
-      </div>
+      <div className="relative z-10 w-full max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-12 items-end pb-12 md:pb-24 manrope pointer-events-none">
+          
+          <div className="md:col-span-9 fade-in-up pointer-events-none" style={{ transform: 'translateY(60px)' }}>
+            
+            <div className="mb-8 inline-flex items-center gap-4">
+              <div className="relative flex h-3 w-3">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full opacity-75" style={{ backgroundColor: '#E4472E' }}></span>
+                <span className="relative inline-flex rounded-full h-3 w-3" style={{ backgroundColor: '#E4472E' }}></span>
+              </div>
+              <span className="text-[10px] tracking-[0.4em] uppercase font-bold" style={{ color: 'rgba(229,169,0,0.7)' }}>Ideas Igniting · BPHC</span>
+            </div>
+
+            <h1 className="serif mb-10 pointer-events-auto"
+              style={{ color: 'var(--text-primary)', fontSize: 'clamp(3.5rem, 12vw, 10rem)', lineHeight: 0.85, letterSpacing: '-0.04em' }}>
+              Innovation<br/>
+              <span style={{ color: 'transparent', WebkitTextStroke: '1px var(--text-muted)' }}>
+                from chaos.
+              </span>
+            </h1>
+
+            <div className="flex flex-col md:flex-row gap-10 items-start md:items-center pointer-events-auto">
+              <button 
+                className="btn-glow" 
+                style={{ 
+                  background: 'linear-gradient(135deg, var(--brand-primary) 0%, #C53821 100%)', 
+                  color: 'white', 
+                  padding: '20px 48px', 
+                  fontWeight: 800, 
+                  borderRadius: '9999px', 
+                  fontSize: '0.9rem', 
+                  letterSpacing: '0.06em',
+                  cursor: 'pointer',
+                  boxShadow: '0 0 30px rgba(228,71,46,0.3)',
+                  border: '1px solid rgba(228,71,46,0.4)'
+                }}>
+                EXPLORE INITIATIVES
+              </button>
+
+              <div className="flex items-center gap-6">
+                <div className="h-12 w-[1px] bg-white/10 hidden md:block"></div>
+                <div className="flex flex-col">
+                  <span className="text-[10px] font-bold tracking-[0.2em] uppercase mb-1" style={{ color: 'rgba(49,87,164,0.7)' }}>Est. BPHC 2018</span>
+                  <span className="text-sm font-medium" style={{ color: '#E5A900' }}>Entrepreneurship Cell</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="md:col-span-3 fade-in-up pointer-events-auto" style={{ animationDelay: '0.4s', transform: 'translateY(60px)' }}>
+            <div className="p-8 rounded-3xl"
+              style={{ background: 'var(--glass-bg)', border: '1px solid var(--glass-border)', backdropFilter: 'blur(12px)' }}>
+              <p className="text-lg leading-relaxed font-light" style={{ color: 'var(--text-secondary)' }}>
+                We inspire students to explore ideas, experiment fearlessly, build solutions, and create impact.
+              </p>
+              <div className="mt-6 flex gap-2">
+                <div className="h-1 w-8 rounded-full" style={{ backgroundColor: 'rgba(228,71,46,0.5)' }}></div>
+                <div className="h-1 w-2 rounded-full" style={{ backgroundColor: 'rgba(22,140,131,0.4)' }}></div>
+                <div className="h-1 w-2 rounded-full" style={{ backgroundColor: 'rgba(229,169,0,0.4)' }}></div>
+              </div>
+            </div>
+          </div>
+        </div>
     </div>
   );
 }
+

@@ -193,11 +193,13 @@ const CrowdCanvas = ({ src, rows = 15, cols = 7 }) => {
       availablePeeps.push(peep);
     };
 
+    const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
+
     const render = () => {
       if (!canvas) return;
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       ctx.save();
-      ctx.scale(devicePixelRatio, devicePixelRatio);
+      ctx.scale(dpr, dpr);
 
       crowd.forEach((peep) => {
         peep.render(ctx);
@@ -210,8 +212,8 @@ const CrowdCanvas = ({ src, rows = 15, cols = 7 }) => {
       if (!canvas) return;
       stage.width = canvas.clientWidth;
       stage.height = canvas.clientHeight;
-      canvas.width = stage.width * devicePixelRatio;
-      canvas.height = stage.height * devicePixelRatio;
+      canvas.width = stage.width * dpr;
+      canvas.height = stage.height * dpr;
 
       crowd.forEach((peep) => {
         peep.walk.kill();
@@ -251,7 +253,7 @@ const CrowdCanvas = ({ src, rows = 15, cols = 7 }) => {
       style={{
         position: 'absolute',
         bottom: 0,
-        height: '90vh',
+        height: '70vh',
         width: '100%',
         left: 0,
         pointerEvents: 'none',

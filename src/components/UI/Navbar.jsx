@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Bell, Menu, X, Home, Lightbulb, Users, HeartHandshake, CalendarDays, UserCircle } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
+import ThemeToggle from './ThemeToggle';
 
 const navLinks = [
   {
@@ -118,12 +119,12 @@ export default function Navbar() {
         justifyContent: 'space-between',
         alignItems: 'center',
         zIndex: 50,
-        background: 'rgba(255, 255, 255, 0.75)',
-        backdropFilter: 'blur(16px)',
-        WebkitBackdropFilter: 'blur(16px)',
-        border: '1px solid rgba(255, 255, 255, 0.6)',
+        background: 'var(--nav-bg)',
+        backdropFilter: 'blur(20px)',
+        WebkitBackdropFilter: 'blur(20px)',
+        border: '1px solid var(--nav-border)',
         borderRadius: '20px',
-        boxShadow: '0 10px 40px -10px rgba(0, 0, 0, 0.1)'
+        boxShadow: '0 10px 40px -10px rgba(0, 0, 0, 0.4)'
       }}>
         {/* Brand */}
         <Link to="/" style={{ textDecoration: 'none', flexShrink: 0 }}>
@@ -131,13 +132,13 @@ export default function Navbar() {
             fontFamily: 'var(--font-heading)',
             fontWeight: 700,
             fontSize: 'clamp(1rem, 3vw, 1.4rem)',
-            color: 'var(--brand-primary)',
+            color: '#E4472E',
             letterSpacing: '0.02em',
             display: 'flex',
             alignItems: 'center',
             gap: '0.25rem'
           }}>
-            E-CELL <span style={{ color: 'var(--text-primary)' }}>UCEOU</span>
+            E-CELL <span style={{ color: 'var(--text-secondary)' }}>UCEOU</span>
           </div>
         </Link>
 
@@ -201,7 +202,7 @@ export default function Navbar() {
                           padding: '0.5rem 1rem',
                           position: 'relative',
                           zIndex: 10,
-                          color: isActive ? link.iconColor : 'var(--text-primary)',
+                          color: isActive ? link.iconColor : 'rgba(253,253,253,0.75)',
                           fontWeight: isActive ? 700 : 500,
                           fontSize: '0.95rem',
                           transformStyle: 'preserve-3d',
@@ -259,18 +260,20 @@ export default function Navbar() {
         {/* Icons / Actions */}
         <div style={{ display: 'flex', gap: 'clamp(0.4rem, 1.5vw, 1rem)', alignItems: 'center' }}>
           
+          <ThemeToggle />
+
           {/* Profile Link */}
           <Link
             to="/profile"
             style={{
               display: 'flex', alignItems: 'center', gap: '0.45rem',
               textDecoration: 'none',
-              color: location.pathname === '/profile' ? 'var(--brand-primary)' : 'var(--text-primary)',
+              color: location.pathname === '/profile' ? '#E4472E' : 'rgba(253,253,253,0.75)',
               fontWeight: 600, fontSize: '0.9rem',
               padding: '0.4rem 0.65rem',
               borderRadius: '9999px',
-              background: location.pathname === '/profile' ? 'rgba(228,71,46,0.08)' : 'transparent',
-              border: location.pathname === '/profile' ? '1px solid rgba(228,71,46,0.2)' : '1px solid transparent',
+              background: location.pathname === '/profile' ? 'rgba(228,71,46,0.1)' : 'transparent',
+              border: location.pathname === '/profile' ? '1px solid rgba(228,71,46,0.25)' : '1px solid transparent',
               transition: 'all 0.2s ease'
             }}
           >
@@ -309,7 +312,7 @@ export default function Navbar() {
             aria-controls="announcements-panel"
             style={{
               background: 'transparent',
-              border: '1px solid rgba(24, 24, 24, 0.1)',
+              border: '1px solid rgba(255, 255, 255, 0.1)',
               borderRadius: '50%',
               width: '36px',
               height: '36px',
@@ -321,7 +324,7 @@ export default function Navbar() {
               transition: 'all 0.2s ease',
               flexShrink: 0
             }}
-            onMouseOver={(e) => { e.currentTarget.style.background = 'rgba(0,0,0,0.05)'; }}
+            onMouseOver={(e) => { e.currentTarget.style.background = 'var(--glass-bg-hover)'; }}
             onMouseOut={(e) => { e.currentTarget.style.background = 'transparent'; }}
           >
             <Bell size={16} />
@@ -368,7 +371,7 @@ export default function Navbar() {
               }}
             />
             {/* Drawer */}
-            <motion.div
+              <motion.div
               id="mobile-menu"
               initial={{ x: '100%' }}
               animate={{ x: 0 }}
@@ -379,15 +382,16 @@ export default function Navbar() {
                 top: 0, right: 0, bottom: 0,
                 width: 'min(300px, 80vw)',
                 zIndex: 55,
-                background: 'rgba(255,255,255,0.97)',
+                background: 'rgba(15,15,17,0.97)',
                 backdropFilter: 'blur(20px)',
                 WebkitBackdropFilter: 'blur(20px)',
-                boxShadow: '-10px 0 40px rgba(0,0,0,0.1)',
+                boxShadow: '-10px 0 40px rgba(0,0,0,0.4)',
                 padding: '5rem 1.5rem 2rem',
                 display: 'flex',
                 flexDirection: 'column',
                 gap: '0.5rem',
                 overflowY: 'auto',
+                borderLeft: '1px solid rgba(255,255,255,0.05)'
               }}
             >
               {/* Close button */}
@@ -437,7 +441,7 @@ export default function Navbar() {
               })}
 
               {/* Divider */}
-              <div style={{ height: '1px', background: 'rgba(0,0,0,0.08)', margin: '0.5rem 0' }} />
+              <div style={{ height: '1px', background: 'rgba(255,255,255,0.08)', margin: '0.5rem 0' }} />
 
               <Link
                 to="/profile"
@@ -494,26 +498,26 @@ export default function Navbar() {
               top: '70px',
               right: 'clamp(0.75rem, 3vw, 3rem)',
               width: 'min(320px, calc(100vw - 1.5rem))',
-              background: 'rgba(247, 241, 227, 0.95)',
-              backdropFilter: 'blur(16px)',
-              border: '1px solid rgba(36, 36, 36, 0.1)',
+              background: 'rgba(20, 20, 22, 0.95)',
+              backdropFilter: 'blur(20px)',
+              border: '1px solid rgba(255, 255, 255, 0.08)',
               borderRadius: '12px',
               padding: '1.25rem',
               zIndex: 50,
-              boxShadow: '0 10px 40px rgba(36, 36, 36, 0.15)',
+              boxShadow: '0 10px 40px rgba(0, 0, 0, 0.4)',
               cursor: 'pointer',
             }}
             whileHover={{ scale: 1.02 }}
           >
-            <h3 style={{ marginBottom: '1rem', borderBottom: '1px solid rgba(36,36,36,0.1)', paddingBottom: '0.5rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '1rem' }}>
+            <h3 style={{ marginBottom: '1rem', borderBottom: '1px solid rgba(255,255,255,0.1)', paddingBottom: '0.5rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '1rem', color: '#fff' }}>
               Recent Updates
               <span style={{ fontSize: '0.75rem', fontWeight: '500', color: 'var(--brand-primary)' }}>View All &rarr;</span>
             </h3>
             <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '0.85rem' }}>
               {announcements.map(ann => (
                 <li key={ann.id}>
-                  <div style={{ fontWeight: 600, fontSize: '0.9rem' }}>{ann.title}</div>
-                  <div style={{ fontSize: '0.78rem', color: 'rgba(36,36,36,0.6)', marginTop: '0.15rem' }}>{ann.time}</div>
+                  <div style={{ fontWeight: 600, fontSize: '0.9rem', color: '#fff' }}>{ann.title}</div>
+                  <div style={{ fontSize: '0.78rem', color: 'rgba(255,255,255,0.6)', marginTop: '0.15rem' }}>{ann.time}</div>
                 </li>
               ))}
             </ul>

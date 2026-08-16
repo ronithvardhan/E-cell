@@ -239,6 +239,8 @@ export default function Profile() {
                     <img
                       src={ev.image}
                       alt={ev.title}
+                      loading="lazy"
+                      decoding="async"
                       style={{ width: 'clamp(40px, 10vw, 56px)', height: 'clamp(40px, 10vw, 56px)', borderRadius: '8px', objectFit: 'cover', flexShrink: 0 }}
                     />
                     <div style={{ flex: 1, minWidth: 0 }}>

@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=Orbitron:wght@400..900&display=swap');
+/* Fonts loaded via <link> in index.html for non-blocking rendering */
 
 /* Hide Spline watermark */
 a[href*="spline.design"] {
@@ -21,16 +21,7 @@ a[href*="spline.design"] {
   --ecell-leaf: #5E8F52;
   --ecell-plum: #70466F;
   --ecell-indigo: #3F467F;
-  --ecell-terracotta: #C85F43;
   --ecell-olive: #7D8B45;
-
-  /* --- SEMANTIC TOKENS --- */
-  --bg-primary: var(--ecell-warm-ivory);
-  --bg-dark: var(--ecell-graphite);
-  --text-primary: var(--ecell-graphite);
-  --text-inverse: #FFFFFF;
-  --brand-primary: var(--ecell-vermilion);
-  --brand-secondary: var(--ecell-cobalt);
 
   /* --- TYPOGRAPHY --- */
   --font-heading: 'Space Grotesk', sans-serif;
@@ -38,8 +29,74 @@ a[href*="spline.design"] {
   --font-accent: 'DM Sans', sans-serif;
 }
 
+/* --- THEME SYSTEM --- */
+/* Default / Dark Theme */
+:root, :root.dark-theme {
+  --bg-primary: #0f0f11;
+  --bg-dark: #000000;
+  --text-primary: #FDFDFD;
+  --text-secondary: rgba(253, 253, 253, 0.7);
+  --text-muted: rgba(253, 253, 253, 0.5);
+  --text-inverse: #121212;
+  --brand-primary: var(--ecell-vermilion);
+  --brand-secondary: var(--ecell-cobalt);
+  
+  --glass-bg: rgba(255, 255, 255, 0.03);
+  --glass-bg-hover: rgba(255, 255, 255, 0.06);
+  --glass-border: rgba(255, 255, 255, 0.08);
+  
+  --nav-bg: rgba(15, 15, 17, 0.75);
+  --nav-border: rgba(255, 255, 255, 0.1);
+  --grid-pattern-color: #27272a;
+}
+
+/* Light Theme */
+:root.light-theme {
+  --bg-primary: var(--ecell-warm-ivory);
+  --bg-dark: var(--ecell-warm-ivory);
+  --text-primary: var(--ecell-graphite);
+  --text-secondary: rgba(36, 36, 36, 0.8);
+  --text-muted: rgba(36, 36, 36, 0.6);
+  --text-inverse: #FDFDFD;
+  --brand-primary: var(--ecell-vermilion);
+  --brand-secondary: var(--ecell-cobalt);
+  
+  --glass-bg: rgba(0, 0, 0, 0.03);
+  --glass-bg-hover: rgba(0, 0, 0, 0.06);
+  --glass-border: rgba(0, 0, 0, 0.1);
+  
+  --nav-bg: rgba(247, 241, 227, 0.85);
+  --nav-border: rgba(0, 0, 0, 0.15);
+  --grid-pattern-color: rgba(36, 36, 36, 0.1);
+}
+
 * {
   box-sizing: border-box;
+}
+
+/* Custom Selection */
+::selection {
+  background-color: var(--brand-primary);
+  color: white;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-primary);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--glass-border);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--brand-primary);
 }
 
 body {
@@ -156,46 +213,7 @@ h3 {
   width: 100%;
 }
 
-.waypoint-section {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding: 0 10%;
-  /* We don't use background here so the 3D scene shines through */
-}
 
-.waypoint.glass-panel {
-  background: rgba(247, 241, 227, 0.4);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.5);
-  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.1);
-  border-radius: 12px;
-}
-
-.waypoint-card {
-  padding: clamp(1.25rem, 4vw, 2.5rem);
-  max-width: 500px;
-  background: rgba(255, 255, 255, 0.25);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.4);
-  border-left: 4px solid var(--accent-1);
-  box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.15);
-  border-radius: 16px;
-  position: relative;
-  overflow: hidden;
-}
-
-/* Glass highlight reflection */
-.waypoint-card::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 0; right: 0; bottom: 0;
-  background: linear-gradient(135deg, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0) 100%);
-  pointer-events: none;
-}
 
 /* Accessibility improvements */
 *:focus-visible {
@@ -262,7 +280,7 @@ button:focus {
 
 .static-section {
   min-height: 100vh;
-  background-color: var(--bg-primary); /* Solid background for static footer content to hide 3D eventually or just overlay */
+  background-color: transparent;
   padding: 4rem 10%;
 }
 
@@ -274,11 +292,13 @@ button:focus {
 }
 
 .team-card {
-  background: white;
+  background: var(--glass-bg);
   padding: 1.5rem;
   border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-  border-top: 4px solid var(--brand-secondary);
+  box-shadow: 0 4px 24px rgba(0,0,0,0.1);
+  border: 1px solid var(--glass-border);
+  border-top: 3px solid var(--brand-primary);
+  color: var(--text-primary);
 }
 
 .grid-sponsors {
@@ -289,8 +309,8 @@ button:focus {
 }
 
 .sponsor-card {
-  background: var(--bg-dark);
-  color: var(--text-inverse);
+  background: var(--glass-bg);
+  color: var(--text-primary);
   padding: 2rem;
   border-radius: 8px;
   text-align: center;
@@ -300,6 +320,7 @@ button:focus {
   display: flex;
   align-items: center;
   justify-content: center;
+  border: 1px solid var(--glass-border);
 }
 
 /* Team Page SVG Animation */
@@ -323,7 +344,7 @@ button:focus {
   font-size: clamp(2rem, 6vw, 6rem);
   font-weight: 800;
   text-transform: uppercase;
-  color: var(--brand-primary);
+  color: #E4472E;
   letter-spacing: 0.05em;
   margin: 0;
   white-space: nowrap;
