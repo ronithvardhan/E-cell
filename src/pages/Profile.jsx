@@ -26,8 +26,8 @@ function StatCard({ icon, value, label, color }) {
     <motion.div
       whileHover={{ y: -4, boxShadow: '0 12px 32px rgba(0,0,0,0.1)' }}
       style={{
-        background: 'white', borderRadius: '14px', padding: 'clamp(1rem, 2vw, 1.5rem)',
-        border: '1px solid rgba(0,0,0,0.07)',
+        background: 'var(--nav-bg)', borderRadius: '14px', padding: 'clamp(1rem, 2vw, 1.5rem)',
+        border: '1px solid var(--glass-border)',
         boxShadow: '0 4px 16px rgba(0,0,0,0.05)',
         display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.35rem',
         cursor: 'default', transition: 'box-shadow 0.25s ease',
@@ -42,7 +42,7 @@ function StatCard({ icon, value, label, color }) {
       <div style={{ fontFamily: 'var(--font-heading)', fontSize: 'clamp(1.3rem, 3vw, 1.8rem)', fontWeight: 800, color: 'var(--text-primary)', lineHeight: 1 }}>
         {value}
       </div>
-      <div style={{ fontSize: '0.72rem', color: '#888', fontWeight: 500, textAlign: 'center' }}>{label}</div>
+      <div style={{ fontSize: '0.72rem', color: 'var(--text-muted)', fontWeight: 500, textAlign: 'center' }}>{label}</div>
     </motion.div>
   );
 }
@@ -59,7 +59,7 @@ export default function Profile() {
         <motion.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }}>
           <Link to="/" style={{
             display: 'inline-flex', alignItems: 'center', gap: '0.4rem',
-            color: '#888', fontWeight: 600, fontSize: '0.85rem', textDecoration: 'none',
+            color: 'var(--text-secondary)', fontWeight: 600, fontSize: '0.85rem', textDecoration: 'none',
             marginBottom: '1.5rem'
           }}>
             <ArrowLeft size={15} /> Back to Home
@@ -72,8 +72,8 @@ export default function Profile() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
           style={{
-            background: 'white', borderRadius: '20px', overflow: 'hidden',
-            border: '1px solid rgba(0,0,0,0.07)',
+            background: 'var(--nav-bg)', borderRadius: '20px', overflow: 'hidden',
+            border: '1px solid var(--glass-border)',
             boxShadow: '0 8px 40px rgba(0,0,0,0.07)',
             marginBottom: '1.5rem'
           }}
@@ -98,7 +98,7 @@ export default function Profile() {
                 style={{
                   width: 'clamp(60px, 12vw, 80px)', height: 'clamp(60px, 12vw, 80px)', borderRadius: '50%',
                   background: 'linear-gradient(135deg, var(--ecell-vermilion), var(--ecell-cobalt))',
-                  border: '3px solid white', boxShadow: '0 4px 16px rgba(0,0,0,0.15)',
+                  border: '3px solid var(--nav-bg)', boxShadow: '0 4px 16px rgba(0,0,0,0.15)',
                   display: 'flex', alignItems: 'center', justifyContent: 'center',
                   color: 'white', fontWeight: 800, fontSize: 'clamp(1.1rem, 3vw, 1.6rem)',
                   fontFamily: 'var(--font-heading)', cursor: 'default', flexShrink: 0
@@ -111,7 +111,7 @@ export default function Profile() {
                 <motion.button
                   whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}
                   style={{
-                    background: 'rgba(0,0,0,0.05)', border: '1px solid rgba(0,0,0,0.1)',
+                    background: 'var(--glass-bg)', border: '1px solid var(--glass-border)',
                     borderRadius: '9999px', padding: '0.4rem 0.75rem',
                     display: 'flex', alignItems: 'center', gap: '0.35rem',
                     cursor: 'pointer', fontWeight: 600, fontSize: '0.78rem',
@@ -149,15 +149,15 @@ export default function Profile() {
                 }}>
                   {MOCK_USER.role}
                 </span>
-                <span style={{ color: '#888', fontSize: 'clamp(0.72rem, 2vw, 0.88rem)', display: 'flex', alignItems: 'center', gap: '0.25rem' }}>
+                <span style={{ color: 'var(--text-secondary)', fontSize: 'clamp(0.72rem, 2vw, 0.88rem)', display: 'flex', alignItems: 'center', gap: '0.25rem' }}>
                   <GraduationCap size={13} /> {MOCK_USER.department} · {MOCK_USER.year}
                 </span>
               </div>
               <div style={{ display: 'flex', gap: '1rem', marginTop: '0.6rem', flexWrap: 'wrap' }}>
-                <span style={{ color: '#666', fontSize: '0.8rem', display: 'flex', alignItems: 'center', gap: '0.25rem' }}>
+                <span style={{ color: 'var(--text-muted)', fontSize: '0.8rem', display: 'flex', alignItems: 'center', gap: '0.25rem' }}>
                   <Mail size={13} /> {MOCK_USER.email}
                 </span>
-                <span style={{ color: '#666', fontSize: '0.8rem', display: 'flex', alignItems: 'center', gap: '0.25rem' }}>
+                <span style={{ color: 'var(--text-muted)', fontSize: '0.8rem', display: 'flex', alignItems: 'center', gap: '0.25rem' }}>
                   <CalendarCheck size={13} /> Since {MOCK_USER.joinedDate}
                 </span>
               </div>
@@ -184,13 +184,13 @@ export default function Profile() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.25 }}
           style={{
-            background: 'white', borderRadius: '18px', overflow: 'hidden',
-            border: '1px solid rgba(0,0,0,0.07)',
+            background: 'var(--nav-bg)', borderRadius: '18px', overflow: 'hidden',
+            border: '1px solid var(--glass-border)',
             boxShadow: '0 4px 20px rgba(0,0,0,0.05)'
           }}
         >
           {/* Tab Headers */}
-          <div style={{ display: 'flex', borderBottom: '1px solid rgba(0,0,0,0.07)', padding: '0 clamp(0.75rem, 2vw, 1.5rem)', overflowX: 'auto', WebkitOverflowScrolling: 'touch' }}>
+          <div style={{ display: 'flex', borderBottom: '1px solid var(--glass-border)', padding: '0 clamp(0.75rem, 2vw, 1.5rem)', overflowX: 'auto', WebkitOverflowScrolling: 'touch' }}>
             {[
               { key: 'events', label: 'My Events', icon: <CalendarCheck size={15} /> },
               { key: 'saved', label: 'Saved', icon: <Bookmark size={15} /> },
@@ -203,7 +203,7 @@ export default function Profile() {
                   padding: '0.85rem clamp(0.6rem, 2vw, 1.25rem)', fontWeight: 600, fontSize: '0.82rem',
                   border: 'none', background: 'transparent', cursor: 'pointer',
                   display: 'flex', alignItems: 'center', gap: '0.35rem',
-                  color: activeTab === tab.key ? 'var(--brand-primary)' : '#888',
+                  color: activeTab === tab.key ? 'var(--brand-primary)' : 'var(--text-secondary)',
                   borderBottom: activeTab === tab.key ? '2px solid var(--brand-primary)' : '2px solid transparent',
                   transition: 'all 0.2s ease', fontFamily: 'var(--font-body)',
                   marginBottom: '-1px', whiteSpace: 'nowrap', flexShrink: 0
@@ -219,7 +219,7 @@ export default function Profile() {
 
             {activeTab === 'events' && (
               <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
-                <p style={{ color: '#888', fontSize: '0.82rem', margin: '0 0 0.35rem' }}>Events you're registered for:</p>
+                <p style={{ color: 'var(--text-secondary)', fontSize: '0.82rem', margin: '0 0 0.35rem' }}>Events you're registered for:</p>
                 {REGISTERED_EVENTS.map((ev, i) => (
                   <motion.div
                     key={ev.id}
@@ -230,9 +230,9 @@ export default function Profile() {
                     style={{
                       display: 'flex', alignItems: 'center', gap: '0.75rem',
                       padding: '0.75rem 1rem', borderRadius: '12px',
-                      border: '1px solid rgba(0,0,0,0.07)',
+                      border: '1px solid var(--glass-border)',
                       cursor: 'pointer', transition: 'all 0.2s ease',
-                      background: 'rgba(247,241,227,0.4)'
+                      background: 'var(--glass-bg)'
                     }}
                     whileHover={{ x: 4, background: 'rgba(228,71,46,0.04)', borderColor: 'rgba(228,71,46,0.2)' }}
                   >
@@ -245,12 +245,12 @@ export default function Profile() {
                     />
                     <div style={{ flex: 1, minWidth: 0 }}>
                       <div style={{ fontWeight: 700, fontSize: '0.88rem', color: 'var(--text-primary)', marginBottom: '0.15rem', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{ev.title}</div>
-                      <div style={{ fontSize: '0.75rem', color: '#888', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{ev.date.toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' })}</div>
+                      <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{ev.date.toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' })}</div>
                     </div>
                     <span className="event-status-badge" style={{
                       padding: '0.15rem 0.55rem', borderRadius: '9999px', fontSize: '0.68rem', fontWeight: 700,
-                      background: ev.date > new Date() ? 'rgba(22,140,131,0.1)' : 'rgba(0,0,0,0.07)',
-                      color: ev.date > new Date() ? 'var(--ecell-teal)' : '#888',
+                      background: ev.date > new Date() ? 'rgba(22,140,131,0.1)' : 'var(--glass-bg)',
+                      color: ev.date > new Date() ? 'var(--ecell-teal)' : 'var(--text-muted)',
                       flexShrink: 0, whiteSpace: 'nowrap'
                     }}>
                       {ev.date > new Date() ? 'Upcoming' : 'Attended'}
@@ -272,7 +272,7 @@ export default function Profile() {
             )}
 
             {activeTab === 'saved' && (
-              <div style={{ textAlign: 'center', padding: '2.5rem 1rem', color: '#aaa' }}>
+              <div style={{ textAlign: 'center', padding: '2.5rem 1rem', color: 'var(--text-muted)' }}>
                 <Bookmark size={36} style={{ marginBottom: '0.75rem', opacity: 0.4 }} />
                 <p style={{ fontWeight: 600, marginBottom: '0.4rem', fontSize: '0.9rem' }}>No saved events yet</p>
                 <p style={{ fontSize: '0.8rem' }}>Bookmark events from the events page to see them here.</p>
@@ -291,11 +291,11 @@ export default function Profile() {
                   <div key={i} style={{
                     display: 'flex', alignItems: 'center', gap: '0.85rem',
                     padding: '0.75rem 1rem', borderRadius: '10px',
-                    background: 'rgba(247,241,227,0.5)', border: '1px solid rgba(0,0,0,0.06)'
+                    background: 'var(--glass-bg)', border: '1px solid var(--glass-border)'
                   }}>
                     <span style={{ color: 'var(--brand-primary)', flexShrink: 0 }}>{item.icon}</span>
                     <div style={{ minWidth: 0 }}>
-                      <div style={{ fontSize: '0.68rem', color: '#888', fontWeight: 600, letterSpacing: '0.04em', textTransform: 'uppercase' }}>{item.label}</div>
+                      <div style={{ fontSize: '0.68rem', color: 'var(--text-muted)', fontWeight: 600, letterSpacing: '0.04em', textTransform: 'uppercase' }}>{item.label}</div>
                       <div style={{ fontSize: '0.88rem', color: 'var(--text-primary)', fontWeight: 600, marginTop: '0.1rem', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{item.value}</div>
                     </div>
                   </div>

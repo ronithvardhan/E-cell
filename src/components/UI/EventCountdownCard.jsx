@@ -160,7 +160,10 @@ export function EventCountdownCard({
       variants={containerVariants}
       className={`ecc-card ${className}`}
       onClick={onClick}
-      style={{ cursor: onClick ? 'pointer' : 'default' }}
+      style={{ 
+        cursor: onClick ? 'pointer' : 'default',
+        willChange: 'transform, filter'
+      }}
     >
       {/* Image Container */}
       <motion.div

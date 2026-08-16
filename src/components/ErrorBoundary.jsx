@@ -38,9 +38,9 @@ export class ErrorBoundary extends React.Component {
             maxWidth: '500px',
             textAlign: 'center',
             padding: '3rem',
-            background: 'rgba(255, 255, 255, 0.1)',
+            background: 'var(--glass-bg)',
             backdropFilter: 'blur(20px)',
-            border: '1px solid rgba(255, 255, 255, 0.2)',
+            border: '1px solid var(--glass-border)',
             borderRadius: '16px',
             boxShadow: '0 20px 50px rgba(0, 0, 0, 0.15)'
           }}>

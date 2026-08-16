@@ -7,7 +7,8 @@
     "dev": "vite",
     "build": "vite build",
     "lint": "oxlint",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "optimize-images": "node scripts/optimizeImages.js"
   },
   "dependencies": {
     "@react-three/drei": "^10.7.8",
@@ -30,6 +31,7 @@
     "autoprefixer": "^10.5.4",
     "oxlint": "^1.75.0",
     "postcss": "^8.5.26",
+    "sharp": "^0.35.3",
     "tailwindcss": "^4.3.3",
     "vite": "^8.2.0"
   }

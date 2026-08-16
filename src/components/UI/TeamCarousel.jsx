@@ -57,8 +57,8 @@ export default function TeamCarousel() {
       clip-path: inset(0 round 40px); /* Strict clipping to fix WebKit 3D backdrop-filter bug */
       -webkit-clip-path: inset(0 round 40px);
       overflow: hidden;
-      border: 1px solid rgba(255, 255, 255, 0.15);
-      background: rgba(15, 32, 60, 0.75);
+      border: 1px solid var(--glass-border);
+      background: var(--nav-bg);
       backdrop-filter: blur(16px);
       -webkit-backdrop-filter: blur(16px);
       
@@ -186,7 +186,7 @@ export default function TeamCarousel() {
                     decoding="async"
                     style={{ width: '100%', height: '100%', objectFit: 'cover' }}
                   />
-                  <div style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, background: 'linear-gradient(to right, rgba(15, 32, 60, 0) 60%, rgba(15, 32, 60, 1) 100%)' }} />
+                  <div style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, background: 'linear-gradient(to right, transparent 60%, var(--nav-bg) 100%)' }} />
                 </div>
                 
                 {/* Right side: Content */}
@@ -196,7 +196,7 @@ export default function TeamCarousel() {
                   <h2 style={{ 
                     fontFamily: 'var(--font-heading)', 
                     fontSize: 'clamp(2rem, 4vw, 3.5rem)', 
-                    color: '#ffffff', 
+                    color: 'var(--text-primary)', 
                     margin: '0 0 1rem 0',
                     lineHeight: '1.1',
                     textTransform: 'uppercase'
@@ -207,7 +207,7 @@ export default function TeamCarousel() {
                   {/* Quote */}
                   <p style={{ 
                     fontSize: '1.25rem', 
-                    color: 'rgba(255, 255, 255, 0.85)', 
+                    color: 'var(--text-secondary)', 
                     fontStyle: 'italic', 
                     lineHeight: '1.6',
                     position: 'relative',
@@ -220,13 +220,13 @@ export default function TeamCarousel() {
                   
                   {/* Social Handles */}
                   <div style={{ display: 'flex', gap: '1rem', marginTop: 'auto', position: 'relative', zIndex: 20 }}>
-                    <a href={member.socials.linkedin} style={{ color: '#ffffff', transition: 'color 0.2s ease' }} onMouseOver={(e) => e.currentTarget.style.color = 'var(--brand-primary)'} onMouseOut={(e) => e.currentTarget.style.color = '#ffffff'}>
+                    <a href={member.socials.linkedin} style={{ color: 'var(--text-primary)', transition: 'color 0.2s ease' }} onMouseOver={(e) => e.currentTarget.style.color = 'var(--brand-primary)'} onMouseOut={(e) => e.currentTarget.style.color = 'var(--text-primary)'}>
                       <LinkedinIcon size={24} />
                     </a>
-                    <a href={member.socials.twitter} style={{ color: '#ffffff', transition: 'color 0.2s ease' }} onMouseOver={(e) => e.currentTarget.style.color = 'var(--brand-primary)'} onMouseOut={(e) => e.currentTarget.style.color = '#ffffff'}>
+                    <a href={member.socials.twitter} style={{ color: 'var(--text-primary)', transition: 'color 0.2s ease' }} onMouseOver={(e) => e.currentTarget.style.color = 'var(--brand-primary)'} onMouseOut={(e) => e.currentTarget.style.color = 'var(--text-primary)'}>
                       <TwitterIcon size={24} />
                     </a>
-                    <a href={member.socials.instagram} style={{ color: '#ffffff', transition: 'color 0.2s ease' }} onMouseOver={(e) => e.currentTarget.style.color = 'var(--brand-primary)'} onMouseOut={(e) => e.currentTarget.style.color = '#ffffff'}>
+                    <a href={member.socials.instagram} style={{ color: 'var(--text-primary)', transition: 'color 0.2s ease' }} onMouseOver={(e) => e.currentTarget.style.color = 'var(--brand-primary)'} onMouseOut={(e) => e.currentTarget.style.color = 'var(--text-primary)'}>
                       <InstagramIcon size={24} />
                     </a>
                   </div>

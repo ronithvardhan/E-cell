@@ -114,7 +114,7 @@ export function HoverExpand({
                         fontFamily: 'var(--font-heading)'
                       }}
                       animate={{
-                        color: isHovered ? "var(--brand-primary)" : "rgba(255, 255, 255, 0.8)",
+                        color: isHovered ? "var(--brand-primary)" : "var(--text-secondary)",
                         opacity: isHovered ? 1 : 0.6,
                       }}
                       transition={{ duration: 0.2 }}
@@ -134,7 +134,7 @@ export function HoverExpand({
                         textTransform: 'uppercase'
                       }}
                       animate={{
-                        color: isHovered ? "#ffffff" : "rgba(255, 255, 255, 0.9)",
+                        color: isHovered ? "#ffffff" : "var(--text-primary)",
                       }}
                       transition={{ duration: 0.2 }}
                     >
@@ -182,7 +182,7 @@ export function HoverExpand({
                       animate={{
                         color: isHovered
                           ? "rgba(255,255,255,0.7)"
-                          : "rgba(255,255,255,0.6)",
+                          : "var(--text-muted)",
                         opacity: isHovered ? 1 : 0.8,
                       }}
                       transition={{ duration: 0.2 }}

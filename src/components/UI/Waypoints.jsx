@@ -105,6 +105,8 @@ export default function Waypoints() {
 
               <div className={`ml-12 md:ml-0 ${isCenter ? 'w-full md:w-2/3 text-center' : 'w-full md:w-[45%]'}`}>
                 <div 
+                  tabIndex="0"
+                  aria-labelledby={`waypoint-title-${wp.id}`}
                   className="p-8 md:p-10 rounded-3xl relative overflow-hidden group hover:-translate-y-2 transition-transform duration-500 cursor-default"
                   style={{ 
                     background: 'var(--glass-bg)', 
@@ -125,7 +127,7 @@ export default function Waypoints() {
                     Waypoint 0{index + 1}
                   </span>
                   
-                  <h3 className="serif text-3xl md:text-4xl mb-4" style={{ color: 'var(--text-primary)' }}>
+                  <h3 id={`waypoint-title-${wp.id}`} className="serif text-3xl md:text-4xl mb-4" style={{ color: 'var(--text-primary)' }}>
                     {wp.title}
                   </h3>
                   

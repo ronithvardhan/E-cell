@@ -9,7 +9,7 @@ export default function Home() {
         backgroundColor: 'var(--bg-primary)', 
         color: 'var(--text-primary)', 
         backgroundImage: 'radial-gradient(var(--grid-pattern-color) 1px, transparent 1px)', 
-        backgroundSize: '24px 24px',
+        backgroundSize: '48px 48px',
         minHeight: '100vh',
         transition: 'background-color 0.3s ease, color 0.3s ease'
       }}>

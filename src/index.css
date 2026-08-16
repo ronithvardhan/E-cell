@@ -27,6 +27,26 @@ a[href*="spline.design"] {
   --font-heading: 'Space Grotesk', sans-serif;
   --font-body: 'Inter', sans-serif;
   --font-accent: 'DM Sans', sans-serif;
+
+  /* --- DESIGN TOKENS --- */
+  --bg-primary: #fdfdfd;
+  --bg-secondary: #fafafa;
+  --text-primary: #1a1a1a;
+  --text-secondary: #555555;
+  --brand-primary: var(--ecell-vermilion);
+  --brand-secondary: var(--ecell-cobalt);
+  --transition-fast: 0.2s ease;
+  --transition-medium: 0.4s ease;
+  --radius-sm: 4px;
+  --radius-md: 8px;
+
+  /* Respect reduced‑motion preference */
+  @media (prefers-reduced-motion: reduce) {
+    * {
+      animation-duration: 0s !important;
+      transition-duration: 0s !important;
+    }
+  }
 }
 
 /* --- THEME SYSTEM --- */
@@ -223,17 +243,22 @@ h3 {
 
 /* Skip link for keyboard navigation */
 .skip-link {
-  position: absolute;
-  top: -40px;
+  position: fixed;
+  top: 0;
   left: 0;
+  transform: translateY(-100%);
   background: var(--brand-primary);
   color: white;
   padding: 8px 16px;
   z-index: 100;
-  transition: top 0.3s;
+  transition: transform 0.3s ease;
+  border-bottom-right-radius: 8px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.85rem;
 }
 .skip-link:focus {
-  top: 0;
+  transform: translateY(0);
 }
 
 /* Reduced motion support */

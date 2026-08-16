@@ -109,8 +109,8 @@ export default function Navbar() {
 
   return (
     <>
-      <nav className="main-navbar" style={{
-        position: 'fixed',
+      <nav className="main-navbar" role="navigation" aria-label="Main navigation" style={{
+        position: 'sticky',
         top: '0.75rem',
         left: 'clamp(0.75rem, 3vw, 3rem)',
         right: 'clamp(0.75rem, 3vw, 3rem)',
@@ -202,7 +202,7 @@ export default function Navbar() {
                           padding: '0.5rem 1rem',
                           position: 'relative',
                           zIndex: 10,
-                          color: isActive ? link.iconColor : 'rgba(253,253,253,0.75)',
+                          color: isActive ? link.iconColor : 'var(--text-secondary)',
                           fontWeight: isActive ? 700 : 500,
                           fontSize: '0.95rem',
                           transformStyle: 'preserve-3d',
@@ -268,7 +268,7 @@ export default function Navbar() {
             style={{
               display: 'flex', alignItems: 'center', gap: '0.45rem',
               textDecoration: 'none',
-              color: location.pathname === '/profile' ? '#E4472E' : 'rgba(253,253,253,0.75)',
+              color: location.pathname === '/profile' ? 'var(--brand-primary)' : 'var(--text-secondary)',
               fontWeight: 600, fontSize: '0.9rem',
               padding: '0.4rem 0.65rem',
               borderRadius: '9999px',
@@ -312,7 +312,7 @@ export default function Navbar() {
             aria-controls="announcements-panel"
             style={{
               background: 'transparent',
-              border: '1px solid rgba(255, 255, 255, 0.1)',
+              border: '1px solid var(--glass-border)',
               borderRadius: '50%',
               width: '36px',
               height: '36px',
@@ -382,7 +382,7 @@ export default function Navbar() {
                 top: 0, right: 0, bottom: 0,
                 width: 'min(300px, 80vw)',
                 zIndex: 55,
-                background: 'rgba(15,15,17,0.97)',
+                background: 'var(--nav-bg)',
                 backdropFilter: 'blur(20px)',
                 WebkitBackdropFilter: 'blur(20px)',
                 boxShadow: '-10px 0 40px rgba(0,0,0,0.4)',
@@ -391,7 +391,7 @@ export default function Navbar() {
                 flexDirection: 'column',
                 gap: '0.5rem',
                 overflowY: 'auto',
-                borderLeft: '1px solid rgba(255,255,255,0.05)'
+                borderLeft: '1px solid var(--nav-border)'
               }}
             >
               {/* Close button */}
@@ -441,7 +441,7 @@ export default function Navbar() {
               })}
 
               {/* Divider */}
-              <div style={{ height: '1px', background: 'rgba(255,255,255,0.08)', margin: '0.5rem 0' }} />
+              <div style={{ height: '1px', background: 'var(--glass-border)', margin: '0.5rem 0' }} />
 
               <Link
                 to="/profile"
@@ -465,7 +465,7 @@ export default function Navbar() {
                   display: 'flex', alignItems: 'center', justifyContent: 'center',
                   padding: '0.85rem', borderRadius: '14px',
                   textDecoration: 'none',
-                  background: 'var(--brand-primary)', color: 'white',
+                  background: 'var(--brand-primary)', color: 'var(--text-inverse)',
                   fontWeight: 700, fontSize: '0.95rem',
                   marginTop: '0.5rem',
                   boxShadow: '0 4px 14px rgba(228,71,46,0.3)'
@@ -498,9 +498,9 @@ export default function Navbar() {
               top: '70px',
               right: 'clamp(0.75rem, 3vw, 3rem)',
               width: 'min(320px, calc(100vw - 1.5rem))',
-              background: 'rgba(20, 20, 22, 0.95)',
+              background: 'var(--nav-bg)',
               backdropFilter: 'blur(20px)',
-              border: '1px solid rgba(255, 255, 255, 0.08)',
+              border: '1px solid var(--nav-border)',
               borderRadius: '12px',
               padding: '1.25rem',
               zIndex: 50,
@@ -509,15 +509,15 @@ export default function Navbar() {
             }}
             whileHover={{ scale: 1.02 }}
           >
-            <h3 style={{ marginBottom: '1rem', borderBottom: '1px solid rgba(255,255,255,0.1)', paddingBottom: '0.5rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '1rem', color: '#fff' }}>
+            <h3 style={{ marginBottom: '1rem', borderBottom: '1px solid var(--glass-border)', paddingBottom: '0.5rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '1rem', color: 'var(--text-primary)' }}>
               Recent Updates
               <span style={{ fontSize: '0.75rem', fontWeight: '500', color: 'var(--brand-primary)' }}>View All &rarr;</span>
             </h3>
             <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '0.85rem' }}>
               {announcements.map(ann => (
                 <li key={ann.id}>
-                  <div style={{ fontWeight: 600, fontSize: '0.9rem', color: '#fff' }}>{ann.title}</div>
-                  <div style={{ fontSize: '0.78rem', color: 'rgba(255,255,255,0.6)', marginTop: '0.15rem' }}>{ann.time}</div>
+                  <div style={{ fontWeight: 600, fontSize: '0.9rem', color: 'var(--text-primary)' }}>{ann.title}</div>
+                  <div style={{ fontSize: '0.78rem', color: 'var(--text-muted)', marginTop: '0.15rem' }}>{ann.time}</div>
                 </li>
               ))}
             </ul>

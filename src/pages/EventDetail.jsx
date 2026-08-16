@@ -163,8 +163,8 @@ export default function EventDetail() {
                 onClick={() => setSaved(s => !s)}
                 whileHover={{ scale: 1.08 }} whileTap={{ scale: 0.95 }}
                 style={{
-                  background: saved ? `rgba(228,71,46,0.12)` : 'rgba(255,255,255,0.05)',
-                  border: saved ? `1px solid rgba(228,71,46,0.3)` : '1px solid rgba(255,255,255,0.1)',
+                  background: saved ? `rgba(228,71,46,0.12)` : 'var(--glass-bg)',
+                  border: saved ? `1px solid rgba(228,71,46,0.3)` : '1px solid var(--glass-border)',
                   borderRadius: '9999px', padding: '0.4rem 0.75rem',
                   display: 'flex', alignItems: 'center', gap: '0.35rem',
                   cursor: 'pointer', fontWeight: 600, fontSize: '0.8rem',

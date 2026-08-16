@@ -35,9 +35,13 @@ const sponsorsData = [
   }
 ];
 
+import { RadialBackground } from '../components/UI/RadialBackground';
+
 export default function Sponsors() {
   return (
-    <div style={{ padding: 'clamp(6rem, 15vw, 10rem) clamp(1rem, 5vw, 5vw) 4rem', minHeight: '100vh', maxWidth: '1200px', margin: '0 auto' }}>
+    <div style={{ position: 'relative', minHeight: '100vh', color: 'var(--text-primary)' }}>
+      <RadialBackground />
+      <div style={{ padding: 'clamp(6rem, 15vw, 10rem) clamp(1rem, 5vw, 5vw) 4rem', maxWidth: '1200px', margin: '0 auto' }}>
       
       {/* Title */}
       <div style={{ marginBottom: 'clamp(2rem, 5vw, 4rem)', textAlign: 'center' }}>
@@ -64,16 +68,17 @@ export default function Sponsors() {
         transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
         className="sponsor-hover-container"
         style={{
-          background: 'linear-gradient(145deg, #373b44 0%, #22252a 100%)',
+          background: 'var(--glass-bg)',
           borderRadius: 'clamp(14px, 3vw, 24px)',
           padding: 'clamp(1rem, 3vw, 2rem)',
-          border: '1px solid rgba(255, 255, 255, 0.1)',
+          border: '1px solid var(--glass-border)',
           boxShadow: '0 20px 50px rgba(0,0,0,0.2)'
         }}
       >
         <HoverExpand items={sponsorsData} />
       </motion.div>
       
+      </div>
     </div>
   );
 }

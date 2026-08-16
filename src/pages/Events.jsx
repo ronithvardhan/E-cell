@@ -4,17 +4,19 @@ import { useNavigate } from 'react-router-dom';
 import { EventCountdownCard } from '../components/UI/EventCountdownCard';
 import { EVENTS } from '../data/events';
 
+import { RadialBackground } from '../components/UI/RadialBackground';
+
 export default function Events() {
   const navigate = useNavigate();
 
   return (
-    <div style={{
-      padding: 'clamp(5.5rem, 12vw, 8rem) clamp(1rem, 5vw, 5vw) 4rem',
-      minHeight: '100vh',
-      maxWidth: '1200px',
-      margin: '0 auto',
-      color: 'var(--text-primary)'
-    }}>
+    <div style={{ position: 'relative', minHeight: '100vh', color: 'var(--text-primary)' }}>
+      <RadialBackground />
+      <div style={{
+        padding: 'clamp(5.5rem, 12vw, 8rem) clamp(1rem, 5vw, 5vw) 4rem',
+        maxWidth: '1200px',
+        margin: '0 auto',
+      }}>
       <motion.h1 
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -42,6 +44,7 @@ export default function Events() {
             onClick={() => navigate(`/events/${event.id}`)}
           />
         ))}
+      </div>
       </div>
     </div>
   );
