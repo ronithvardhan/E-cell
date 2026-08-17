@@ -64,10 +64,10 @@ export default function TextReveal3DGSAP({ text }) {
           display: 'flex', 
           flexDirection: 'column', // Each item on a new row
           alignItems: 'center',
-          rowGap: '0.4em', 
-          fontFamily: '"Orbitron", "Arial Black", Impact, system-ui, sans-serif', // Extremely thick font stack
-          fontSize: 'clamp(4rem, 9vw, 9rem)', // Even larger
-          fontWeight: 900, // Maximum thickness
+          rowGap: 'clamp(0.15em, 2vw, 0.4em)', 
+          fontFamily: '"Orbitron", "Arial Black", Impact, system-ui, sans-serif',
+          fontSize: 'clamp(2.2rem, 9vw, 9rem)',
+          fontWeight: 900,
           lineHeight: 1,
           color: '#ffffff',
           textAlign: 'center',

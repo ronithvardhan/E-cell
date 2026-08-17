@@ -6,14 +6,14 @@ import TextReveal3DGSAP from '../components/TextReveal3DGSAP';
 
 export default function Home() {
   return (
-    <div style={{
+    <div className="home-page" style={{
       minHeight: '100vh',
-      backgroundColor: '#000000', // Pure black to perfectly blend with the hand background image
+      backgroundColor: '#000000',
       color: 'var(--color-chalk, #f3f3f3)',
       fontFamily: 'var(--font-aeonik, "Inter", sans-serif)',
       position: 'relative',
       overflowX: 'hidden',
-      paddingTop: '80px' // Offset for navbar
+      paddingTop: '80px'
     }}>
       {/* 
         ========================================================================
@@ -58,16 +58,16 @@ export default function Home() {
         {/* Constrained Content Container */}
         <div style={{
           position: 'relative',
-          zIndex: 10, // Ensure content sits above the background
+          zIndex: 10,
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
           justifyContent: 'flex-start',
-          padding: '12vh 1.5rem 3.5rem 1.5rem', // Push text up but keep some top spacing
+          padding: 'clamp(6vh, 12vh, 12vh) 1rem clamp(2rem, 3.5rem, 3.5rem) 1rem',
           maxWidth: '1200px',
           margin: '0 auto',
           width: '100%',
-          minHeight: 'calc(100vh - 80px)' // Ensure it fills height to allow flex-start to work
+          minHeight: 'calc(100vh - 80px)'
         }}>
           {/* Top Content Stack: Headline + Scroll Indicator */}
           <motion.div
@@ -138,8 +138,8 @@ export default function Home() {
         3D TEXT REVEAL SECTION (GSAP)
         ========================================================================
       */}
-      <section style={{
-        padding: '240px 1.5rem', // Generous padding to give the scroll effect time to breathe
+      <section className="home-3d-text-section" style={{
+        padding: 'clamp(80px, 20vw, 240px) 1.5rem',
         maxWidth: '1000px',
         margin: '0 auto',
         textAlign: 'center',
@@ -155,9 +155,9 @@ export default function Home() {
         MANIFESTO SECTION
         ========================================================================
       */}
-      <section id="manifesto" style={{
+      <section id="manifesto" className="home-manifesto-section" style={{
         width: '100%',
-        padding: '80px 1.5rem', // Padding outside the block to ensure it doesn't touch edges on mobile
+        padding: 'clamp(40px, 8vw, 80px) 1rem',
         display: 'flex',
         justifyContent: 'center'
       }}>
@@ -167,17 +167,16 @@ export default function Home() {
           viewport={{ once: true, margin: '-80px' }}
           transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
           style={{
-            maxWidth: '1000px', // Matches the wide aspect ratio of the green block
+            maxWidth: '1000px',
             width: '100%',
-            padding: '80px 40px', // Internal padding for the block
+            padding: 'clamp(40px, 8vw, 80px) clamp(20px, 4vw, 40px)',
             textAlign: 'center',
-            // Glassmorphism implementation
             background: 'linear-gradient(145deg, rgba(255, 255, 255, 0.03) 0%, rgba(255, 255, 255, 0.01) 100%)',
             backdropFilter: 'blur(24px)',
             WebkitBackdropFilter: 'blur(24px)',
             border: '1px solid rgba(255, 255, 255, 0.06)',
-            borderRadius: '40px', // Smooth, deep corners
-            boxShadow: '0 40px 80px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.1)', // Lift and top-highlight
+            borderRadius: 'clamp(20px, 4vw, 40px)',
+            boxShadow: '0 40px 80px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.1)',
           }}
         >
           <h2 style={{
@@ -239,10 +238,10 @@ export default function Home() {
         HOW WE HELP / STARTUP JOURNEY (6 Blocks)
         ========================================================================
       */}
-      <section style={{
+      <section className="home-acceleration-section" style={{
         maxWidth: '1200px',
         margin: '0 auto',
-        padding: '100px 1.5rem'
+        padding: 'clamp(48px, 8vw, 100px) 1rem'
       }}>
         <div style={{
           marginBottom: '3rem',
@@ -273,16 +272,16 @@ export default function Home() {
         </div>
 
         {/* 6-Block Grid Frame (Uses 1px gap hack for perfect borders regardless of wrap) */}
-        <div style={{
+        <div className="home-acceleration-grid" style={{
           display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
-          backgroundColor: 'var(--color-graphite, #212121)', // Acts as the border color
+          gridTemplateColumns: 'repeat(auto-fit, minmax(min(320px, 100%), 1fr))',
+          backgroundColor: 'var(--color-graphite, #212121)',
           gap: '1px',
           border: '1px solid var(--color-graphite, #212121)'
         }}>
           {/* Cell 1: Idea Validation */}
           <div style={{
-            padding: '48px',
+            padding: 'clamp(24px, 5vw, 48px)',
             backgroundColor: '#000000' // Matches page background
           }}>
             <Target size={32} strokeWidth={1.5} color="var(--color-compass-gold, #6f6759)" style={{ marginBottom: '1.5rem' }} />
@@ -309,7 +308,7 @@ export default function Home() {
 
           {/* Cell 2: Mentorship */}
           <div style={{
-            padding: '48px',
+            padding: 'clamp(24px, 5vw, 48px)',
             backgroundColor: '#000000'
           }}>
             <Compass size={32} strokeWidth={1.5} color="var(--color-compass-gold, #6f6759)" style={{ marginBottom: '1.5rem' }} />
@@ -336,7 +335,7 @@ export default function Home() {
 
           {/* Cell 3: Talent */}
           <div style={{
-            padding: '48px',
+            padding: 'clamp(24px, 5vw, 48px)',
             backgroundColor: '#000000'
           }}>
             <Users size={32} strokeWidth={1.5} color="var(--color-compass-gold, #6f6759)" style={{ marginBottom: '1.5rem' }} />
@@ -363,7 +362,7 @@ export default function Home() {
 
           {/* Cell 4: Infrastructure */}
           <div style={{
-            padding: '48px',
+            padding: 'clamp(24px, 5vw, 48px)',
             backgroundColor: '#000000'
           }}>
             <Cpu size={32} strokeWidth={1.5} color="var(--color-compass-gold, #6f6759)" style={{ marginBottom: '1.5rem' }} />
@@ -390,7 +389,7 @@ export default function Home() {
 
           {/* Cell 5: Workshops */}
           <div style={{
-            padding: '48px',
+            padding: 'clamp(24px, 5vw, 48px)',
             backgroundColor: '#000000'
           }}>
             <TrendingUp size={32} strokeWidth={1.5} color="var(--color-compass-gold, #6f6759)" style={{ marginBottom: '1.5rem' }} />
@@ -417,7 +416,7 @@ export default function Home() {
 
           {/* Cell 6: Funding */}
           <div style={{
-            padding: '48px',
+            padding: 'clamp(24px, 5vw, 48px)',
             backgroundColor: '#000000'
           }}>
             <Rocket size={32} strokeWidth={1.5} color="var(--color-compass-gold, #6f6759)" style={{ marginBottom: '1.5rem' }} />
@@ -456,9 +455,9 @@ export default function Home() {
         FOOTER (Creative & Bold)
         ========================================================================
       */}
-      <footer style={{
+      <footer className="home-footer" style={{
         width: '100%',
-        padding: '80px 1.5rem 20px 1.5rem',
+        padding: 'clamp(40px, 8vw, 80px) 1rem 20px 1rem',
         backgroundColor: '#000000',
         display: 'flex',
         flexDirection: 'column',
@@ -469,8 +468,8 @@ export default function Home() {
           maxWidth: '1200px',
           width: '100%',
           display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
-          gap: '40px',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(min(200px, 100%), 1fr))',
+          gap: 'clamp(24px, 4vw, 40px)',
           marginBottom: '60px',
           paddingBottom: '40px',
           borderBottom: '1px solid rgba(255, 255, 255, 0.1)'

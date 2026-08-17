@@ -206,6 +206,48 @@ body {
   }
 }
 
+/* ========== HOME PAGE MOBILE RESPONSIVENESS ========== */
+
+/* --- Tablet & Below (≤768px) --- */
+@media (max-width: 768px) {
+  /* Reduce top padding for navbar offset on mobile */
+  .home-page {
+    padding-top: 60px !important;
+  }
+
+  /* Footer bottom bar stacks vertically */
+  .home-footer > div:last-child {
+    flex-direction: column !important;
+    align-items: center !important;
+    gap: 12px !important;
+    text-align: center;
+  }
+}
+
+/* --- Mobile (≤480px) --- */
+@media (max-width: 480px) {
+  /* Hero headline smaller on phones */
+  .home-page h1 {
+    letter-spacing: -0.5px !important;
+  }
+
+  /* Manifesto heading */
+  .home-manifesto-section h2 {
+    font-size: 20px !important;
+  }
+
+  /* Manifesto body text */
+  .home-manifesto-section p {
+    font-size: 15px !important;
+  }
+
+  /* Acceleration section header row */
+  .home-acceleration-section > div:first-child {
+    flex-direction: column !important;
+    gap: 0.5rem;
+  }
+}
+
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-heading);
   letter-spacing: -0.01em;
