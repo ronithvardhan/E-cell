@@ -74,7 +74,7 @@ export class ErrorBoundary extends React.Component {
             >
               Try Again
             </button>
-            {process.env.NODE_ENV === 'development' && this.state.error && (
+            {import.meta.env.DEV && this.state.error && (
               <details style={{ marginTop: '2rem', textAlign: 'left', padding: '1rem', background: 'rgba(0,0,0,0.3)', borderRadius: '8px', fontSize: '0.8rem' }}>
                 <summary style={{ cursor: 'pointer', marginBottom: '0.5rem' }}>Error Details (Development)</summary>
                 <pre style={{ whiteSpace: 'pre-wrap', wordBreak: 'break-word', color: '#ff6b6b' }}>

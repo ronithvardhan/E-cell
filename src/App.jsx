@@ -17,22 +17,7 @@ const Announcements = React.lazy(() => import('./pages/Announcements'));
 const Auth = React.lazy(() => import('./pages/Auth'));
 const Profile = React.lazy(() => import('./pages/Profile'));
 
-// Minimal loading indicator for route transitions
-const RouteLoader = () => (
-  <div style={{
-    minHeight: '100vh',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    background: 'var(--bg-primary)',
-    color: 'var(--text-muted)',
-    fontSize: '0.85rem',
-    fontFamily: 'var(--font-body)',
-    letterSpacing: '0.05em'
-  }}>
-    Loading…
-  </div>
-);
+import { Loader as RouteLoader } from './components/UI/Loader';
 // Paths where the Navbar should be hidden
 const HIDE_NAVBAR_PATHS = ['/auth'];
 

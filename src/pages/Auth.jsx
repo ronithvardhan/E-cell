@@ -24,20 +24,28 @@ export default function Auth() {
           alignItems: 'center',
           gap: '0.5rem',
           textDecoration: 'none',
-          background: 'rgba(255,255,255,0.85)',
-          backdropFilter: 'blur(10px)',
-          WebkitBackdropFilter: 'blur(10px)',
+          background: 'rgba(255, 255, 255, 0.05)',
+          backdropFilter: 'blur(12px)',
+          WebkitBackdropFilter: 'blur(12px)',
           color: 'var(--text-primary)',
           fontWeight: 600,
           fontSize: '0.9rem',
           padding: '0.5rem 1.1rem',
           borderRadius: '9999px',
-          border: '1px solid rgba(255,255,255,0.6)',
-          boxShadow: '0 4px 14px rgba(0,0,0,0.08)',
+          border: '1px solid rgba(255, 255, 255, 0.1)',
+          boxShadow: '0 4px 14px rgba(0,0,0,0.2)',
           transition: 'all 0.2s ease'
         }}
-        onMouseOver={(e) => { e.currentTarget.style.transform = 'translateY(-2px)'; e.currentTarget.style.boxShadow = '0 8px 20px rgba(0,0,0,0.12)'; }}
-        onMouseOut={(e) => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = '0 4px 14px rgba(0,0,0,0.08)'; }}
+        onMouseOver={(e) => { 
+          e.currentTarget.style.transform = 'translateY(-2px)'; 
+          e.currentTarget.style.background = 'rgba(255, 255, 255, 0.1)'; 
+          e.currentTarget.style.border = '1px solid rgba(255, 255, 255, 0.2)';
+        }}
+        onMouseOut={(e) => { 
+          e.currentTarget.style.transform = 'translateY(0)'; 
+          e.currentTarget.style.background = 'rgba(255, 255, 255, 0.05)';
+          e.currentTarget.style.border = '1px solid rgba(255, 255, 255, 0.1)';
+        }}
       >
         <ArrowLeft size={16} /> Back to Home
       </Link>

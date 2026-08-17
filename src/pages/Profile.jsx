@@ -6,6 +6,7 @@ import {
   Settings, LogOut, ChevronRight, Award, Star, TrendingUp, ArrowLeft
 } from 'lucide-react';
 import { EVENTS } from '../data/events';
+import { SparklesCore } from '../components/UI/Sparkles';
 
 const MOCK_USER = {
   name: "Ronit Vardhan",
@@ -52,8 +53,20 @@ export default function Profile() {
   const [activeTab, setActiveTab] = useState('events');
 
   return (
-    <div style={{ minHeight: '100vh', background: 'var(--bg-primary)', paddingTop: 'clamp(5rem, 12vw, 7rem)', paddingBottom: '4rem' }}>
-      <div style={{ maxWidth: '1000px', margin: '0 auto', padding: '0 clamp(1rem, 5vw, 5vw)' }}>
+    <div style={{ position: 'relative', minHeight: '100vh', background: 'var(--bg-primary)', overflow: 'hidden' }}>
+      <div style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, zIndex: 0 }}>
+        <SparklesCore
+          id="tsparticles-profile"
+          background="transparent"
+          minSize={0.6}
+          maxSize={1.4}
+          particleDensity={80}
+          className="w-full h-full"
+          particleColor="#E4472E"
+          speed={0.8}
+        />
+      </div>
+      <div style={{ position: 'relative', zIndex: 1, paddingTop: 'clamp(5rem, 12vw, 7rem)', paddingBottom: '4rem', paddingLeft: 'clamp(1rem, 5vw, 5vw)', paddingRight: 'clamp(1rem, 5vw, 5vw)', maxWidth: '1000px', margin: '0 auto' }}>
 
         {/* Back link */}
         <motion.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }}>

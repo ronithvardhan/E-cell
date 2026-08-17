@@ -2,12 +2,25 @@ import React from 'react';
 import { motion } from 'framer-motion';
 
 import { RadialBackground } from '../components/UI/RadialBackground';
+import { SparklesCore } from '../components/UI/Sparkles';
 
 export default function Initiatives() {
   return (
-    <div style={{ position: 'relative', minHeight: '100vh', color: 'var(--text-primary)' }}>
+    <div style={{ position: 'relative', minHeight: '100vh', color: 'var(--text-primary)', overflow: 'hidden' }}>
       <RadialBackground />
-      <div style={{ padding: 'clamp(5.5rem, 12vw, 8rem) clamp(1rem, 5vw, 5vw) 4rem', maxWidth: '1200px', margin: '0 auto' }}>
+      <div style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, zIndex: 0 }}>
+        <SparklesCore
+          id="tsparticles-initiatives"
+          background="transparent"
+          minSize={0.6}
+          maxSize={1.4}
+          particleDensity={80}
+          className="w-full h-full"
+          particleColor="#E4472E"
+          speed={0.8}
+        />
+      </div>
+      <div style={{ position: 'relative', zIndex: 1, padding: 'clamp(5.5rem, 12vw, 8rem) clamp(1rem, 5vw, 5vw) 4rem', maxWidth: '1200px', margin: '0 auto' }}>
       <motion.h1 
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}

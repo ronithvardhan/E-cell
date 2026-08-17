@@ -2,6 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { Calendar, ChevronRight, BellRing } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { SparklesCore } from '../components/UI/Sparkles';
 
 const announcementsData = [
   {
@@ -45,13 +46,29 @@ const announcementsData = [
 export default function Announcements() {
   return (
     <div style={{
+      position: 'relative',
       minHeight: '100vh',
       background: 'var(--bg-primary)',
-      padding: 'clamp(5.5rem, 15vw, 120px) clamp(1rem, 5vw, 5%) clamp(3rem, 8vw, 80px)',
+      overflow: 'hidden',
       color: 'var(--text-primary)',
       fontFamily: 'var(--font-body)'
     }}>
+      <div style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, zIndex: 0 }}>
+        <SparklesCore
+          id="tsparticles-announcements"
+          background="transparent"
+          minSize={0.6}
+          maxSize={1.4}
+          particleDensity={80}
+          className="w-full h-full"
+          particleColor="#E4472E"
+          speed={0.8}
+        />
+      </div>
       <div style={{
+        position: 'relative',
+        zIndex: 1,
+        padding: 'clamp(5.5rem, 15vw, 120px) clamp(1rem, 5vw, 5%) clamp(3rem, 8vw, 80px)',
         maxWidth: '800px',
         margin: '0 auto'
       }}>

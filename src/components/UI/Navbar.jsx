@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { Bell, Menu, X, Home, Lightbulb, Users, HeartHandshake, CalendarDays, UserCircle } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import ThemeToggle from './ThemeToggle';
 
 const navLinks = [
   {
@@ -127,18 +126,55 @@ export default function Navbar() {
         boxShadow: '0 10px 40px -10px rgba(0, 0, 0, 0.4)'
       }}>
         {/* Brand */}
-        <Link to="/" style={{ textDecoration: 'none', flexShrink: 0 }}>
+        <Link to="/" style={{ textDecoration: 'none', flexShrink: 0, display: 'flex', alignItems: 'center', gap: '0.65rem' }}>
+          <motion.div
+            initial={{ opacity: 0, rotate: -10, scale: 0.85 }}
+            animate={{ opacity: 1, rotate: 0, scale: 1 }}
+            whileHover={{ 
+              scale: 1.08, 
+              rotate: 3,
+              filter: 'drop-shadow(0 0 14px rgba(228,71,46,0.65)) drop-shadow(0 0 28px rgba(228,71,46,0.25))' 
+            }}
+            transition={{ type: "spring", stiffness: 350, damping: 22 }}
+            style={{
+              width: 'clamp(2.4rem, 4.5vw, 3rem)',
+              height: 'clamp(2.4rem, 4.5vw, 3rem)',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              position: 'relative',
+              filter: 'drop-shadow(0 3px 10px rgba(0, 0, 0, 0.45))',
+              transition: 'filter 0.3s ease'
+            }}
+          >
+            {/* Transparent Logo Image */}
+            <img 
+              src="/logo.png" 
+              alt="E-Cell UCEOU Logo" 
+              style={{ 
+                width: '100%',
+                height: '100%',
+                objectFit: 'contain',
+                display: 'block'
+              }} 
+            />
+          </motion.div>
+
           <div style={{
             fontFamily: 'var(--font-heading)',
-            fontWeight: 700,
-            fontSize: 'clamp(1rem, 3vw, 1.4rem)',
-            color: '#E4472E',
+            fontWeight: 800,
+            fontSize: 'clamp(1.05rem, 2.5vw, 1.4rem)',
+            color: 'var(--brand-primary, #E4472E)',
             letterSpacing: '0.02em',
             display: 'flex',
             alignItems: 'center',
-            gap: '0.25rem'
+            gap: '0.35rem'
           }}>
-            E-CELL <span style={{ color: 'var(--text-secondary)' }}>UCEOU</span>
+            E-CELL <span style={{ 
+              color: 'var(--text-secondary)',
+              fontWeight: 600,
+              fontSize: '0.9em'
+            }}>UCEOU</span>
           </div>
         </Link>
 
@@ -259,8 +295,6 @@ export default function Navbar() {
 
         {/* Icons / Actions */}
         <div style={{ display: 'flex', gap: 'clamp(0.4rem, 1.5vw, 1rem)', alignItems: 'center' }}>
-          
-          <ThemeToggle />
 
           {/* Profile Link */}
           <Link
