@@ -1,26 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
+import { useAuth } from '../contexts/AuthContext';
 import { Link, useNavigate } from 'react-router-dom';
 import {
   User, Mail, GraduationCap, CalendarCheck, Bookmark,
   Settings, LogOut, ChevronRight, Award, Star, TrendingUp, ArrowLeft
 } from 'lucide-react';
-import { EVENTS } from '../data/events';
 import { SparklesCore } from '../components/UI/Sparkles';
-
-const MOCK_USER = {
-  name: "Ronit Vardhan",
-  email: "ronit@uceou.ac.in",
-  role: "Member",
-  department: "Computer Science & Engineering",
-  year: "3rd Year",
-  joinedDate: "August 2024",
-  eventsAttended: 7,
-  upcomingEvents: 3,
-  avatarInitials: "RV",
-};
-
-const REGISTERED_EVENTS = EVENTS.slice(0, 3);
+const REGISTERED_EVENTS = [];
 
 function StatCard({ icon, value, label, color }) {
   return (
@@ -50,7 +37,37 @@ function StatCard({ icon, value, label, color }) {
 
 export default function Profile() {
   const navigate = useNavigate();
+  const { user, loading } = useAuth();
   const [activeTab, setActiveTab] = useState('events');
+
+  useEffect(() => {
+    if (!loading && !user) {
+      navigate('/auth');
+    }
+  }, [user, loading, navigate]);
+
+  if (loading || !user) {
+    return null; // Or a loading spinner
+  }
+
+  const displayName = user?.user_metadata?.full_name || user?.email?.split('@')[0] || 'Member';
+  const displayEmail = user?.email || 'No email provided';
+  const avatarInitials = displayName.substring(0, 2).toUpperCase();
+  const avatarUrl = user?.user_metadata?.avatar_url;
+  const joinedDate = user?.created_at ? new Date(user.created_at).toLocaleDateString('en-US', { month: 'long', year: 'numeric' }) : 'Recently';
+
+  const profileData = {
+    name: displayName,
+    email: displayEmail,
+    role: "Member",
+    department: "Not Specified",
+    year: "Not Specified",
+    joinedDate: joinedDate,
+    eventsAttended: 0,
+    upcomingEvents: 0,
+    avatarInitials: avatarInitials,
+    avatarUrl: avatarUrl
+  };
 
   return (
     <div style={{ position: 'relative', minHeight: '100vh', background: 'var(--bg-primary)', overflow: 'hidden' }}>
@@ -114,10 +131,15 @@ export default function Profile() {
                   border: '3px solid var(--nav-bg)', boxShadow: '0 4px 16px rgba(0,0,0,0.15)',
                   display: 'flex', alignItems: 'center', justifyContent: 'center',
                   color: 'white', fontWeight: 800, fontSize: 'clamp(1.1rem, 3vw, 1.6rem)',
-                  fontFamily: 'var(--font-heading)', cursor: 'default', flexShrink: 0
+                  fontFamily: 'var(--font-heading)', cursor: 'default', flexShrink: 0,
+                  overflow: 'hidden'
                 }}
               >
-                {MOCK_USER.avatarInitials}
+                {profileData.avatarUrl ? (
+                  <img src={profileData.avatarUrl} alt="Avatar" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                ) : (
+                  profileData.avatarInitials
+                )}
               </motion.div>
 
               <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
@@ -152,7 +174,7 @@ export default function Profile() {
             {/* Name & Details */}
             <div>
               <h1 style={{ fontFamily: 'var(--font-heading)', fontSize: 'clamp(1.25rem, 4vw, 1.7rem)', fontWeight: 800, color: 'var(--text-primary)', margin: 0 }}>
-                {MOCK_USER.name}
+                {profileData.name}
               </h1>
               <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.4rem', marginTop: '0.4rem', alignItems: 'center' }}>
                 <span style={{
@@ -160,18 +182,18 @@ export default function Profile() {
                   background: 'linear-gradient(135deg, var(--ecell-vermilion), var(--ecell-cobalt))',
                   color: 'white', fontSize: '0.7rem', fontWeight: 700, letterSpacing: '0.04em'
                 }}>
-                  {MOCK_USER.role}
+                  {profileData.role}
                 </span>
                 <span style={{ color: 'var(--text-secondary)', fontSize: 'clamp(0.72rem, 2vw, 0.88rem)', display: 'flex', alignItems: 'center', gap: '0.25rem' }}>
-                  <GraduationCap size={13} /> {MOCK_USER.department} · {MOCK_USER.year}
+                  <GraduationCap size={13} /> {profileData.department} · {profileData.year}
                 </span>
               </div>
               <div style={{ display: 'flex', gap: '1rem', marginTop: '0.6rem', flexWrap: 'wrap' }}>
                 <span style={{ color: 'var(--text-muted)', fontSize: '0.8rem', display: 'flex', alignItems: 'center', gap: '0.25rem' }}>
-                  <Mail size={13} /> {MOCK_USER.email}
+                  <Mail size={13} /> {profileData.email}
                 </span>
                 <span style={{ color: 'var(--text-muted)', fontSize: '0.8rem', display: 'flex', alignItems: 'center', gap: '0.25rem' }}>
-                  <CalendarCheck size={13} /> Since {MOCK_USER.joinedDate}
+                  <CalendarCheck size={13} /> Since {profileData.joinedDate}
                 </span>
               </div>
             </div>
@@ -185,10 +207,10 @@ export default function Profile() {
           transition={{ delay: 0.15 }}
           style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(130px, 45%), 1fr))', gap: '0.75rem', marginBottom: '1.5rem' }}
         >
-          <StatCard icon={<Award size={20} />} value={MOCK_USER.eventsAttended} label="Events Attended" color="var(--brand-primary)" />
-          <StatCard icon={<CalendarCheck size={20} />} value={MOCK_USER.upcomingEvents} label="Upcoming Events" color="var(--ecell-teal)" />
-          <StatCard icon={<Star size={20} />} value="4" label="Events Saved" color="var(--ecell-saffron)" />
-          <StatCard icon={<TrendingUp size={20} />} value="Top 10%" label="Engagement" color="var(--ecell-cobalt)" />
+          <StatCard icon={<Award size={20} />} value={profileData.eventsAttended} label="Events Attended" color="var(--brand-primary)" />
+          <StatCard icon={<CalendarCheck size={20} />} value={profileData.upcomingEvents} label="Upcoming Events" color="var(--ecell-teal)" />
+          <StatCard icon={<Star size={20} />} value="0" label="Events Saved" color="var(--ecell-saffron)" />
+          <StatCard icon={<TrendingUp size={20} />} value="New" label="Engagement" color="var(--ecell-cobalt)" />
         </motion.div>
 
         {/* Tabs */}
@@ -232,7 +254,9 @@ export default function Profile() {
 
             {activeTab === 'events' && (
               <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
-                <p style={{ color: 'var(--text-secondary)', fontSize: '0.82rem', margin: '0 0 0.35rem' }}>Events you're registered for:</p>
+                <p style={{ color: 'var(--text-secondary)', fontSize: '0.82rem', margin: '0 0 0.35rem' }}>
+                  {REGISTERED_EVENTS.length > 0 ? "Events you're registered for:" : "You haven't registered for any events yet."}
+                </p>
                 {REGISTERED_EVENTS.map((ev, i) => (
                   <motion.div
                     key={ev.id}
@@ -258,7 +282,7 @@ export default function Profile() {
                     />
                     <div style={{ flex: 1, minWidth: 0 }}>
                       <div style={{ fontWeight: 700, fontSize: '0.88rem', color: 'var(--text-primary)', marginBottom: '0.15rem', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{ev.title}</div>
-                      <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{ev.date.toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' })}</div>
+                      <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{ev.date ? ev.date.toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' }) : 'TBA'}</div>
                     </div>
                     <span className="event-status-badge" style={{
                       padding: '0.15rem 0.55rem', borderRadius: '9999px', fontSize: '0.68rem', fontWeight: 700,
@@ -279,7 +303,7 @@ export default function Profile() {
                   textDecoration: 'none', marginTop: '0.15rem',
                   transition: 'all 0.2s ease'
                 }}>
-                  + Browse more events
+                  + Browse events
                 </Link>
               </div>
             )}
@@ -295,11 +319,11 @@ export default function Profile() {
             {activeTab === 'about' && (
               <div style={{ display: 'grid', gap: '0.75rem' }}>
                 {[
-                  { label: 'Full Name', value: MOCK_USER.name, icon: <User size={15} /> },
-                  { label: 'Email Address', value: MOCK_USER.email, icon: <Mail size={15} /> },
-                  { label: 'Department', value: MOCK_USER.department, icon: <GraduationCap size={15} /> },
-                  { label: 'Year', value: MOCK_USER.year, icon: <GraduationCap size={15} /> },
-                  { label: 'Member Since', value: MOCK_USER.joinedDate, icon: <CalendarCheck size={15} /> },
+                  { label: 'Full Name', value: profileData.name, icon: <User size={15} /> },
+                  { label: 'Email Address', value: profileData.email, icon: <Mail size={15} /> },
+                  { label: 'Department', value: profileData.department, icon: <GraduationCap size={15} /> },
+                  { label: 'Year', value: profileData.year, icon: <GraduationCap size={15} /> },
+                  { label: 'Member Since', value: profileData.joinedDate, icon: <CalendarCheck size={15} /> },
                 ].map((item, i) => (
                   <div key={i} style={{
                     display: 'flex', alignItems: 'center', gap: '0.85rem',

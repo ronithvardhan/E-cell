@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { Bell, Menu, X, Home, Lightbulb, Users, HeartHandshake, CalendarDays, UserCircle, UserPlus } from 'lucide-react';
+import { Bell, Menu, X, Home, Lightbulb, Users, CalendarDays, UserCircle, UserPlus } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { useAuth } from '../../contexts/AuthContext';
 
 const navLinks = [
   {
@@ -24,13 +25,6 @@ const navLinks = [
     icon: <Users size={18} />,
     gradient: "radial-gradient(circle, rgba(22,140,131,0.15) 0%, rgba(22,140,131,0.06) 50%, rgba(22,140,131,0) 100%)",
     iconColor: "var(--ecell-teal)",
-  },
-  {
-    name: 'Sponsors',
-    path: '/sponsors',
-    icon: <HeartHandshake size={18} />,
-    gradient: "radial-gradient(circle, rgba(229,169,0,0.15) 0%, rgba(229,169,0,0.06) 50%, rgba(229,169,0,0) 100%)",
-    iconColor: "var(--ecell-saffron)",
   },
   {
     name: 'Events',
@@ -90,6 +84,7 @@ export default function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
+  const { user } = useAuth();
 
   // Close mobile menu on route change
   useEffect(() => {
@@ -108,9 +103,7 @@ export default function Navbar() {
   }, [mobileMenuOpen]);
 
   const announcements = [
-    { id: 1, title: 'Hackathon Registrations Open', time: '2 hours ago' },
-    { id: 2, title: 'Ideation Workshop Tomorrow', time: '1 day ago' },
-    { id: 3, title: 'New Incubation Cohort announced', time: '3 days ago' }
+    { id: 1, title: 'Welcome Freshers! 🚀 Your journey to build the future starts today. E-Cell is here to help you turn your ideas into reality. Let\'s innovate together!', time: 'Just now' },
   ];
 
   return (
@@ -304,47 +297,51 @@ export default function Navbar() {
         <div style={{ display: 'flex', gap: 'clamp(0.4rem, 1.5vw, 1rem)', alignItems: 'center' }}>
 
           {/* Profile Link */}
-          <Link
-            to="/profile"
-            style={{
-              display: 'flex', alignItems: 'center', gap: '0.45rem',
-              textDecoration: 'none',
-              color: location.pathname === '/profile' ? 'var(--brand-primary)' : 'var(--text-secondary)',
-              fontWeight: 600, fontSize: '0.9rem',
-              padding: '0.4rem 0.65rem',
-              borderRadius: '9999px',
-              background: location.pathname === '/profile' ? 'rgba(228,71,46,0.1)' : 'transparent',
-              border: location.pathname === '/profile' ? '1px solid rgba(228,71,46,0.25)' : '1px solid transparent',
-              transition: 'all 0.2s ease'
-            }}
-          >
-            <UserCircle size={18} />
-            <span className="profile-label">Profile</span>
-          </Link>
+          {user && (
+            <Link
+              to="/profile"
+              style={{
+                display: 'flex', alignItems: 'center', gap: '0.45rem',
+                textDecoration: 'none',
+                color: location.pathname === '/profile' ? 'var(--brand-primary)' : 'var(--text-secondary)',
+                fontWeight: 600, fontSize: '0.9rem',
+                padding: '0.4rem 0.65rem',
+                borderRadius: '9999px',
+                background: location.pathname === '/profile' ? 'rgba(228,71,46,0.1)' : 'transparent',
+                border: location.pathname === '/profile' ? '1px solid rgba(228,71,46,0.25)' : '1px solid transparent',
+                transition: 'all 0.2s ease'
+              }}
+            >
+              <UserCircle size={18} />
+              <span className="profile-label">Profile</span>
+            </Link>
+          )}
 
-          <Link
-            to="/auth"
-            className="login-btn-label"
-            style={{
-              textDecoration: 'none',
-              background: 'var(--brand-primary)',
-              color: 'var(--text-inverse)',
-              padding: '0.45rem 1rem',
-              borderRadius: '9999px',
-              fontWeight: 600,
-              fontSize: '0.85rem',
-              transition: 'all 0.2s ease',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              boxShadow: '0 4px 14px rgba(228, 71, 46, 0.3)',
-              whiteSpace: 'nowrap'
-            }}
-            onMouseOver={(e) => { e.currentTarget.style.opacity = '0.9'; e.currentTarget.style.transform = 'translateY(-2px)'; }}
-            onMouseOut={(e) => { e.currentTarget.style.opacity = '1'; e.currentTarget.style.transform = 'translateY(0)'; }}
-          >
-            Login
-          </Link>
+          {!user && (
+            <Link
+              to="/auth"
+              className="login-btn-label"
+              style={{
+                textDecoration: 'none',
+                background: 'var(--brand-primary)',
+                color: 'var(--text-inverse)',
+                padding: '0.45rem 1rem',
+                borderRadius: '9999px',
+                fontWeight: 600,
+                fontSize: '0.85rem',
+                transition: 'all 0.2s ease',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                boxShadow: '0 4px 14px rgba(228, 71, 46, 0.3)',
+                whiteSpace: 'nowrap'
+              }}
+              onMouseOver={(e) => { e.currentTarget.style.opacity = '0.9'; e.currentTarget.style.transform = 'translateY(-2px)'; }}
+              onMouseOut={(e) => { e.currentTarget.style.opacity = '1'; e.currentTarget.style.transform = 'translateY(0)'; }}
+            >
+              Login
+            </Link>
+          )}
 
           <button
             onClick={() => setShowAnnouncements(!showAnnouncements)}
@@ -484,36 +481,40 @@ export default function Navbar() {
               {/* Divider */}
               <div style={{ height: '1px', background: 'var(--glass-border)', margin: '0.5rem 0' }} />
 
-              <Link
-                to="/profile"
-                onClick={() => setMobileMenuOpen(false)}
-                style={{
-                  display: 'flex', alignItems: 'center', gap: '0.75rem',
-                  padding: '0.85rem 1rem', borderRadius: '14px',
-                  textDecoration: 'none',
-                  color: location.pathname === '/profile' ? 'var(--brand-primary)' : 'var(--text-primary)',
-                  fontWeight: 600, fontSize: '1rem',
-                  background: location.pathname === '/profile' ? 'rgba(228,71,46,0.08)' : 'transparent',
-                }}
-              >
-                <UserCircle size={18} /> Profile
-              </Link>
+              {user && (
+                <Link
+                  to="/profile"
+                  onClick={() => setMobileMenuOpen(false)}
+                  style={{
+                    display: 'flex', alignItems: 'center', gap: '0.75rem',
+                    padding: '0.85rem 1rem', borderRadius: '14px',
+                    textDecoration: 'none',
+                    color: location.pathname === '/profile' ? 'var(--brand-primary)' : 'var(--text-primary)',
+                    fontWeight: 600, fontSize: '1rem',
+                    background: location.pathname === '/profile' ? 'rgba(228,71,46,0.08)' : 'transparent',
+                  }}
+                >
+                  <UserCircle size={18} /> Profile
+                </Link>
+              )}
 
-              <Link
-                to="/auth"
-                onClick={() => setMobileMenuOpen(false)}
-                style={{
-                  display: 'flex', alignItems: 'center', justifyContent: 'center',
-                  padding: '0.85rem', borderRadius: '14px',
-                  textDecoration: 'none',
-                  background: 'var(--brand-primary)', color: 'var(--text-inverse)',
-                  fontWeight: 700, fontSize: '0.95rem',
-                  marginTop: '0.5rem',
-                  boxShadow: '0 4px 14px rgba(228,71,46,0.3)'
-                }}
-              >
-                Login / Sign Up
-              </Link>
+              {!user && (
+                <Link
+                  to="/auth"
+                  onClick={() => setMobileMenuOpen(false)}
+                  style={{
+                    display: 'flex', alignItems: 'center', justifyContent: 'center',
+                    padding: '0.85rem', borderRadius: '14px',
+                    textDecoration: 'none',
+                    background: 'var(--brand-primary)', color: 'var(--text-inverse)',
+                    fontWeight: 700, fontSize: '0.95rem',
+                    marginTop: '0.5rem',
+                    boxShadow: '0 4px 14px rgba(228,71,46,0.3)'
+                  }}
+                >
+                  Login / Sign Up
+                </Link>
+              )}
             </motion.div>
           </>
         )}

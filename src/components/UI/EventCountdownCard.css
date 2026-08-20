@@ -176,6 +176,21 @@
   outline-offset: 2px;
 }
 
+/* TBA state — registrations not open yet */
+.ecc-button.ecc-button-tba {
+  background: rgba(229, 169, 0, 0.1);
+  color: #E5A900;
+  box-shadow: none;
+  border: 1px solid rgba(229, 169, 0, 0.3);
+  font-size: 0.8rem;
+  letter-spacing: 0.02em;
+}
+
+.ecc-button.ecc-button-tba:hover {
+  box-shadow: none;
+  transform: none;
+}
+
 /* CSS-driven pulse for seconds counter (replaces JS framer-motion repeat:Infinity) */
 .ecc-seconds-pulse {
   animation: ecc-pulse 1s ease-in-out infinite;

@@ -1,45 +1,18 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Calendar, ChevronRight, BellRing } from 'lucide-react';
+import { Calendar, BellRing } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { SparklesCore } from '../components/UI/Sparkles';
 
 const announcementsData = [
   {
     id: 1,
-    title: 'Hackathon Registrations Open',
-    date: 'August 15, 2026',
-    time: '2 hours ago',
-    description: 'Registrations for the highly anticipated annual E-Cell Hackathon are now officially open. Gather your team, brainstorm your ideas, and sign up before the early bird deadline ends next week!',
-    tag: 'Event',
+    title: 'Welcome Freshers! 🚀 Your Journey Starts Here',
+    date: 'August 21, 2026',
+    time: 'Just now',
+    description: 'A massive welcome to all the freshers joining the college today! E-Cell is your launchpad to turn crazy ideas into reality. Whether you want to build the next big startup, learn cutting-edge tech, or just meet incredibly driven people — you are in the right place. Don\'t be afraid to dream big. Let\'s innovate together!',
+    tag: 'Welcome',
     important: true
-  },
-  {
-    id: 2,
-    title: 'Ideation Workshop Tomorrow',
-    date: 'August 14, 2026',
-    time: '1 day ago',
-    description: 'Join us at the Main Auditorium for an exclusive ideation workshop hosted by industry veterans. Learn how to validate your startup ideas and build a sustainable business model.',
-    tag: 'Workshop',
-    important: false
-  },
-  {
-    id: 3,
-    title: 'New Incubation Cohort Announced',
-    date: 'August 12, 2026',
-    time: '3 days ago',
-    description: 'We are thrilled to announce the 10 startups selected for this year\'s incubation cohort. Check out their profiles on our initiatives page and follow their journey.',
-    tag: 'News',
-    important: false
-  },
-  {
-    id: 4,
-    title: 'Startup Mixer Registration',
-    date: 'August 10, 2026',
-    time: '5 days ago',
-    description: 'Network with fellow student entrepreneurs, alumni founders, and angel investors at our upcoming Startup Mixer. Limited spots available, RSVP required.',
-    tag: 'Networking',
-    important: false
   }
 ];
 
@@ -195,17 +168,6 @@ export default function Announcements() {
                 </p>
               </div>
 
-              <div style={{ 
-                marginTop: '0.5rem',
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: '0.25rem',
-                color: 'var(--brand-primary)',
-                fontWeight: 600,
-                fontSize: '0.9rem'
-              }}>
-                Read more <ChevronRight size={16} />
-              </div>
             </motion.div>
           ))}
         </div>

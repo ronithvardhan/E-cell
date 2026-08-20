@@ -1,7 +1,7 @@
-import React, { useState, useId, useEffect } from "react";
-import { Eye, EyeOff } from "lucide-react";
+import React, { useState, useEffect } from "react";
+import { useAuth } from "../../contexts/AuthContext";
+import { useNavigate } from "react-router-dom";
 import "./AuthUI.css";
-import { SmoothInput } from "./SmoothInput";
 
 export function Typewriter({
   text,
@@ -56,6 +56,7 @@ export function Typewriter({
     delay,
     displayText,
     text,
+    textArray.length,
   ]);
 
   return (
@@ -66,156 +67,66 @@ export function Typewriter({
   );
 }
 
-const PasswordInput = React.forwardRef(({ className = "", label, ...props }, ref) => {
-  const id = useId();
-  const [showPassword, setShowPassword] = useState(false);
-  const togglePasswordVisibility = () => setShowPassword((prev) => !prev);
-  return (
-    <div className="auth-field">
-      {label && (
-        <label htmlFor={id} className="auth-label">
-          {label}
-        </label>
-      )}
-      <div className="auth-password-wrapper">
-        <SmoothInput
-          id={id}
-          type={showPassword ? "text" : "password"}
-          className={`auth-input auth-password-input ${className}`}
-          ref={ref}
-          {...props}
-        />
-        <button
-          type="button"
-          onClick={togglePasswordVisibility}
-          className="auth-password-toggle"
-          aria-label={showPassword ? "Hide password" : "Show password"}
-        >
-          {showPassword ? <EyeOff size={16} aria-hidden="true" /> : <Eye size={16} aria-hidden="true" />}
-        </button>
-      </div>
-    </div>
-  );
-});
-PasswordInput.displayName = "PasswordInput";
 
-function SignInForm() {
-  const handleSignIn = (event) => {
-    event.preventDefault();
-    console.log("UI: Sign In form submitted");
+
+function AuthFormContainer() {
+  const { signInWithGoogle, user } = useAuth();
+  const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+
+  // Redirect if already signed in
+  useEffect(() => {
+    if (user) navigate('/');
+  }, [user, navigate]);
+
+  const handleGoogleSignIn = async () => {
+    try {
+      setLoading(true);
+      setError(null);
+      await signInWithGoogle();
+      // Supabase will redirect the browser to Google — no further action needed here
+    } catch (err) {
+      setError(err.message || 'Failed to sign in with Google. Please try again.');
+      setLoading(false);
+    }
   };
-  return (
-    <form onSubmit={handleSignIn} autoComplete="on" className="auth-form">
-      <div className="auth-form-header">
-        <h1 className="auth-title">Sign in to your account</h1>
-        <p className="auth-subtitle">Enter your email below to sign in</p>
-      </div>
-      <div className="auth-field">
-        <label htmlFor="email" className="auth-label">
-          Email
-        </label>
-        <SmoothInput
-          id="email"
-          name="email"
-          type="email"
-          placeholder="m@example.com"
-          required
-          autoComplete="email"
-          className="auth-input"
-        />
-      </div>
-      <PasswordInput
-        name="password"
-        label="Password"
-        required
-        autoComplete="current-password"
-        placeholder="Password"
-      />
-      <button type="submit" className="auth-button-primary">
-        Sign In
-      </button>
-    </form>
-  );
-}
 
-function SignUpForm() {
-  const handleSignUp = (event) => {
-    event.preventDefault();
-    console.log("UI: Sign Up form submitted");
-  };
-  return (
-    <form onSubmit={handleSignUp} autoComplete="on" className="auth-form">
-      <div className="auth-form-header">
-        <h1 className="auth-title">Create an account</h1>
-        <p className="auth-subtitle">Enter your details below to sign up</p>
-      </div>
-      <div className="auth-field">
-        <label htmlFor="name" className="auth-label">
-          Full Name
-        </label>
-        <SmoothInput
-          id="name"
-          name="name"
-          type="text"
-          placeholder="John Doe"
-          required
-          autoComplete="name"
-          className="auth-input"
-        />
-      </div>
-      <div className="auth-field">
-        <label htmlFor="email" className="auth-label">
-          Email
-        </label>
-        <SmoothInput
-          id="email"
-          name="email"
-          type="email"
-          placeholder="m@example.com"
-          required
-          autoComplete="email"
-          className="auth-input"
-        />
-      </div>
-      <PasswordInput
-        name="password"
-        label="Password"
-        required
-        autoComplete="new-password"
-        placeholder="Password"
-      />
-      <button type="submit" className="auth-button-primary">
-        Sign Up
-      </button>
-    </form>
-  );
-}
-
-function AuthFormContainer({ isSignIn, onToggle }) {
   return (
     <div className="auth-form-container">
-      {isSignIn ? <SignInForm /> : <SignUpForm />}
-      <div style={{ textAlign: "center", fontSize: "0.875rem", marginTop: "1rem" }}>
-        {isSignIn ? "Don't have an account?" : "Already have an account?"}{" "}
-        <button type="button" className="auth-button-link" onClick={onToggle}>
-          {isSignIn ? "Sign up" : "Sign in"}
-        </button>
+      <div className="auth-form-header">
+        <h1 className="auth-title">Welcome to E-Cell UCEOU</h1>
+        <p className="auth-subtitle">Sign in or create an account to continue</p>
       </div>
-      <div className="auth-divider">
-        <span className="auth-divider-text">Or continue with</span>
-      </div>
+
+      {error && (
+        <div className="auth-error">
+          {error}
+        </div>
+      )}
+
       <button
         type="button"
-        className="auth-button-outline"
-        onClick={() => console.log("UI: Google button clicked")}
+        className="auth-button-google"
+        onClick={handleGoogleSignIn}
+        disabled={loading}
       >
-        <img
-          src="https://www.svgrepo.com/show/475656/google-color.svg"
-          alt="Google icon"
-          style={{ width: "16px", height: "16px" }}
-        />
-        Continue with Google
+        {loading ? (
+          <span className="auth-spinner" />
+        ) : (
+          <img
+            src="https://www.svgrepo.com/show/475656/google-color.svg"
+            alt="Google icon"
+            style={{ width: "20px", height: "20px", flexShrink: 0 }}
+          />
+        )}
+        {loading ? 'Redirecting to Google...' : 'Continue with Google'}
       </button>
+
+      <p className="auth-google-note">
+        We use Google Sign-In to keep your account secure.<br />
+        No passwords needed.
+      </p>
     </div>
   );
 }
@@ -231,42 +142,17 @@ const defaultSignInContent = {
   },
 };
 
-const defaultSignUpContent = {
-  image: {
-    src: "https://i.ibb.co/HTZ6DPsS/original-33b8479c324a5448d6145b3cad7c51e7-removebg-preview.png",
-    alt: "A vibrant, modern space for new beginnings",
-  },
-  quote: {
-    text: "Create an account. A new chapter awaits.",
-    author: "E-Cell UCEOU",
-  },
-};
 
-export function AuthUI({ signInContent = {}, signUpContent = {} }) {
-  const [isSignIn, setIsSignIn] = useState(true);
-  const toggleForm = () => setIsSignIn((prev) => !prev);
-
-  const finalSignInContent = {
+export function AuthUI({ signInContent = {} }) {
+  const currentContent = {
     image: { ...defaultSignInContent.image, ...signInContent.image },
     quote: { ...defaultSignInContent.quote, ...signInContent.quote },
   };
-  const finalSignUpContent = {
-    image: { ...defaultSignUpContent.image, ...signUpContent.image },
-    quote: { ...defaultSignUpContent.quote, ...signUpContent.quote },
-  };
-
-  const currentContent = isSignIn ? finalSignInContent : finalSignUpContent;
 
   return (
     <div className="auth-wrapper">
-      <style>{`
-        input[type="password"]::-ms-reveal,
-        input[type="password"]::-ms-clear {
-          display: none;
-        }
-      `}</style>
       <div className="auth-form-section">
-        <AuthFormContainer isSignIn={isSignIn} onToggle={toggleForm} />
+        <AuthFormContainer />
       </div>
 
       <div

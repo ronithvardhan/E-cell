@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 import { useParams, Link } from 'react-router-dom';
 import {
   ArrowLeft, Calendar, Clock, Users, MapPin, Tag,
-  Mic, CheckCircle, Share2, BookmarkPlus
+  CheckCircle, Share2, BookmarkPlus
 } from 'lucide-react';
 import { EVENTS } from '../data/events';
 
@@ -47,13 +47,12 @@ export default function EventDetail() {
   const event = EVENTS.find(e => e.id === id);
 
   const [timeLeft, setTimeLeft] = useState(() =>
-    event ? Math.max(0, Math.floor((+event.date - Date.now()) / 1000)) : 0
+    event && event.date ? Math.max(0, Math.floor((+event.date - Date.now()) / 1000)) : -1
   );
-  const [registered, setRegistered] = useState(false);
   const [saved, setSaved] = useState(false);
 
   useEffect(() => {
-    if (!event) return;
+    if (!event || !event.date) return;
     const interval = setInterval(() => {
       setTimeLeft(Math.max(0, Math.floor((+event.date - Date.now()) / 1000)));
     }, 1000);
@@ -73,11 +72,12 @@ export default function EventDetail() {
     );
   }
 
-  const days    = Math.floor(timeLeft / 86400);
-  const hours   = Math.floor((timeLeft % 86400) / 3600);
-  const minutes = Math.floor((timeLeft % 3600) / 60);
-  const seconds = timeLeft % 60;
+  const days    = timeLeft >= 0 ? Math.floor(timeLeft / 86400) : 0;
+  const hours   = timeLeft >= 0 ? Math.floor((timeLeft % 86400) / 3600) : 0;
+  const minutes = timeLeft >= 0 ? Math.floor((timeLeft % 3600) / 60) : 0;
+  const seconds = timeLeft >= 0 ? timeLeft % 60 : 0;
   const isPast  = timeLeft === 0;
+  const dateUnknown = timeLeft === -1;
 
   return (
     <div style={{ minHeight: '100vh', background: 'var(--bg-primary)', color: 'var(--text-primary)', transition: 'background-color 0.3s ease, color 0.3s ease' }}>
@@ -198,11 +198,11 @@ export default function EventDetail() {
             border: '1px solid var(--glass-border)',
           }}>
             {[
-              { icon: <Calendar size={16} />, text: event.date.toLocaleDateString('en-IN', { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' }), color: VERMILION },
-              { icon: <Clock size={16} />,    text: event.time,                   color: TEAL    },
-              { icon: <MapPin size={16} />,   text: event.location,               color: COBALT  },
-              { icon: <Users size={16} />,    text: `${event.attendees} attending`, color: SAFFRON },
-            ].map((item, i) => (
+              event.date   && { icon: <Calendar size={16} />, text: event.date.toLocaleDateString('en-IN', { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' }), color: VERMILION },
+              event.time   && { icon: <Clock size={16} />,    text: event.time,     color: TEAL   },
+              event.location && { icon: <MapPin size={16} />, text: event.location, color: COBALT },
+              { icon: <Users size={16} />, text: `${event.attendees} registered`,   color: SAFFRON },
+            ].filter(Boolean).map((item, i) => (
               <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', fontSize: '0.82rem', color: 'var(--text-secondary)' }}>
                 <span style={{ color: item.color, display: 'flex', flexShrink: 0 }}>{item.icon}</span>
                 <span>{item.text}</span>
@@ -255,45 +255,7 @@ export default function EventDetail() {
                 </motion.section>
               )}
 
-              {/* Speakers */}
-              {event.speakers && event.speakers.length > 0 && (
-                <motion.section initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }}>
-                  <h2 style={{ fontFamily: 'var(--font-heading)', fontSize: 'clamp(1.15rem, 3vw, 1.4rem)', fontWeight: 700, color: 'var(--text-primary)', marginBottom: '0.85rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                    <Mic size={16} color={COBALT} /> Speakers
-                  </h2>
-                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(min(200px, 100%), 1fr))', gap: '0.75rem' }}>
-                    {event.speakers.map((sp, i) => (
-                      <motion.div
-                        key={i}
-                        initial={{ opacity: 0, scale: 0.9 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        transition={{ delay: 0.35 + i * 0.08 }}
-                        style={{
-                          display: 'flex', alignItems: 'center', gap: '0.75rem',
-                          padding: '0.75rem 1rem',
-                          background: 'rgba(49,87,164,0.06)',
-                          borderRadius: '12px',
-                          border: '1px solid rgba(49,87,164,0.15)',
-                        }}
-                      >
-                        <div style={{
-                          width: '40px', height: '40px', borderRadius: '50%',
-                          background: `linear-gradient(135deg, ${COBALT}, ${TEAL})`,
-                          display: 'flex', alignItems: 'center', justifyContent: 'center',
-                          color: 'white', fontWeight: 700, fontSize: '0.9rem',
-                          flexShrink: 0, fontFamily: 'var(--font-heading)'
-                        }}>
-                          {sp.name.split(' ').map(n => n[0]).join('').slice(0, 2)}
-                        </div>
-                        <div style={{ minWidth: 0 }}>
-                          <div style={{ fontWeight: 700, fontSize: '0.88rem', color: 'var(--text-primary)' }}>{sp.name}</div>
-                          <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)', marginTop: '0.1rem', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{sp.role}</div>
-                        </div>
-                      </motion.div>
-                    ))}
-                  </div>
-                </motion.section>
-              )}
+              {/* Speakers — hidden until announced */}
             </div>
 
             {/* Right: Countdown + Register */}
@@ -304,31 +266,33 @@ export default function EventDetail() {
               className="event-detail-sidebar"
               style={{ position: 'sticky', top: '5rem', height: 'fit-content', display: 'flex', flexDirection: 'column', gap: '1rem' }}
             >
-              {/* Countdown Card */}
-              <div style={{
-                ...card,
-                padding: 'clamp(1.25rem, 3vw, 1.75rem)',
-                borderRadius: '18px',
-              }}>
-                {isPast ? (
-                  <div style={{ textAlign: 'center' }}>
-                    <div style={{ fontSize: '1.1rem', fontWeight: 700, color: TEAL, marginBottom: '0.25rem' }}>Event Started!</div>
-                    <div style={{ fontSize: '0.82rem', color: 'var(--text-muted)' }}>Join now to participate</div>
-                  </div>
-                ) : (
-                  <>
-                    <div style={{ fontSize: '0.72rem', fontWeight: 600, color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: '0.85rem', display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
-                      <Clock size={13} /> Event starts in
+              {/* Countdown Card — only shown when date is set */}
+              {!dateUnknown && (
+                <div style={{
+                  ...card,
+                  padding: 'clamp(1.25rem, 3vw, 1.75rem)',
+                  borderRadius: '18px',
+                }}>
+                  {isPast ? (
+                    <div style={{ textAlign: 'center' }}>
+                      <div style={{ fontSize: '1.1rem', fontWeight: 700, color: TEAL, marginBottom: '0.25rem' }}>Event Started!</div>
+                      <div style={{ fontSize: '0.82rem', color: 'var(--text-muted)' }}>Join now to participate</div>
                     </div>
-                    <div style={{ display: 'flex', gap: '0.4rem' }}>
-                      <CountdownUnit value={days} label="Days" />
-                      <CountdownUnit value={hours} label="Hrs" />
-                      <CountdownUnit value={minutes} label="Min" />
-                      <CountdownUnit value={seconds} label="Sec" />
-                    </div>
-                  </>
-                )}
-              </div>
+                  ) : (
+                    <>
+                      <div style={{ fontSize: '0.72rem', fontWeight: 600, color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: '0.85rem', display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
+                        <Clock size={13} /> Event starts in
+                      </div>
+                      <div style={{ display: 'flex', gap: '0.4rem' }}>
+                        <CountdownUnit value={days} label="Days" />
+                        <CountdownUnit value={hours} label="Hrs" />
+                        <CountdownUnit value={minutes} label="Min" />
+                        <CountdownUnit value={seconds} label="Sec" />
+                      </div>
+                    </>
+                  )}
+                </div>
+              )}
 
               {/* Attendees */}
               <div style={{
@@ -345,42 +309,25 @@ export default function EventDetail() {
                 </div>
                 <div>
                   <div style={{ fontWeight: 700, fontSize: '1.2rem', color: 'var(--text-primary)', lineHeight: 1 }}>{event.attendees}</div>
-                  <div style={{ fontSize: '0.78rem', color: 'var(--text-muted)', marginTop: '0.15rem' }}>People attending</div>
+                  <div style={{ fontSize: '0.78rem', color: 'var(--text-muted)', marginTop: '0.15rem' }}>Registered</div>
                 </div>
               </div>
 
-              {/* Register CTA */}
-              <motion.button
-                onClick={() => setRegistered(r => !r)}
-                whileHover={{ scale: 1.03, y: -2 }}
-                whileTap={{ scale: 0.97 }}
-                style={{
-                  width: '100%', padding: '0.9rem',
-                  background: registered
-                    ? `linear-gradient(135deg, ${TEAL}, #0d7a72)`
-                    : `linear-gradient(135deg, ${VERMILION}, #c53821)`,
-                  color: 'white', border: 'none', borderRadius: '12px',
-                  fontWeight: 700, fontSize: '0.95rem', cursor: 'pointer',
-                  boxShadow: registered
-                    ? `0 8px 24px rgba(22,140,131,0.35)`
-                    : `0 8px 24px rgba(228,71,46,0.35)`,
-                  transition: 'background 0.3s, box-shadow 0.3s',
-                  display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem',
-                  fontFamily: 'var(--font-body)', letterSpacing: '0.03em'
-                }}
-              >
-                {registered ? <><CheckCircle size={16} /> Registered!</> : 'Reserve Your Spot'}
-              </motion.button>
-
-              {registered && (
-                <motion.p
-                  initial={{ opacity: 0, y: -8 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  style={{ textAlign: 'center', fontSize: '0.78rem', color: TEAL, fontWeight: 600, margin: 0 }}
-                >
-                  🎉 You're on the list! Check your email for confirmation.
-                </motion.p>
-              )}
+              {/* Registrations notice */}
+              <div style={{
+                width: '100%', padding: '0.9rem',
+                background: 'rgba(229,169,0,0.08)',
+                border: `1px solid rgba(229,169,0,0.3)`,
+                borderRadius: '12px',
+                display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem',
+                fontWeight: 700, fontSize: '0.9rem',
+                color: SAFFRON,
+                textAlign: 'center',
+                letterSpacing: '0.01em',
+                fontFamily: 'var(--font-body)',
+              }}>
+                🕐 Registrations are yet to open
+              </div>
 
               {/* Tags */}
               {event.tags && (

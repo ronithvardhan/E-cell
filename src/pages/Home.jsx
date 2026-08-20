@@ -1,7 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { Compass, Lightbulb, Rocket, Users, Target, TrendingUp, Cpu, ArrowUpRight, ArrowDown } from 'lucide-react';
+import { Compass, Rocket, Users, Target, TrendingUp, Cpu, ArrowUpRight, ArrowDown } from 'lucide-react';
 import TextReveal3DGSAP from '../components/TextReveal3DGSAP';
 
 export default function Home() {
@@ -490,7 +490,6 @@ export default function Home() {
               <Link to="/initiatives" style={{ color: 'inherit', textDecoration: 'none', transition: 'color 0.2s ease' }} onMouseOver={(e) => e.target.style.color = '#fff'} onMouseOut={(e) => e.target.style.color = '#9c9c9c'}>Initiatives</Link>
               <Link to="/events" style={{ color: 'inherit', textDecoration: 'none', transition: 'color 0.2s ease' }} onMouseOver={(e) => e.target.style.color = '#fff'} onMouseOut={(e) => e.target.style.color = '#9c9c9c'}>Events</Link>
               <Link to="/team" style={{ color: 'inherit', textDecoration: 'none', transition: 'color 0.2s ease' }} onMouseOver={(e) => e.target.style.color = '#fff'} onMouseOut={(e) => e.target.style.color = '#9c9c9c'}>Team</Link>
-              <Link to="/sponsors" style={{ color: 'inherit', textDecoration: 'none', transition: 'color 0.2s ease' }} onMouseOver={(e) => e.target.style.color = '#fff'} onMouseOut={(e) => e.target.style.color = '#9c9c9c'}>Sponsors</Link>
             </div>
           </div>
           

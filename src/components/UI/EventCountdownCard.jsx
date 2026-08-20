@@ -13,35 +13,27 @@ export function EventCountdownCard({
   enableAnimations = true,
   className = "",
 }) {
-  // Stable event date - only calculate once when no date prop is provided
-  const [eventDate] = useState(
-    () => date || new Date(Date.now() + 2 * 24 * 3600 * 1000 + 5 * 3600 * 1000 + 30 * 60 * 1000)
-  );
+  // When no date is set, freeze everything at 0
+  const dateKnown = date !== null && date !== undefined;
 
-  // Initialize timeLeft with the correct calculation
   const [timeLeft, setTimeLeft] = useState(() => {
-    const targetDate = date || eventDate;
-    return Math.max(0, Math.floor((+targetDate - Date.now()) / 1000));
+    if (!dateKnown) return 0;
+    return Math.max(0, Math.floor((+date - Date.now()) / 1000));
   });
 
   const shouldReduceMotion = useReducedMotion();
   const shouldAnimate = enableAnimations && !shouldReduceMotion;
 
   useEffect(() => {
-    const targetDate = date || eventDate;
-
+    if (!dateKnown) return; // No date — don't run a timer
     const update = () => {
-      const remaining = Math.max(0, Math.floor((+targetDate - Date.now()) / 1000));
+      const remaining = Math.max(0, Math.floor((+date - Date.now()) / 1000));
       setTimeLeft(remaining);
     };
-
-    // Update immediately
     update();
-
-    // Then update every second
     const interval = setInterval(update, 1000);
     return () => clearInterval(interval);
-  }, [date, eventDate]);
+  }, [date, dateKnown]);
 
   const getTimeUnits = (seconds) => {
     const d = Math.floor(seconds / 86400);
@@ -210,11 +202,11 @@ export function EventCountdownCard({
           <div className="ecc-meta">
             <div className="ecc-meta-item">
               <Calendar size={16} />
-              <span>{(date || eventDate).toLocaleDateString()}</span>
+              <span>{dateKnown ? date.toLocaleDateString() : '--/--/26'}</span>
             </div>
             <div className="ecc-meta-item">
               <Users size={16} />
-              <span>{attendees} attending</span>
+              <span>{attendees} registered</span>
             </div>
           </div>
         </motion.div>
@@ -264,9 +256,10 @@ export function EventCountdownCard({
           animate="visible"
           whileHover="hover"
           whileTap="tap"
-          className="ecc-button"
+          className={dateKnown ? "ecc-button" : "ecc-button ecc-button-tba"}
+          style={dateKnown ? {} : { cursor: 'default', pointerEvents: 'none' }}
         >
-          {timeLeft > 0 ? "Reserve Your Spot" : "Join Event"}
+          {!dateKnown ? "Registrations are yet to open" : (timeLeft > 0 ? "Reserve Your Spot" : "Join Event")}
         </motion.button>
       </div>
     </motion.div>

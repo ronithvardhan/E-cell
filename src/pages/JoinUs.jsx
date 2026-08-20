@@ -3,7 +3,6 @@ import { motion } from 'framer-motion';
 import { Badge, Award, Ticket, Lightbulb, Users, Rocket, Brain, Wrench, Trophy, ChevronRight } from 'lucide-react';
 import { RadialBackground } from '../components/UI/RadialBackground';
 import { SparklesCore } from '../components/UI/Sparkles';
-import { Link } from 'react-router-dom';
 import { HoverEffect } from '../components/UI/card-hover-effect';
 import { CursorImageTrail } from '../components/UI/CursorImageTrail';
 
@@ -64,22 +63,6 @@ const benefits = [
   }
 ];
 
-const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: { 
-    opacity: 1,
-    transition: { staggerChildren: 0.1, delayChildren: 0.2 }
-  }
-};
-
-const itemVariants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { 
-    opacity: 1, 
-    y: 0,
-    transition: { type: "spring", stiffness: 100, damping: 15 }
-  }
-};
 
 export default function JoinUs() {
   const trailIcons = benefits.map(b => React.cloneElement(b.icon, { size: 32 }));
@@ -178,8 +161,10 @@ export default function JoinUs() {
             transition={{ delay: 0.3 }}
             style={{ display: 'flex', gap: '1rem', justifyContent: 'center', alignItems: 'center', flexWrap: 'wrap' }}
           >
-            <Link
-              to="/auth"
+            <a
+              href="https://docs.google.com/forms/d/e/1FAIpQLSf3QUVy2kweTLyp9FkWWS1reIBeVQdcKzmiOw2KI6iLioT3cQ/viewform?usp=dialog"
+              target="_blank"
+              rel="noopener noreferrer"
               style={{
                 display: 'inline-flex',
                 alignItems: 'center',
@@ -198,7 +183,7 @@ export default function JoinUs() {
               onMouseOut={(e) => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = '0 8px 24px rgba(22, 140, 131, 0.4)'; }}
             >
               Join Now — ₹299/Year <ChevronRight size={20} />
-            </Link>
+            </a>
           </motion.div>
         </div>
 
@@ -229,8 +214,10 @@ export default function JoinUs() {
           <p style={{ color: 'var(--text-secondary)', fontSize: '1.1rem', marginBottom: '2.5rem', maxWidth: '500px', margin: '0 auto 2.5rem' }}>
             Get into the ecosystem. Discover opportunities, find collaborators, and build the future. Beyond the obvious.
           </p>
-          <Link
-            to="/auth"
+          <a
+            href="https://docs.google.com/forms/d/e/1FAIpQLSf3QUVy2kweTLyp9FkWWS1reIBeVQdcKzmiOw2KI6iLioT3cQ/viewform?usp=dialog"
+            target="_blank"
+            rel="noopener noreferrer"
             style={{
               display: 'inline-flex',
               alignItems: 'center',
@@ -249,7 +236,7 @@ export default function JoinUs() {
             onMouseOut={(e) => { e.currentTarget.style.transform = 'scale(1)'; }}
           >
             Get Membership — ₹299
-          </Link>
+          </a>
         </motion.div>
       </div>
       </div>

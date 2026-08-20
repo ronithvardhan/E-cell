@@ -173,11 +173,6 @@ body {
   .event-detail-sidebar {
     position: static !important;
   }
-
-  /* Sponsors: reduce padding */
-  .sponsor-hover-container {
-    padding: 1rem !important;
-  }
 }
 
 /* --- Desktop (≥769px) --- */
@@ -384,28 +379,6 @@ button:focus {
   border: 1px solid var(--glass-border);
   border-top: 3px solid var(--brand-primary);
   color: var(--text-primary);
-}
-
-.grid-sponsors {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: 2rem;
-  margin-top: 2rem;
-}
-
-.sponsor-card {
-  background: var(--glass-bg);
-  color: var(--text-primary);
-  padding: 2rem;
-  border-radius: 8px;
-  text-align: center;
-  font-family: var(--font-heading);
-  font-weight: 600;
-  font-size: 1.25rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border: 1px solid var(--glass-border);
 }
 
 /* Team Page SVG Animation */

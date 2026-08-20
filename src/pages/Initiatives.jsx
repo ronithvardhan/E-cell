@@ -24,7 +24,7 @@ export default function Initiatives() {
       <motion.h1 
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
-        style={{ fontSize: 'clamp(1.75rem, 5vw, 3rem)', color: 'var(--brand-primary)', borderBottom: '2px solid var(--text-primary)', paddingBottom: '0.75rem', marginBottom: 'clamp(1.5rem, 4vw, 3rem)' }}
+        style={{ fontSize: 'clamp(1.75rem, 5vw, 3rem)', color: 'var(--ecell-vermilion)', borderBottom: '2px solid var(--text-primary)', paddingBottom: '0.75rem', marginBottom: 'clamp(1.5rem, 4vw, 3rem)' }}
       >
         Our Initiatives
       </motion.h1>

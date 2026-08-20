@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-route
 import Navbar from './components/UI/Navbar';
 import ErrorBoundary from './components/ErrorBoundary';
 import { ThemeProvider } from './contexts/ThemeContext';
+import { AuthProvider } from './contexts/AuthContext';
 import './index.css';
 
 // Lazy-loaded routes — each page becomes its own chunk
@@ -10,7 +11,6 @@ import './index.css';
 const Home = React.lazy(() => import('./pages/Home'));
 const Initiatives = React.lazy(() => import('./pages/Initiatives'));
 const Team = React.lazy(() => import('./pages/Team'));
-const Sponsors = React.lazy(() => import('./pages/Sponsors'));
 const Events = React.lazy(() => import('./pages/Events'));
 const EventDetail = React.lazy(() => import('./pages/EventDetail'));
 const Announcements = React.lazy(() => import('./pages/Announcements'));
@@ -38,7 +38,6 @@ function Layout() {
             <Route path="/" element={<Home />} />
             <Route path="/initiatives" element={<Initiatives />} />
             <Route path="/team" element={<Team />} />
-            <Route path="/sponsors" element={<Sponsors />} />
             <Route path="/events" element={<Events />} />
             <Route path="/events/:id" element={<EventDetail />} />
             <Route path="/announcements" element={<Announcements />} />
@@ -56,9 +55,11 @@ function App() {
   return (
     <ErrorBoundary>
       <ThemeProvider>
-        <Router>
-          <Layout />
-        </Router>
+        <AuthProvider>
+          <Router>
+            <Layout />
+          </Router>
+        </AuthProvider>
       </ThemeProvider>
     </ErrorBoundary>
   );
