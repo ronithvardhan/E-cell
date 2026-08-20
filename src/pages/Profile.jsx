@@ -62,7 +62,7 @@ export default function Profile() {
           maxSize={1.4}
           particleDensity={80}
           className="w-full h-full"
-          particleColor="#E4472E"
+          particleColor="#168C83"
           speed={0.8}
         />
       </div>
@@ -137,7 +137,7 @@ export default function Profile() {
                   whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}
                   onClick={() => navigate('/auth')}
                   style={{
-                    background: 'rgba(228,71,46,0.08)', border: '1px solid rgba(228,71,46,0.2)',
+                    background: 'rgba(22,140,131,0.08)', border: '1px solid rgba(22,140,131,0.2)',
                     borderRadius: '9999px', padding: '0.4rem 0.75rem',
                     display: 'flex', alignItems: 'center', gap: '0.35rem',
                     cursor: 'pointer', fontWeight: 600, fontSize: '0.78rem',
@@ -247,7 +247,7 @@ export default function Profile() {
                       cursor: 'pointer', transition: 'all 0.2s ease',
                       background: 'var(--glass-bg)'
                     }}
-                    whileHover={{ x: 4, background: 'rgba(228,71,46,0.04)', borderColor: 'rgba(228,71,46,0.2)' }}
+                    whileHover={{ x: 4, background: 'rgba(22,140,131,0.04)', borderColor: 'rgba(22,140,131,0.2)' }}
                   >
                     <img
                       src={ev.image}
@@ -274,7 +274,7 @@ export default function Profile() {
                 <Link to="/events" style={{
                   display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem',
                   padding: '0.75rem', borderRadius: '10px',
-                  border: '1.5px dashed rgba(228,71,46,0.3)',
+                  border: '1.5px dashed rgba(22,140,131,0.35)',
                   color: 'var(--brand-primary)', fontWeight: 600, fontSize: '0.85rem',
                   textDecoration: 'none', marginTop: '0.15rem',
                   transition: 'all 0.2s ease'

@@ -2,10 +2,15 @@ import path from "path"
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 
+import dns from 'node:dns'
+
+dns.setDefaultResultOrder('verbatim')
+
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [react()],
   server: {
+    host: 'localhost',
     port: 5173,
     strictPort: false,
   },
@@ -18,7 +23,17 @@ export default defineConfig({
     dedupe: ['react', 'react-dom'],
   },
   optimizeDeps: {
-    include: ['react', 'react-dom', 'framer-motion'],
+    include: [
+      'react',
+      'react-dom',
+      'react-router-dom',
+      'framer-motion',
+      'lucide-react',
+      'clsx',
+      'tailwind-merge',
+      '@tsparticles/engine',
+      '@tsparticles/slim',
+    ],
   },
   build: {
     target: 'es2020',

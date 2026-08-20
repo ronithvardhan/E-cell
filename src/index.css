@@ -35,8 +35,8 @@ a[href*="spline.design"] {
   --text-secondary: rgba(253, 253, 253, 0.7);
   --text-muted: rgba(253, 253, 253, 0.5);
   --text-inverse: #121212;
-  --brand-primary: var(--ecell-vermilion);
-  --brand-secondary: var(--ecell-cobalt);
+  --brand-primary: var(--ecell-teal);
+  --brand-secondary: var(--ecell-saffron);
   
   --glass-bg: rgba(255, 255, 255, 0.03);
   --glass-bg-hover: rgba(255, 255, 255, 0.06);
@@ -67,8 +67,8 @@ a[href*="spline.design"] {
   --text-secondary: rgba(253, 253, 253, 0.7);
   --text-muted: rgba(253, 253, 253, 0.5);
   --text-inverse: #121212;
-  --brand-primary: var(--ecell-vermilion);
-  --brand-secondary: var(--ecell-cobalt);
+  --brand-primary: var(--ecell-teal);
+  --brand-secondary: var(--ecell-saffron);
   
   --glass-bg: rgba(255, 255, 255, 0.03);
   --glass-bg-hover: rgba(255, 255, 255, 0.06);
@@ -336,8 +336,8 @@ h3 {
 /* High contrast mode support */
 @media (prefers-contrast: high) {
   :root {
-    --brand-primary: #E4472E;
-    --brand-secondary: #3157A4;
+    --brand-primary: #168C83;
+    --brand-secondary: #E5A900;
   }
 }
 
@@ -429,7 +429,7 @@ button:focus {
   font-size: clamp(2rem, 6vw, 6rem);
   font-weight: 800;
   text-transform: uppercase;
-  color: #E4472E;
+  color: var(--brand-primary);
   letter-spacing: 0.05em;
   margin: 0;
   white-space: nowrap;

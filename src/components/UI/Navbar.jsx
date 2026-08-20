@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Bell, Menu, X, Home, Lightbulb, Users, HeartHandshake, CalendarDays, UserCircle } from 'lucide-react';
+import { Bell, Menu, X, Home, Lightbulb, Users, HeartHandshake, CalendarDays, UserCircle, UserPlus } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 
@@ -38,6 +38,13 @@ const navLinks = [
     icon: <CalendarDays size={18} />,
     gradient: "radial-gradient(circle, rgba(232,111,97,0.15) 0%, rgba(232,111,97,0.06) 50%, rgba(232,111,97,0) 100%)",
     iconColor: "var(--ecell-coral)",
+  },
+  {
+    name: 'Join Us',
+    path: '/join-us',
+    icon: <UserPlus size={18} />,
+    gradient: "radial-gradient(circle, rgba(228,71,46,0.15) 0%, rgba(228,71,46,0.06) 50%, rgba(228,71,46,0) 100%)",
+    iconColor: "var(--brand-primary)",
   }
 ];
 
