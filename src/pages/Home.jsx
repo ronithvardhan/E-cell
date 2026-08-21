@@ -497,9 +497,8 @@ export default function Home() {
           <div>
             <h4 style={{ color: '#fff', fontSize: '13px', marginBottom: '1.2rem', fontFamily: 'var(--font-input, monospace)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Connect</h4>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', fontSize: '14px', color: '#9c9c9c' }}>
-              <a href="mailto:ecell@uceou.edu" style={{ color: 'inherit', textDecoration: 'none', transition: 'color 0.2s ease' }} onMouseOver={(e) => e.target.style.color = '#fff'} onMouseOut={(e) => e.target.style.color = '#9c9c9c'}>ecell@uceou.edu</a>
-              <a href="#" style={{ color: 'inherit', textDecoration: 'none', transition: 'color 0.2s ease' }} onMouseOver={(e) => e.target.style.color = '#fff'} onMouseOut={(e) => e.target.style.color = '#9c9c9c'}>Instagram ↗</a>
-              <a href="#" style={{ color: 'inherit', textDecoration: 'none', transition: 'color 0.2s ease' }} onMouseOver={(e) => e.target.style.color = '#fff'} onMouseOut={(e) => e.target.style.color = '#9c9c9c'}>LinkedIn ↗</a>
+              <a href="mailto:edcell@uceou.edu" style={{ color: 'inherit', textDecoration: 'none', transition: 'color 0.2s ease' }} onMouseOver={(e) => e.target.style.color = '#fff'} onMouseOut={(e) => e.target.style.color = '#9c9c9c'}>edcell@uceou.edu</a>
+              <a href="https://www.instagram.com/ecell_uceou" style={{ color: 'inherit', textDecoration: 'none', transition: 'color 0.2s ease' }} onMouseOver={(e) => e.target.style.color = '#fff'} onMouseOut={(e) => e.target.style.color = '#9c9c9c'}>Instagram ↗</a>
             </div>
           </div>
         </div>

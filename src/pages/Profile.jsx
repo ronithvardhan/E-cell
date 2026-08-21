@@ -50,8 +50,18 @@ export default function Profile() {
     return null; // Or a loading spinner
   }
 
-  const displayName = user?.user_metadata?.full_name || user?.email?.split('@')[0] || 'Member';
-  const displayEmail = user?.email || 'No email provided';
+  // Generate a numeric ID from UUID for privacy
+  const getUserNumber = (uuid) => {
+    if (!uuid) return "1";
+    let hash = 0;
+    for (let i = 0; i < uuid.length; i++) {
+      hash = uuid.charCodeAt(i) + ((hash << 5) - hash);
+    }
+    return Math.abs(hash) % 10000;
+  };
+
+  const displayName = `User ${getUserNumber(user?.id)}`;
+  const displayEmail = 'Hidden for privacy';
   const avatarInitials = displayName.substring(0, 2).toUpperCase();
   const avatarUrl = user?.user_metadata?.avatar_url;
   const joinedDate = user?.created_at ? new Date(user.created_at).toLocaleDateString('en-US', { month: 'long', year: 'numeric' }) : 'Recently';

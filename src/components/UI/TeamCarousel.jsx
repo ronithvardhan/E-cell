@@ -1,16 +1,12 @@
 import React from "react";
 import { motion } from "framer-motion";
 
+
 const LinkedinIcon = ({ size }) => (
   <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
     <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
     <rect x="2" y="9" width="4" height="12"></rect>
     <circle cx="4" cy="4" r="2"></circle>
-  </svg>
-);
-const TwitterIcon = ({ size }) => (
-  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"></path>
   </svg>
 );
 const InstagramIcon = ({ size }) => (
@@ -28,17 +24,15 @@ import "swiper/css/effect-creative";
 import "swiper/css/pagination";
 
 const teamMembers = [
-  { name: "John Doe", role: "President", quote: "Building the future of entrepreneurship, one idea at a time.", image: "https://i.pravatar.cc/400?img=11", socials: { linkedin: "#", twitter: "#", instagram: "#" } },
-  { name: "Jane Smith", role: "Vice President", quote: "Innovation is the key to unlocking true potential.", image: "https://i.pravatar.cc/400?img=12", socials: { linkedin: "#", twitter: "#", instagram: "#" } },
-  { name: "Alice Johnson", role: "Treasurer", quote: "Ensuring our resources are utilized to their maximum impact.", image: "https://i.pravatar.cc/400?img=13", socials: { linkedin: "#", twitter: "#", instagram: "#" } },
-  { name: "Bob Williams", role: "PR Team Lead", quote: "Connecting brilliant minds and fostering lifelong relationships.", image: "https://i.pravatar.cc/400?img=14", socials: { linkedin: "#", twitter: "#", instagram: "#" } },
-  { name: "Charlie Brown", role: "Design Lead", quote: "Good design is good business. Let's make it beautiful.", image: "https://i.pravatar.cc/400?img=15", socials: { linkedin: "#", twitter: "#", instagram: "#" } },
-  { name: "Diana Prince", role: "Logistics Lead", quote: "Execution is everything. The magic is in the details.", image: "https://i.pravatar.cc/400?img=16", socials: { linkedin: "#", twitter: "#", instagram: "#" } },
-  { name: "Eve Davis", role: "Tech Team Lead", quote: "Code is poetry. Building robust systems for the future.", image: "https://i.pravatar.cc/400?img=17", socials: { linkedin: "#", twitter: "#", instagram: "#" } },
-  { name: "Frank Miller", role: "Media Team Lead", quote: "A picture is worth a thousand words. Let's tell our story.", image: "https://i.pravatar.cc/400?img=18", socials: { linkedin: "#", twitter: "#", instagram: "#" } },
-  { name: "Grace Lee", role: "Editorial Team Lead", quote: "Words have power. Curating the voice of tomorrow.", image: "https://i.pravatar.cc/400?img=19", socials: { linkedin: "#", twitter: "#", instagram: "#" } },
-  { name: "Henry Taylor", role: "Social Media Leader", quote: "Engage, inspire, connect. Building our digital community.", image: "https://i.pravatar.cc/400?img=20", socials: { linkedin: "#", twitter: "#", instagram: "#" } },
-  { name: "Ivy Clark", role: "General Secretary", quote: "Supporting the vision at every step of the journey.", image: "https://i.pravatar.cc/400?img=21", socials: { linkedin: "#", twitter: "#", instagram: "#" } },
+  { name: "Mehwish", role: "President", quote: "Building the future of entrepreneurship, one idea at a time.", image: "/images/team/President.png", socials: { instagram: "https://www.instagram.com/mehwiiiisssshhh" } },
+  { name: "Mahesh", role: "Vice President", quote: "Innovation is the key to unlocking true potential.", image: "/images/team/vice president .png", socials: { instagram: "https://www.instagram.com/maheshdreevn" } },
+  { name: "Karthik", role: "Secretary", quote: "Ensuring our resources are utilized to their maximum impact.", image: "/images/team/secretary.png", socials: { linkedin: "https://in.linkedin.com/in/bandarugattu-sai-kartik-482350364" } },
+  { name: "Khyathi", role: "Joint Secretary", quote: "Connecting brilliant minds and fostering lifelong relationships.", image: "/images/team/joint Secretary + social media lead .png", socials: { instagram: "https://www.instagram.com/khyathi_7_5" } },
+  { name: "Ronith", role: "Tech Lead", quote: "Code is poetry. Building robust systems for the future.", image: "/images/team/Tech lead .png", socials: { instagram: "https://www.instagram.com/ronith_playz" } },
+  { name: "Aneesh", role: "Marketing Lead", quote: "A picture is worth a thousand words. Let's tell our story.", image: "/images/team/marketing lead.png", socials: { instagram: "https://www.instagram.com/aneesh.raj.k" } },
+  { name: "Khyathi", role: "Social Media Lead", quote: "Engage, inspire, connect. Building our digital community.", image: "/images/team/joint Secretary + social media lead .png", socials: { instagram: "https://www.instagram.com/khyathi_7_5" } },
+  { name: "Kiran", role: "Design Lead", quote: "Good design is good business. Let's make it beautiful.", image: "/images/team/design team lead.png", socials: { instagram: "https://www.instagram.com/heyy.kirann" } },
+  { name: "Divya", role: "Editorial Lead", quote: "Words have power. Curating the voice of tomorrow.", image: "/images/team/editorial team lead.png", socials: { instagram: "https://www.instagram.com/_divya.54_" } },
 ];
 
 export default function TeamCarousel() {
@@ -218,31 +212,33 @@ export default function TeamCarousel() {
                     "{member.quote}"
                   </p>
                   
-                  {/* Social Handles */}
-                  <div style={{ display: 'flex', gap: '1rem', marginTop: 'auto', position: 'relative', zIndex: 20 }}>
-                    <a href={member.socials.linkedin} style={{ color: 'var(--text-primary)', transition: 'color 0.2s ease' }} onMouseOver={(e) => e.currentTarget.style.color = 'var(--brand-primary)'} onMouseOut={(e) => e.currentTarget.style.color = 'var(--text-primary)'}>
-                      <LinkedinIcon size={24} />
-                    </a>
-                    <a href={member.socials.twitter} style={{ color: 'var(--text-primary)', transition: 'color 0.2s ease' }} onMouseOver={(e) => e.currentTarget.style.color = 'var(--brand-primary)'} onMouseOut={(e) => e.currentTarget.style.color = 'var(--text-primary)'}>
-                      <TwitterIcon size={24} />
-                    </a>
-                    <a href={member.socials.instagram} style={{ color: 'var(--text-primary)', transition: 'color 0.2s ease' }} onMouseOver={(e) => e.currentTarget.style.color = 'var(--brand-primary)'} onMouseOut={(e) => e.currentTarget.style.color = 'var(--text-primary)'}>
-                      <InstagramIcon size={24} />
-                    </a>
-                  </div>
-                  
-                  {/* Role Floating in Bottom Right */}
-                  <div style={{
-                    position: 'absolute',
-                    bottom: '2rem',
-                    right: '2rem',
-                    color: 'var(--brand-primary)',
-                    fontWeight: 700,
-                    letterSpacing: '0.1em',
-                    textTransform: 'uppercase',
-                    zIndex: 20
-                  }}>
-                    {member.role}
+                  {/* Bottom Row: Socials & Role */}
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: 'auto', position: 'relative', zIndex: 20, flexWrap: 'wrap', gap: '1rem' }}>
+                    
+                    {/* Social Handles */}
+                    <div style={{ display: 'flex', gap: '1rem' }}>
+                      {member.socials.instagram && (
+                        <a href={member.socials.instagram} style={{ color: 'var(--text-primary)', transition: 'color 0.2s ease' }} onMouseOver={(e) => e.currentTarget.style.color = 'var(--brand-primary)'} onMouseOut={(e) => e.currentTarget.style.color = 'var(--text-primary)'}>
+                          <InstagramIcon size={24} />
+                        </a>
+                      )}
+                      {member.socials.linkedin && (
+                        <a href={member.socials.linkedin} style={{ color: 'var(--text-primary)', transition: 'color 0.2s ease' }} onMouseOver={(e) => e.currentTarget.style.color = 'var(--brand-primary)'} onMouseOut={(e) => e.currentTarget.style.color = 'var(--text-primary)'}>
+                          <LinkedinIcon size={24} />
+                        </a>
+                      )}
+                    </div>
+                    
+                    {/* Role */}
+                    <div style={{
+                      color: 'var(--brand-primary)',
+                      fontWeight: 700,
+                      letterSpacing: '0.1em',
+                      textTransform: 'uppercase',
+                      textAlign: 'right'
+                    }}>
+                      {member.role}
+                    </div>
                   </div>
                   
                 </div>
