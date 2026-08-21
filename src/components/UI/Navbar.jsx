@@ -297,51 +297,7 @@ export default function Navbar() {
         <div style={{ display: 'flex', gap: 'clamp(0.4rem, 1.5vw, 1rem)', alignItems: 'center' }}>
 
           {/* Profile Link */}
-          {user && (
-            <Link
-              to="/profile"
-              style={{
-                display: 'flex', alignItems: 'center', gap: '0.45rem',
-                textDecoration: 'none',
-                color: location.pathname === '/profile' ? 'var(--brand-primary)' : 'var(--text-secondary)',
-                fontWeight: 600, fontSize: '0.9rem',
-                padding: '0.4rem 0.65rem',
-                borderRadius: '9999px',
-                background: location.pathname === '/profile' ? 'rgba(228,71,46,0.1)' : 'transparent',
-                border: location.pathname === '/profile' ? '1px solid rgba(228,71,46,0.25)' : '1px solid transparent',
-                transition: 'all 0.2s ease'
-              }}
-            >
-              <UserCircle size={18} />
-              <span className="profile-label">Profile</span>
-            </Link>
-          )}
 
-          {!user && (
-            <Link
-              to="/auth"
-              className="login-btn-label"
-              style={{
-                textDecoration: 'none',
-                background: 'var(--brand-primary)',
-                color: 'var(--text-inverse)',
-                padding: '0.45rem 1rem',
-                borderRadius: '9999px',
-                fontWeight: 600,
-                fontSize: '0.85rem',
-                transition: 'all 0.2s ease',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                boxShadow: '0 4px 14px rgba(228, 71, 46, 0.3)',
-                whiteSpace: 'nowrap'
-              }}
-              onMouseOver={(e) => { e.currentTarget.style.opacity = '0.9'; e.currentTarget.style.transform = 'translateY(-2px)'; }}
-              onMouseOut={(e) => { e.currentTarget.style.opacity = '1'; e.currentTarget.style.transform = 'translateY(0)'; }}
-            >
-              Login
-            </Link>
-          )}
 
           <button
             onClick={() => setShowAnnouncements(!showAnnouncements)}
@@ -478,43 +434,7 @@ export default function Navbar() {
                 );
               })}
 
-              {/* Divider */}
-              <div style={{ height: '1px', background: 'var(--glass-border)', margin: '0.5rem 0' }} />
 
-              {user && (
-                <Link
-                  to="/profile"
-                  onClick={() => setMobileMenuOpen(false)}
-                  style={{
-                    display: 'flex', alignItems: 'center', gap: '0.75rem',
-                    padding: '0.85rem 1rem', borderRadius: '14px',
-                    textDecoration: 'none',
-                    color: location.pathname === '/profile' ? 'var(--brand-primary)' : 'var(--text-primary)',
-                    fontWeight: 600, fontSize: '1rem',
-                    background: location.pathname === '/profile' ? 'rgba(228,71,46,0.08)' : 'transparent',
-                  }}
-                >
-                  <UserCircle size={18} /> Profile
-                </Link>
-              )}
-
-              {!user && (
-                <Link
-                  to="/auth"
-                  onClick={() => setMobileMenuOpen(false)}
-                  style={{
-                    display: 'flex', alignItems: 'center', justifyContent: 'center',
-                    padding: '0.85rem', borderRadius: '14px',
-                    textDecoration: 'none',
-                    background: 'var(--brand-primary)', color: 'var(--text-inverse)',
-                    fontWeight: 700, fontSize: '0.95rem',
-                    marginTop: '0.5rem',
-                    boxShadow: '0 4px 14px rgba(228,71,46,0.3)'
-                  }}
-                >
-                  Login / Sign Up
-                </Link>
-              )}
             </motion.div>
           </>
         )}
